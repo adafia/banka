@@ -7,6 +7,7 @@
 body {
     background: #d1e8e2;
     padding-top: 2rem;
+    overflow: hidden;
 }
 
 .wrapper {
