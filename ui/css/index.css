@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #d1e8e2;
+}
+
+h1, p{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-family: 'Century Gothic';
+    letter-spacing: 5px;
+    margin: 0;
+    padding: 0;
+    left: 50%;
+}
+
+h1 {
+    top: 38%;
+    color: transparent;
+    font-size: 80px; 
+    text-transform: uppercase;
+}
+
+p {
+    top: 50%;
+    font-weight: 100;
+    text-align: center;
+    color: #116466;
+}
+
+.started {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 92%;
+    left: 95%;
+    font-size: 50px;
+    text-decoration: none;
+    color: #116466;
+    transition: .25s;
+}
+
+
+.admin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: #c5cbe3;
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 50%;
+    color: #116466;
+    line-height: 60px;
+    text-align: center;
+    top: 92%;
+    left: 5%;
+    transition: .25s;
+}
+
+.started:hover{
+    color: #ffcb9a;
+}
+.admin:hover{
+    background-color: #ffcb9a;
+    color: #0d4b4d;
+}
+
+
+h1::before{
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #116466;
+    overflow: hidden;
+    border-right: 1px solid #c5cbe3;
+    animation: type 5s steps(5);
+    white-space: nowrap;
+}
+
+@keyframes type {
+    0% {
+        width: 0%;
+    }
+    50% {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 70px;
+        top: 35%;
+      }
+      p {
+        font-size: 20px;
+        top: 50%;
+      }
+      .started {
+        left: 90%;
+      }
+      .admin {
+         left: 10%; 
+      }
+}
+
+@media (max-width: 360px) {
+  h1 {
+    font-size: 25px;
+    top: 25%;
+  }
+  p {
+    text-align: start;
+    top: 45%;
+    padding-left: .6rem;
+    font-size: 14px;
+  }
+  .started {
+    left: 90%;
+    top: 95%;
+    font-size: 30px;
+  }
+  .admin {
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      font-size: 20px;
+      left: 10%;
+      top: 95%;
+  }
+}
+
+@media (max-width: 640px) {
+    h1 {
+        font-size: 25px;
+        top: 25%;
+      }
+      p {
+        top: 50%;
+        font-size: 14px;
+      }
+      .started {
+        left: 90%;
+        top: 90%;
+        font-size: 25px;
+      }
+      .admin {
+          height: 30px;
+          width: 30px;
+          line-height: 30px;
+          font-size: 15px;
+          left: 10%;
+          top: 90%;
+      }
+}
