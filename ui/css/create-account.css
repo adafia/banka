@@ -1,0 +1,435 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Century Gothic'
+}
+
+body {
+    background: #d1e8e2;
+}
+
+nav {
+    background-color: #fff;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+nav ul {
+    margin: 0 auto 0 1.5rem;
+}
+
+nav ul li.logo {
+    list-style: none;
+    float: left;
+    line-height: 50px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+nav ul li {
+    list-style: none;
+    float: right;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+nav ul li a {
+    display: block;
+    text-decoration: none;
+    color: #116466;
+    padding: 0 20px;
+}
+
+nav ul li a:hover{
+    color: #115737;
+}
+
+
+.wrapper {
+    width: 90%;
+    margin: 0 auto;
+    background: #fff;
+}
+
+.info {
+    height: 630px;
+    width: 100%;
+}
+
+.info > h4 {
+    position: relative;
+    top: 35%;
+    left: 10%;
+    font-size: 40px;
+    font-weight: 100;
+    width: 35%;
+    color: #116466;
+}
+.info .step1 {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    width: 10%;
+    text-align: center;
+    color: #27ae60;
+}
+
+.info .step2 {
+    position: absolute;
+    top: 35%;
+    left: 70%;
+    width: 10%;
+    text-align: center;
+    color: #f39c12;
+}
+
+.info .step1 i {
+    font-size: 7rem;
+    color: #27ae60;
+}
+
+.info .step2 i {
+    font-size: 7rem;
+    color: #f39c12;
+}
+
+.info .step1 h4, .info .step2 h4{
+    font-size: 2rem;
+}
+
+.container {
+    position: relative;
+    width: 1200px;
+    height: 300px;
+    margin: 2rem auto;
+}
+
+.container .box {
+    position: relative;
+    width: calc(400px - 30px);
+    height: calc(300px - 30px);
+    /* background: #ff0; */
+    float: left;
+    margin: 15px;
+    box-sizing: border-box;
+    overflow:hidden;
+    border-radius: 10px;
+}
+
+.container .box .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.container .box:hover .icon {
+    top: 20px;
+    left: calc(50% - 40px);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.container .box .icon i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    transition: 0.5s;
+    color: #fff;
+}
+
+.container .box:hover .icon i {
+    font-size: 40px;
+}
+
+.container .box .content {
+    position: absolute;
+    top: 100%;
+    height: calc(100% - 100px);
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.container .box:hover .content {
+    top: 100px;
+    opacity: 1;
+}
+
+.container .box .content h3 {
+    margin: 0 0 10px;
+    padding: 0;
+    color: #fff;
+    font-size: 24px;
+}
+
+.container .box .content p {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+.container .box:nth-child(1) .icon {
+    background: #27ae60;
+}
+
+.container .box:nth-child(1) {
+    background: #2ecc71;
+}
+
+.container .box:nth-child(2) .icon {
+    background: #d35400;
+}
+
+.container .box:nth-child(2) {
+    background: #e67e22;
+}
+
+.container .box:nth-child(3) .icon {
+    background: #f39c12;
+}
+
+.container .box:nth-child(3) {
+    background: #f1c40f;
+}
+
+.form-container {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    background-color: #fff;
+    width: 100%;
+    max-width: 40rem;
+    padding: 3rem 0;
+    margin: 1rem 1rem 4rem 1rem;
+    position: relative;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    transition: 300ms;
+}
+
+form .title {
+    position: relative;
+    width: 100%;
+    padding: .5rem 0;
+}
+
+form .title span {
+    color: #2c3531;
+    font-size: 25px;
+    text-transform: uppercase;
+    margin-left: 1.5rem;
+}
+
+
+form .title span::before {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 4rem;
+    border-radius: .8rem;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+form:nth-child(1) .title span::before {
+    background-color: #27ae60;
+}
+form:nth-child(2) .title span::before {
+    background-color: #d35400;
+}
+form:nth-child(3) .title span::before {
+    background-color: #f39c12;
+}
+
+
+.input-group, .blurb {
+    width: 90%;
+    position: relative;
+    margin: 2rem auto;
+}
+
+.input-group input {
+    position: relative;
+    width: 100%;
+    padding: 1rem;
+    margin-top: .5rem;
+    border: none;
+    color: #116466;
+    outline: none;
+    font-size: 1.2rem;
+}
+
+.input-group .bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: .5px;
+}
+
+.input-group .bar::before {
+    content: '';
+    position: absolute;
+    background: #116466;
+    width: 0;
+    height: 1px;
+    transition: width 650ms;
+}
+
+.input-group input:focus + .bar::before {
+    width: 100%;
+}
+
+button {
+    width: 6rem;
+    height: 6rem;
+    background: #116466;
+    color: #fff;
+    border: .5rem solid #fff;
+    outline: none;
+    font-size: 2.3rem;
+    cursor: pointer;
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+    border-radius: 50%;
+    transition: all 650ms;
+}
+
+form:nth-child(1) button {
+    background: #27ae60;
+} 
+form:nth-child(2) button {
+    background: #d35400;
+} 
+form:nth-child(3) button {
+    background: #f39c12;
+} 
+
+button:hover, button:focus {
+    border-radius: .8rem;
+}
+
+.register {
+    text-align: center;
+    margin: .5rem 0;
+}
+
+.register a {
+    text-decoration: none;
+    color: #a1a1a1;
+    font-size: 1rem;
+}
+
+.register span {
+    color:  #116466;
+}
+
+.register span:hover {
+    border-bottom: 2px solid #116466;
+    padding-bottom: 2px;  
+}
+
+.proceed {
+    transform: translate(-50%, -50%);
+    position: fixed;
+    top: 92%;
+    left: 95%;
+    font-size: 50px;
+    text-decoration: none;
+    color: #116466;
+    transition: .25s;
+}
+
+.proceed:hover{
+    color: #ffcb9a;
+}
+
+.savings, .current, .investment {
+    transition-delay: 1000ms;
+    transition: all 1000ms;
+}
+
+
+.selected {
+    animation: myframes forwards 1;
+    margin: -6rem 0 0 1rem; 
+}
+
+@keyframes myframes {
+    0% {
+        position: absolute;
+    }
+    100% {
+        z-index: 1;
+        position: absolute;
+        transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    form {
+        width: 30rem;
+        height: 30rem;
+        padding: 2rem 0 6rem 0;
+    }
+
+    .title span {
+        font-size: 1.5rem;
+    }
+
+    .title span::before {
+        height: 2rem;
+    }
+
+    .input-group {
+        margin: 0 auto;
+    }
+
+    .input-group input {
+        font-size: 1rem;
+    }
+
+    button {
+        width: 5rem;
+        height: 5rem;
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .register {
+        padding-top: 2rem;
+        font-size: .2rem;
+    }
+
+    .proceed {
+        top: 93%;
+        left: 50%;
+        font-size: 20px;
+    }
+    
+    .proceed::before {
+        content: 'Proceed ';
+    }
+}
