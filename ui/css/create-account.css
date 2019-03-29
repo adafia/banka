@@ -2,11 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Century Gothic'
-}
-
-body {
-    background: #d1e8e2;
+    font-family: 'Century Gothic';
 }
 
 nav {
@@ -20,7 +16,7 @@ nav {
 }
 
 nav ul {
-    margin: 0 auto 0 1.5rem;
+    margin: 1rem auto 0 1.5rem;
 }
 
 nav ul li.logo {
@@ -42,53 +38,64 @@ nav ul li a {
     display: block;
     text-decoration: none;
     color: #116466;
-    padding: 0 20px;
+    padding: 0 2rem;
+    transition: .25s;
 }
 
 nav ul li a:hover{
-    color: #115737;
+    color: #d1e8e2;
 }
 
 
 .wrapper {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     background: #fff;
 }
 
 .info {
-    height: 630px;
+    height: 600px;
     width: 100%;
 }
 
-.info > h4 {
+.info > p {
     position: relative;
-    top: 35%;
-    left: 10%;
-    font-size: 40px;
+    top: 32%;
+    left: 17%;
+    font-size: 30px;
     font-weight: 100;
-    width: 35%;
+    width: 60rem;
+    height: 8rem;
+    background: #fff;
+    padding: 2rem 25rem 2rem 2rem;
     color: #116466;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
 }
-.info .step1 {
+
+
+.info .step1, .info .step2 {
     position: absolute;
-    top: 35%;
-    left: 50%;
-    width: 10%;
+    top: 30%;
+    width: 12rem;
+    height: 15rem;
+    border-radius: 20px;
+    background: #fff;
     text-align: center;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+}
+
+.info .step1 {
+    left: 55%;
     color: #27ae60;
 }
 
 .info .step2 {
-    position: absolute;
-    top: 35%;
     left: 70%;
-    width: 10%;
-    text-align: center;
     color: #f39c12;
 }
 
 .info .step1 i {
+    margin-top: 1.5rem;
     font-size: 7rem;
     color: #27ae60;
 }
@@ -96,6 +103,7 @@ nav ul li a:hover{
 .info .step2 i {
     font-size: 7rem;
     color: #f39c12;
+    margin-top: 1.5rem;
 }
 
 .info .step1 h4, .info .step2 h4{
@@ -113,12 +121,11 @@ nav ul li a:hover{
     position: relative;
     width: calc(400px - 30px);
     height: calc(300px - 30px);
-    /* background: #ff0; */
     float: left;
     margin: 15px;
     box-sizing: border-box;
-    overflow:hidden;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .container .box .icon {
