@@ -10,9 +10,9 @@ nav {
     text-transform: uppercase;
     width: 100%;
     height: 50px;
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 5;
+    z-index: 10;
 }
 
 nav ul {
@@ -394,27 +394,91 @@ button:hover, button:focus {
     }
 }
 
-@media screen and (max-width: 600px) {
-    form {
-        width: 30rem;
-        height: 30rem;
-        padding: 2rem 0 6rem 0;
+
+@media screen and (max-width: 1024px) {
+    .info > p {
+        position: absolute;
+        top: 10%;
+        left: 0;
+        margin: 0 10%;
+        font-size: 25px;
+        width: 80%;
+        padding: 2rem;
     }
 
-    .title span {
-        font-size: 1.5rem;
-    }
-
-    .title span::before {
-        height: 2rem;
-    }
-
-    .input-group {
-        margin: 0 auto;
-    }
-
-    .input-group input {
+    .info .step1, .info .step2 {
+        top: 23%;
+        width: 13rem;
+        height: 15rem;
         font-size: 1rem;
+    }
+
+    .info .step1 {
+        left: 25%;
+    }
+    
+    .info .step2 {
+        left: 50%;
+    }
+
+    .info .step1 i, .info .step2 i {
+        font-size: 7rem;
+    }
+    
+    .info .step1 h4, .info .step2 h4{
+        font-size: 2rem;
+    }
+
+    .container {
+        position: absolute;
+        width: 100%;
+        height: 300px;
+        margin: 1rem auto;
+        padding: 0 5%; 
+    }
+    
+    .container .box {
+        position: relative;
+        width: calc(300px - 20px);
+        height: calc(300px - 20px);
+        margin: 10px;
+    }
+    
+        
+    .container .box .icon i {
+        font-size: 50px;
+    }
+
+    .container .box:hover .icon i {
+        font-size: 30px;
+    }
+
+    .container .box:hover .icon {
+        top: 30px;
+        left: calc(50% - 30px);
+        width: 60px;
+        height: 60px;
+    }
+
+    
+    .form-container {
+        width: 90%;
+        height: 100%;
+        margin: 32% 20%;
+        display: block;
+    }
+
+    form {
+        width: 90%;
+        margin: 1rem auto 8rem auto;
+        position: absolute;
+    }
+    
+    .current {
+        margin-left: 1rem; 
+    } 
+    .investment {
+        margin-left: 2rem;
     }
 
     button {
@@ -430,8 +494,132 @@ button:hover, button:focus {
         font-size: .2rem;
     }
 
+    .selected {
+        animation: myframes forwards 1;
+        margin: -1rem 0 0 0; 
+    }
+
+    
     .proceed {
-        top: 93%;
+        top: 98%;
+        left: 50%;
+        font-size: 20px;
+    }
+    
+    .proceed::before {
+        content: 'Proceed ';
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .info > p {
+        position: absolute;
+        top: 14%;
+        left: 0;
+        margin: 0 12%;
+        font-size: 20px;
+        width: 80%;
+        padding: 2rem;
+    }
+
+    .info .step1, .info .step2 {
+        top: 35%;
+        width: 9rem;
+        height: 13rem;
+        font-size: 1rem;
+    }
+
+    .info .step1 {
+        left: 8%;
+    }
+    
+    .info .step2 {
+        left: 55%;
+    }
+
+    .info .step1 i, .info .step2 i {
+        font-size: 5rem;
+    }
+    
+    .info .step1 h4, .info .step2 h4{
+        font-size: 1.5rem;
+    }
+
+    .container {
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        margin: 1rem auto;
+        top: 62%;
+        padding: 0 14%; 
+    }
+    
+    .container .box {
+        position: relative;
+        width: calc(100px - 20px);
+        height: calc(100px - 20px);
+        margin: 5px;
+    }
+    
+        
+    .container .box .icon i {
+        font-size: 25px;
+    }
+
+    .container .box:hover .icon i {
+        font-size: 15px;
+    }
+
+    .container .box:hover .icon {
+        top: 5px;
+        left: calc(50% - 15px);
+        width: 30px;
+        height: 30px;
+    }
+
+    
+    .form-container {
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+        display: block;
+    }
+
+    form {
+        width: 90%;
+        margin: 1rem auto 4rem auto;
+        position: absolute;
+    }
+
+    .current {
+        margin-left: .5rem; 
+    } 
+    .investment {
+        margin-left: 1rem;
+    }
+
+    button {
+        width: 5rem;
+        height: 5rem;
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .register {
+        padding-top: 2rem;
+        font-size: .2rem;
+    }
+
+    .selected {
+        animation: myframes forwards 1;
+        margin: -1rem 0 0 0; 
+    }
+
+    
+    .proceed {
+        top: 98%;
         left: 50%;
         font-size: 20px;
     }

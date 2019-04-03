@@ -67,6 +67,10 @@ nav ul li a:hover{
     padding: 0 1rem;
 }
 
+.ab {
+    display: none;
+}
+
 .title-bar > h4 ul{
     display: none;
     position: absolute;
@@ -199,4 +203,56 @@ tr:hover {
     background: #116466;
     color: #fff;
     height: 2rem;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .title-bar {
+        grid-template-columns: 2fr .3fr 1fr;
+        width: 90%;
+        left: 0;
+        margin: 0 5%;
+    }
+
+    .name {
+        display: none;
+    }
+
+    .ab {
+        display: inline;
+    }
+    
+    #summary {
+       position: absolute; 
+       width: 90%;
+       margin: 3rem 0 0 0;
+    }
+
+    #graph {
+        position: absolute; 
+        width: 90%;
+        margin: 26rem 0 0 0;
+    }
+
+    #chartContainer {
+        overflow: auto;
+    }
+
+    .transaction-history {
+        position: relative; 
+        width: 90%;
+        overflow: auto;
+        left: 0;
+        margin: 72rem auto 4rem auto;
+    }
+
+    .transaction-history table {
+        overflow: auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .transaction-history {
+        margin: 68rem auto 4rem auto;
+    }
 }

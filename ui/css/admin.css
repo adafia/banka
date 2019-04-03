@@ -147,8 +147,6 @@ tr:hover {
 
 .approvals table tr th, .transactions table tr th {
     text-align: start;
-    /* background: #116466; */
-    /* color: #fff; */
     height: 2rem;
 }
 
@@ -471,4 +469,162 @@ span.close {
     margin: 10% auto;
     width: 40rem;
     position: relative;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .modal form {
+        margin: 30% 25%;
+        width: 50%;
+        position: relative;
+    }
+
+    nav {
+        height: 5rem;
+    }
+
+    .menu-text {
+        display: none;
+    }
+
+    .title-bar {
+        width: 50%;
+        left: 40%;
+        top: 7%;
+    }
+    
+    .approvals {
+        position: absolute;
+        top: 15%;
+        left: 10%;
+        margin: 0 2rem; 
+    }
+
+    .approvals table {
+        width: 90%;
+        font-size: 15px;
+    }
+
+    .control-accounts {
+        font-size: 12px;
+        top: 18%;
+        width: 75%; 
+    }
+
+    .form-container {
+        width: 75%;
+        top: 39%;
+        left: 16%;
+    }
+
+    .bank-accounts {
+        top: 16%;
+        left: 11%;
+        width: 85%;
+        margin: 0 0 5rem 0;
+        overflow: auto; 
+    }
+    
+    .bank-accounts {
+        height: 60rem;
+    }
+    
+    .bank-accounts table {
+        width: 70%;
+    }
+        
+    .user-account {
+        width: 100%;
+    }
+
+    .dash {
+        top: 23%;
+    }
+    
+}
+
+
+@media screen and (max-width: 768px) {
+    
+    .modal form {
+        margin: 20% 4%;
+        width: 40%;
+        position: relative;
+    }
+
+    button {
+        width: 5rem;
+        height: 5rem;
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .register {
+        padding-top: 2rem;
+        font-size: .1rem;
+    }
+
+    nav {
+        height: 5rem;
+    }
+
+    .menu-text {
+        display: none;
+    }
+
+    .title-bar {
+        width: 50%;
+        left: 26%;
+        top: 12%;
+    }
+    
+    .approvals {
+        display: none;
+        position: absolute;
+        top: 15%;
+        left: 10%;
+        margin: 0 2rem; 
+    }
+
+    .approvals table {
+        width: 90%;
+        font-size: 15px;
+    }
+
+    .control-accounts {
+        font-size: 12px;
+        top: 18%;
+        width: 75%; 
+    }
+
+    .form-container {
+        width: 75%;
+        top: 39%;
+        left: 16%;
+    }
+
+    .bank-accounts {
+        top: 16%;
+        left: 11%;
+        width: 85%;
+        margin: 0 0 5rem 0;
+        overflow: auto; 
+    }
+    
+    .bank-accounts {
+        height: 60rem;
+    }
+    
+    .bank-accounts table {
+        width: 70%;
+    }
+        
+    .user-account {
+        width: 100%;
+    }
+
+    .dash {
+        top: 23%;
+    }
 }
