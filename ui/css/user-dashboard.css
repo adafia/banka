@@ -206,20 +206,12 @@ tr:hover {
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1024px) {
     .title-bar {
-        position: absolute;
-        display: grid;
         grid-template-columns: 2fr .3fr 1fr;
         width: 90%;
-        height: 6rem;
-        border-radius: .5rem;
-        box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
         left: 0;
-        top: 10%;
-        place-items: center;
-        color: #116466;
-        margin: 0 1rem;
+        margin: 0 5%;
     }
 
     .name {
@@ -247,15 +239,20 @@ tr:hover {
     }
 
     .transaction-history {
-        position: absolute; 
+        position: relative; 
         width: 90%;
         overflow: auto;
         left: 0;
-        margin: 22rem 1rem 4rem 1rem;
+        margin: 72rem auto 4rem auto;
     }
 
     .transaction-history table {
         overflow: auto;
-        color: #116466;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .transaction-history {
+        margin: 68rem auto 4rem auto;
     }
 }
