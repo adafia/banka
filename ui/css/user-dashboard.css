@@ -11,7 +11,7 @@ nav {
     text-transform: uppercase;
     width: 100%;
     height: 50px;
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 5;
 }
@@ -46,9 +46,74 @@ nav ul li a:hover{
     color: #d1e8e2;
 }
 
+
+.title-bar {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr .3fr 1fr;
+    width: 35rem;
+    height: 5rem;
+    border-radius: .5rem;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    left: 61%;
+    top: 10%;
+    place-items: center;
+    color: #116466;
+}
+
+.title-bar > h4 {
+    justify-self: end;
+    position: relative;
+    padding: 0 1rem;
+}
+
+.title-bar > h4 ul{
+    display: none;
+    position: absolute;
+    background: #fff;
+    width: 16rem;
+    z-index: 1;
+    padding: .5rem;
+}
+
+.title-bar > h4:hover ul{
+    display: block;
+}
+
+.title-bar > h4 ul li{
+    padding: .5rem .5rem;
+    list-style: none;
+    color: grey;
+}
+
+.title-bar > h4 ul li:hover{
+    box-shadow: 0 1px .5rem rgba(0, 0, 0, .1);
+}
+
+.fa-caret-down {
+    padding: 0 .2rem;
+}
+
+.title-bar .bell {
+    justify-self: center;
+}
+.user-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+    place-items: center;
+    justify-self: center;
+}
+
+.avi img{
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+}
+
 .dash {
     width: 100%;
     position: absolute;
+    top: 20%;
     display: flex;
     justify-content: center;
 }
@@ -56,42 +121,24 @@ nav ul li a:hover{
 .dash .card {
     background-color: #fff;
     width: 100%;
-    max-width: 25rem;
     padding: 2rem;
     margin: 1rem 2rem 4rem 2rem;
     position: relative;
     box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
-    transition: 300ms;
-}
-
-#profile {
-    max-width: 15rem;
-    padding-top: 3rem;
-}
-
-#profile .avi img{
-    height: 10rem;
-    width: 10rem;
-    border-radius: 50%;
-    position: relative;
-    left: 5%;
-    /* border: 1px solid black; */
-}
-#profile .bio {
-    margin-top: 1rem;
-    text-align: center;
-    color: #116466;
+    border-radius: .5rem;
 }
 
 #summary {
     color: #116466;
+    width: 35rem;
+    height: 21rem;
 }
 
 #summary h4{
     position: relative;
-    background: #d1e8e2;
+    background: #116466;
     height: 2rem;
-    color: #116466;
+    color: #fff;
     line-height: 2rem;
     text-align: center;
     text-transform: uppercase;
@@ -104,9 +151,9 @@ nav ul li a:hover{
 
 #graph h4{
     position: relative;
-    background: #d1e8e2;
+    background: #116466;
     height: 2rem;
-    color: #116466;
+    color: #fff;
     line-height: 2rem;
     text-align: center;
     text-transform: uppercase;
@@ -117,9 +164,13 @@ nav ul li a:hover{
 
 .transaction-history {
     position: absolute;
-    top: 70%;
+    top: 90%;
     left: 8%;
     margin-bottom: 5rem; 
+    background: #fff;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    padding: 1rem;
+    border-radius: 1rem; 
 }
 
 .transaction-history table {
@@ -138,13 +189,14 @@ th , td {
     padding: 1rem;
 }
 
+tr:hover {
+    border: 1px solid #116466;
+    box-shadow: 0 1px .5rem rgba(0, 0, 0, .1);
+}
+
 .transaction-history table tr th {
     text-align: start;
     background: #116466;
     color: #fff;
     height: 2rem;
-}
-
-.transaction-history table tr:nth-child(even) td {
-    background: #d1e8e2;
 }

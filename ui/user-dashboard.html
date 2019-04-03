@@ -7,27 +7,83 @@
     <link rel="stylesheet" href="css/user-dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/png" href="img/SA_logo_face.png">
+    <script>
+        window.onload = function () {
+        
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,  
+            title:{
+                // text: "Closing balance by Week"
+            },
+            axisY: {
+                title: "Closing balance in RWF",
+                valueFormatString: "#0,,.",
+                suffix: "mn",
+                prefix: "rwf "
+            },
+            data: [{
+                type: "splineArea",
+                color: "rgba(54,158,173,.7)",
+                markerSize: 5,
+                xValueFormatString: "YYYY",
+                yValueFormatString: "rwf #,##0.##",
+                dataPoints: [
+                    { x: new Date(2000, 0), y: 3289000 },
+                    { x: new Date(2001, 0), y: 3830000 },
+                    { x: new Date(2002, 0), y: 2009000 },
+                    { x: new Date(2003, 0), y: 2840000 },
+                    { x: new Date(2004, 0), y: 2396000 },
+                    { x: new Date(2005, 0), y: 1613000 },
+                    { x: new Date(2006, 0), y: 2821000 },
+                    { x: new Date(2007, 0), y: 2000000 },
+                    { x: new Date(2008, 0), y: 1397000 },
+                    { x: new Date(2009, 0), y: 2506000 },
+                    { x: new Date(2010, 0), y: 2798000 },
+                    { x: new Date(2011, 0), y: 3386000 },
+                    { x: new Date(2012, 0), y: 6704000},
+                    { x: new Date(2013, 0), y: 6026000 },
+                    { x: new Date(2014, 0), y: 2394000 },
+                    { x: new Date(2015, 0), y: 1872000 },
+                    { x: new Date(2016, 0), y: 2140000 }
+                ]
+            }]
+            });
+        chart.render();
+        
+        }
+        </script>
     <title>User Dashboard</title>
 </head>
 <body>
     <nav>
-        <ul class="wrapper">
+        <ul>
             <li class="logo"><a href="index.html">BANKA</a></li>
             <!-- <li><a href="#">History</a></li> -->
             <li><a href="#">Dashboard</a></li>
             <!-- <li><a href="#">Transaction</a></li> -->
         </ul>
     </nav>
-    <div class="dash">
-        <div id="profile" class="card">
-            <div class="avi">
-                <img src="img/SA_logo_face.png" alt="samuel adafia">
-            </div>
-            <div class="bio">
+    <div class="title-bar">
+        <h4>Current Account - 32541 <i class="fas fa-caret-down"></i> 
+            <ul>
+                <li>Savings Account - 32567</li>
+                <li>Investment Account - 34767</li>
+            </ul>
+        </h4>
+        <div class="bell">
+            <i class="far fa-bell"></i>
+        </div>
+        <div class="user-info">
+            <div class="text">
                 <h4>Samuel Adafia</h4>
                 <p>Full-stack Developer</p>
             </div>
+            <div class="avi">
+                <img src="img/SA_logo_face.png" alt="my face">
+            </div>
         </div>
+    </div>
+    <div class="dash">
         <div id="summary" class="card">
             <h4>Account summary</h4>
             <p>Account #: <b>10856011</b></p>
@@ -42,6 +98,7 @@
         </div>
         <div id="graph" class="card">
             <h4>account balance - line graph</h4>
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
         </div>
     </div>
     <div class="transaction-history">
@@ -53,6 +110,7 @@
                 <th>Transaction #</th>
                 <th>Transaction type</th>
                 <th>Amount</th>
+                <th>Closing Balance</th>
                 <th>Teller name</th>
                 <th>Location</th>
                 <th>By</th>
@@ -63,6 +121,7 @@
                 <td>13245</td>
                 <td>Deposit</td>
                 <td>200,000 rwf</td>
+                <td>400,000 rwf</td>
                 <td>Jack Woof</td>
                 <td>Kigali</td>
                 <td>Samuel Adafia</td>
@@ -73,6 +132,7 @@
                 <td>13246</td>
                 <td>Withdrawal</td>
                 <td>50,000 rwf</td>
+                <td>90,000 rwf</td>
                 <td>Nina Meow</td>
                 <td>Kampala</td>
                 <td>Samuel Adafia</td>
@@ -82,6 +142,18 @@
             <tr>
                 <td>13246</td>
                 <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>90,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
                 <td>50,000 rwf</td>
                 <td>Nina Meow</td>
                 <td>Kampala</td>
@@ -93,15 +165,6 @@
                 <td>13246</td>
                 <td>Withdrawal</td>
                 <td>50,000 rwf</td>
-                <td>Nina Meow</td>
-                <td>Kampala</td>
-                <td>Samuel Adafia</td>
-                <td>12-02-2019</td>
-                <td>10:33 AM</td>
-            </tr>
-            <tr>
-                <td>13246</td>
-                <td>Withdrawal</td>
                 <td>50,000 rwf</td>
                 <td>Nina Meow</td>
                 <td>Kampala</td>
@@ -113,15 +176,6 @@
                 <td>13246</td>
                 <td>Withdrawal</td>
                 <td>50,000 rwf</td>
-                <td>Nina Meow</td>
-                <td>Kampala</td>
-                <td>Samuel Adafia</td>
-                <td>12-02-2019</td>
-                <td>10:33 AM</td>
-            </tr>
-            <tr>
-                <td>13246</td>
-                <td>Withdrawal</td>
                 <td>50,000 rwf</td>
                 <td>Nina Meow</td>
                 <td>Kampala</td>
@@ -133,6 +187,7 @@
                 <td>13246</td>
                 <td>Withdrawal</td>
                 <td>50,000 rwf</td>
+                <td>50,000 rwf</td>
                 <td>Nina Meow</td>
                 <td>Kampala</td>
                 <td>Samuel Adafia</td>
@@ -142,6 +197,18 @@
             <tr>
                 <td>13246</td>
                 <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>50,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
                 <td>50,000 rwf</td>
                 <td>Nina Meow</td>
                 <td>Kampala</td>
@@ -151,5 +218,6 @@
             </tr>
         </table>
     </div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

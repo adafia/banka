@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #d1e8e2;
+    background: #fff;
 }
 
 .form-container {
@@ -22,7 +22,7 @@ form {
     background-color: #fff;
     width: 100%;
     max-width: 40rem;
-    padding: 3rem 0;
+    padding: 2rem 0;
     position: relative;
     box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
 }
@@ -61,12 +61,12 @@ form {
 .input-group input {
     position: relative;
     width: 100%;
-    padding: 1rem;
+    padding: .5rem;
     margin-top: .5rem;
     border: none;
     color: #116466;
     outline: none;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .input-group .bar {

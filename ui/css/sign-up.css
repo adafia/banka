@@ -5,7 +5,7 @@
 }
 
 body {
-    background: #d1e8e2;
+    background: #fff;
     padding-top: 2rem;
     overflow: hidden;
 }
@@ -21,7 +21,7 @@ body {
 
 .form-container {
     width: 100%;
-    max-width: 40rem;
+    max-width: 30rem;
     background: #fff;
     position: relative;
     padding: 6rem 0;

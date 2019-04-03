@@ -1,0 +1,474 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Century Gothic';
+}
+
+nav {
+    background-color: #fff;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    z-index: 5;
+}
+
+nav ul {
+    margin: 1rem auto 0 1.5rem;
+}
+
+nav ul li.logo {
+    list-style: none;
+    float: left;
+    line-height: 50px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+nav ul li {
+    list-style: none;
+    float: right;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+nav ul li a {
+    display: block;
+    text-decoration: none;
+    color: #116466;
+    padding: 0 .5rem;
+    transition: .25s;
+}
+
+nav ul li a:hover{
+    color: #d1e8e2;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 100% 100%;
+    grid-template-rows: 100%;
+}
+
+.side-menu {
+    background: #fff;
+    height: 100%;
+    padding: 2rem 2rem 0 2rem;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    position: fixed;
+}
+
+.side-menu ul {
+    margin-top: 5rem;
+}
+
+.side-menu ul li {
+    list-style: none;
+    padding-bottom: 2rem;
+}
+
+.side-menu ul li a {
+    text-decoration: none;
+    color: #116466;
+    transition: .25s;
+}
+
+.side-menu ul li a:hover {
+    padding-left: .3rem;
+}
+
+.title-bar {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr .3fr 1.5fr;
+    width: 30rem;
+    height: 5rem;
+    border-radius: .5rem;
+    box-shadow: 0 1px .5rem rgba(0, 0, 0, .1);
+    left: 60%;
+    top: 10%;
+    place-items: center;
+    color: #116466;
+}
+
+.title-bar > h4 {
+    justify-self: center;
+}
+.title-bar .bell {
+    justify-self: end;
+}
+.user-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+    place-items: center;
+    justify-self: end;
+    padding-right: 2rem;
+}
+
+.avi img{
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+}
+
+.approvals {
+    position: absolute;
+    top: 25%;
+    left: 20%;
+    margin-bottom: 5rem; 
+    background: #fff;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    padding: 1rem;
+    border-radius: 1rem; 
+}
+
+.approvals table {
+    width: 70rem;
+    color: #116466;
+}
+
+caption {
+    text-align: start;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+}
+
+th , td {
+    padding: 1rem;
+}
+
+tr:hover {
+    box-shadow: 0 1px .5rem rgba(0, 0, 0, .1);
+}
+
+.approvals table tr th, .transactions table tr th {
+    text-align: start;
+    /* background: #116466; */
+    /* color: #fff; */
+    height: 2rem;
+}
+
+.fa-check-circle:hover, .fa-user-edit:hover {
+    color: green;
+}
+
+.fa-trash-alt:hover {
+    color: red;
+}
+
+.fa-comment-alt:hover {
+    color: blue;
+}
+
+.hide {
+    display: none;
+}
+
+.control-accounts {
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    padding: 1rem;
+    border-radius: 1rem; 
+    font-size: 10px;
+    top: 20%;
+    left: 16%;
+    color: #116466;
+}
+
+
+.form-container {
+    width: 40%;
+    height: 65%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 25%;
+    left: 57%;
+}
+
+form {
+    background-color: #fff;
+    width: 95%;
+    padding: 3rem 0;
+    position: absolute;
+    box-shadow: 0 1px .5rem rgba(0, 0, 0, .1);
+}
+
+.title {
+    position: relative;
+    width: 100%;
+    padding: .5rem 0;
+}
+
+.title span {
+    color: #116466;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-left: 1.5rem;
+}
+
+.title span::before {
+    content: '';
+    position: absolute;
+    background-color: #116466;
+    width: 3px;
+    height: 2rem;
+    border-radius: .8rem;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.input-group {
+    width: 90%;
+    position: relative;
+    margin: .5rem auto;
+}
+.input-group p {
+    color: #116466;
+    margin-top: 1rem
+}
+
+.input-group input {
+    position: relative;
+    width: 100%;
+    padding: .5rem;
+    margin-top: .5rem;
+    border: none;
+    color: #116466;
+    outline: none;
+    font-size: 1rem;
+}
+
+input[type= file]::-webkit-file-upload-button {
+    background: none;
+    outline: none;
+    border: .5px solid #116466;
+    border-radius: .2rem;
+    height: 2rem;
+    color: #116466;
+}
+
+.input-group .bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: .5px;
+}
+
+.input-group .bar::before {
+    content: '';
+    position: absolute;
+    background: #116466;
+    width: 0;
+    height: 1px;
+    transition: width 650ms;
+}
+
+.input-group input:focus + .bar::before {
+    width: 100%;
+}
+
+button {
+    width: 6rem;
+    height: 6rem;
+    background: #116466;
+    color: #fff;
+    border: .5rem solid #fff;
+    outline: none;
+    font-size: 2.3rem;
+    cursor: pointer;
+    position: absolute;
+    right: -2rem;
+    bottom: -2rem;
+    border-radius: 50%;
+    transition: all 650ms;
+}
+
+button:hover, button:focus {
+    border-radius: .8rem;
+}
+
+.register {
+    text-align: center;
+    margin: .5rem 0;
+}
+
+.register a {
+    text-decoration: none;
+    color: #a1a1a1;
+    font-size: 1rem;
+}
+
+.register span {
+    color:  #116466;
+}
+
+.register span:hover {
+    border-bottom: 2px solid #116466;
+    padding-bottom: 2px;  
+}
+
+.transactions, .bank-accounts {
+    position: absolute;
+    top: 25%;
+    left: 17%;
+    margin-bottom: 5rem; 
+    background: #fff;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    padding: 1rem;
+    border-radius: 1rem; 
+}
+
+.bank-accounts {
+    height: 30rem;
+    overflow: auto;
+}
+
+.bank-accounts table {
+    width: 75rem;
+    height: 30rem;
+    color: #116466;
+}
+
+.user-account {
+    position: absolute;
+    width: 100rem;
+    height: 100rem;
+    background: rgba(136, 143, 143, 0.5);
+    z-index: 200;
+}
+
+.dash {
+    width: 100%;
+    position: absolute;
+    top: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.dash .card {
+    background-color: #fff;
+    width: 100%;
+    padding: 2rem;
+    margin: 1rem;
+    position: relative;
+    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    border-radius: .5rem;
+}
+
+#user-bio {
+    color: #116466;
+    width: 15rem;
+    height: 15rem;
+    text-align: center;
+}
+
+#user-bio img {
+    height: 8rem;
+    width: 8rem;
+    border: 50%;
+}
+
+#summary {
+    color: #116466;
+    width: 35rem;
+    height: 25rem;
+}
+
+#summary h4{
+    position: relative;
+    background: #116466;
+    height: 2rem;
+    color: #fff;
+    line-height: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: .5rem; 
+}
+
+#summary p , hr{
+    margin-bottom: .5rem;
+}
+
+button.message, button.delete { 
+    height: 2rem;
+    width: 10rem;
+    font-size: 16px;
+    border: 1px solid #116466;
+    border-radius: 5px;
+    background: none;
+    top: 87%;
+    color: #116466;
+}
+
+button.message {
+    left: 8%;
+}
+
+button.message:hover {
+    background: #116466;
+    color: #fff;
+    border: none;
+}
+
+button.delete {
+    left: 40%;
+}
+
+button.delete:hover {
+    background: red;
+    color: #fff;
+    border: none;
+}
+
+span.close {
+    position: absolute;
+    top: -2rem;
+    left: 100%;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.transactions table {
+    width: 75rem;
+    color: #116466;
+    font-size: 10px;
+}
+
+.fa-plus-circle {
+    color: #116466;
+    font-size: 25px;
+    position: absolute;
+    left: 98%;
+}
+
+.fa-plus-circle:hover{
+    color: green;
+}
+
+.modal {
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: #fff;
+}
+
+.modal form {
+    margin: 10% auto;
+    width: 40rem;
+    position: relative;
+}
