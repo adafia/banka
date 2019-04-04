@@ -27,6 +27,10 @@ nav ul li.logo {
     font-weight: bold;
 }
 
+.alt {
+    display: none;
+}
+
 nav ul li {
     list-style: none;
     float: right;
@@ -97,6 +101,11 @@ nav ul li a:hover{
 .title-bar > h4 {
     justify-self: center;
 }
+
+.ab {
+    display: none;
+}
+
 .title-bar .bell {
     justify-self: end;
 }
@@ -145,7 +154,7 @@ tr:hover {
     box-shadow: 0 1px .5rem rgba(0, 0, 0, .1);
 }
 
-.approvals table tr th, .transactions table tr th {
+.approvals table tr th{
     text-align: start;
     height: 2rem;
 }
@@ -166,18 +175,27 @@ tr:hover {
     display: none;
 }
 
-.control-accounts {
+.control-accounts, .transactions-table {
     position: absolute;
     background: #fff;
     box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
     padding: 1rem;
     border-radius: 1rem; 
     font-size: 10px;
-    top: 20%;
-    left: 16%;
     color: #116466;
 }
 
+.control-accounts {
+    top: 20%;
+    left: 16%;
+}
+
+.transactions-table {
+    top: 65%;
+    left: 18%; 
+    margin-bottom: 4rem;
+    overflow: auto;
+}
 
 .form-container {
     width: 40%;
@@ -189,6 +207,16 @@ tr:hover {
     position: absolute;
     top: 25%;
     left: 57%;
+}
+
+.transactions .form-container {
+    top: 5%;
+    left: 18%;
+    width: 40%;
+}
+
+.transactions .form-container form .input-group label {
+    color: #757575;
 }
 
 form {
@@ -234,7 +262,7 @@ form {
     margin-top: 1rem
 }
 
-.input-group input {
+.input-group input, .input-group label, .input-group section {
     position: relative;
     width: 100%;
     padding: .5rem;
@@ -315,7 +343,7 @@ button:hover, button:focus {
     padding-bottom: 2px;  
 }
 
-.transactions, .bank-accounts {
+.bank-accounts {
     position: absolute;
     top: 25%;
     left: 17%;
@@ -380,6 +408,10 @@ button:hover, button:focus {
     color: #116466;
     width: 35rem;
     height: 25rem;
+}
+
+.summary-bio {
+    display: none;
 }
 
 #summary h4{
@@ -450,10 +482,6 @@ span.close {
     left: 98%;
 }
 
-.fa-plus-circle:hover{
-    color: green;
-}
-
 .modal {
     z-index: 10;
     position: fixed;
@@ -511,6 +539,38 @@ span.close {
         width: 75%; 
     }
 
+    .table-container {
+        position: absolute;
+        top: 45%;
+        width: 80%;
+        height: 32rem;
+        overflow: auto;
+        margin: 0 2rem 4rem 8rem;
+        border-radius: 1rem;
+        box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    }
+
+    .transactions-table {
+        top: 0;
+        left: 0%; 
+        margin-bottom: 0;
+        overflow: auto;
+        box-shadow: none;
+    }
+
+    .transactions-table caption {
+        margin: 1rem 0 0 1.5rem;
+        font-size: 18px;
+    }
+
+    .transactions .form-container {
+        position: absolute;
+        top: 0%;
+        left: 18%;
+        width: 70%;
+        margin-top: -5rem;
+    }
+
     .form-container {
         width: 75%;
         top: 39%;
@@ -547,9 +607,25 @@ span.close {
 @media screen and (max-width: 768px) {
     
     .modal form {
-        margin: 20% 4%;
-        width: 40%;
+        margin: 30% 5%;
+        width: 90%;
         position: relative;
+    }
+
+    .modal .input-group input {
+        font-size: 12px;
+    }
+
+    .modal .register a {
+        font-size: 12px;
+    }
+
+    .side-menu {
+        display: none;
+    }
+
+    .alt {
+        display: inline;
     }
 
     button {
@@ -569,55 +645,187 @@ span.close {
         height: 5rem;
     }
 
-    .menu-text {
+    .title-bar {
+        width: 90%;
+        left: 5%;
+        top: 13%;
+        grid-template-columns: 1fr .3fr 1.5fr;
+        font-size: 12px;
+        height: 4rem;
+    }
+
+    .title-bar .bell {
+        justify-self: center;
+    }
+
+    .title-bar > h4 {
+        justify-self: end;
+    }
+
+    .name {
         display: none;
     }
 
-    .title-bar {
-        width: 50%;
-        left: 26%;
-        top: 12%;
+    .ab {
+        display: inline;
     }
     
-    .approvals {
-        display: none;
+    .approvals{
         position: absolute;
-        top: 15%;
-        left: 10%;
-        margin: 0 2rem; 
+        top: 26%;
+        left: 0;
+        margin: 0 1.2rem 2rem 1.2rem; 
+        width: 90%;
+        overflow: auto;
+    }
+
+    .approvals caption {
+        font-size: 18px;
     }
 
     .approvals table {
-        width: 90%;
-        font-size: 15px;
+        width: 100%;
+        font-size: 12px;
     }
 
-    .control-accounts {
+    .admin-table, .staff-table {
+        position: absolute;
+        top: 26%;
+        width: 90%;
+        height: 33rem;
+        overflow: auto;
+        margin: 0 1rem;
+        border-radius: 1rem;
+        box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    }
+
+    .transactions .form-container {
+        position: absolute;
+        top: 20%;
+        left: 5%;
+        width: 90%;
+        margin-top: 0;
+    }
+
+    .transactions .form-container form .input-group input, 
+    .transactions .form-container form .input-group label {
         font-size: 12px;
-        top: 18%;
-        width: 75%; 
+    }
+
+    .control-accounts, .transactions-table {
+        font-size: 12px;
+        top: 0;
+        left: 0;
+        width: 90%;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    .table-container {
+        position: absolute;
+        top: 85%;
+        width: 90%;
+        height: 32rem;
+        overflow: auto;
+        margin: 0 1rem 4rem 1rem;
+        border-radius: 1rem;
+        box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+    }
+
+
+    .control-accounts caption, .transactions-table caption {
+        margin: 1rem 0 0 1.5rem;
+        font-size: 18px;
     }
 
     .form-container {
-        width: 75%;
-        top: 39%;
-        left: 16%;
+        width: 90%;
+        top: 0;
+        left: 5%;
+        margin: 50rem 0 4rem 0;
     }
 
     .bank-accounts {
-        top: 16%;
-        left: 11%;
-        width: 85%;
-        margin: 0 0 5rem 0;
+        top: 26%;
+        left: 0;
+        width: 90%;
+        margin: 0 1rem 5rem 1rem;
         overflow: auto; 
     }
     
     .bank-accounts {
-        height: 60rem;
+        height: 50rem;
     }
     
     .bank-accounts table {
         width: 70%;
+        font-size: 12px;
+    }
+
+    .bank-accounts caption {
+        font-size: 18px;
+    }
+
+    .user-account {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .dash .card {
+        background-color: #fff;
+        width: 90%;
+        padding: 1rem;
+        margin: 0rem;
+        position: absolute;
+        box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
+        border-radius: .5rem;
+    }
+
+    #user-bio {
+        display:none;
+    }
+
+    #summary {
+        color: #116466;
+        width: 18rem;
+        height: 28rem;
+        font-size: 12px;
+    }
+
+    .summary-bio {
+        display: inline;
+        text-align: center;
+    }
+
+    .summary-bio img {
+        height: 4rem;
+        width: 4rem;
+        border: 50%;
+        margin-left: 6rem; 
+    }
+
+    #summary p , hr{
+        margin-bottom: .5rem;
+    }
+
+    button.message, button.delete { 
+        height: 2rem;
+        width: 7.5rem;
+        font-size: 12px;
+        top: 91%;
+        border: none;
+    }
+
+    button.message {
+        left: 27%;
+        color: #fff;
+        background: #116466;
+    }
+    button.delete {
+        left: 73%;
+        color: #fff;
+        background: red;
     }
         
     .user-account {
