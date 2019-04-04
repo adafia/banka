@@ -255,4 +255,28 @@ tr:hover {
     .transaction-history {
         margin: 68rem auto 4rem auto;
     }
+
+    .title-bar {
+        grid-template-columns: 2fr .5fr 2fr;
+        font-size: 12px;
+    }
+
+    .title-bar .bell {
+        justify-self: start;
+    }
+    
+    #summary {
+        font-size: 12px;
+        height: 18rem;
+     }
+ 
+     #graph {
+         margin: 23rem 0 0 0;
+         font-size: 12px;
+     }
+ 
+     .transaction-history {
+        font-size:12px;
+         margin: 63rem auto 4rem auto;
+     }
 }
