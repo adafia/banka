@@ -252,6 +252,14 @@ tr:hover {
 }
 
 @media screen and (max-width: 600px) {
+    nav {
+        position: absolute;
+    }
+    
+    .menu-text {
+        display: none;
+    }
+
     .transaction-history {
         margin: 68rem auto 4rem auto;
     }

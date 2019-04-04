@@ -137,21 +137,6 @@ button:hover, button:focus {
     border-bottom: 2px solid #116466;  
 }
 
-.proceed {
-    transform: translate(-50%, -50%);
-    position: absolute;
-    top: 92%;
-    left: 95%;
-    font-size: 50px;
-    text-decoration: none;
-    color: #116466;
-    transition: .25s;
-}
-
-.proceed:hover{
-    color: #ffcb9a;
-}
-
 @media screen and (max-width: 700px){
     .wrapper {
         height: 50%;
@@ -197,15 +182,5 @@ button:hover, button:focus {
         bottom: -2rem;
         left: 50%;
         transform: translateX(-50%);
-    }
-
-    .proceed {
-        top: 93%;
-        left: 50%;
-        font-size: 20px;
-    }
-    
-    .proceed::before {
-        content: 'Proceed ';
     }
 }
