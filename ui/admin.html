@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="img/SA_logo_face.png">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="logo"><a href="index.html">BANKA</a></li>
+            <li class="transact-m-top alt"><a href="#"><i class="fas fa-exchange-alt"></i> <span class="menu-text">Transactions</span></a></li><!--credit or debit user accounts -->
+            <li class="bank-m-top alt"><a href="#"><i class="fas fa-briefcase"></i> <span class="menu-text">Bank Accounts</span></a></li><!--view a list of all bank accounts-->
+            <li class="staff-m-top alt"><a href="#"><i class="fas fa-user-cog"></i> <span class="menu-text">Staff Accounts</span></a></li><!--Create staff accounts-->
+            <li class="admin-m-top alt"><a href="#"><i class="fas fa-user-lock"></i> <span class="menu-text">Admin Accounts</span></a></li><!--Creete admin accounts-->
+            <li class="approvals-m-top alt"><a href="#"><i class="fas fa-inbox"></i> <span class="menu-text">Approvals</span></a></li><!--Approve bank account creation requests-->
+        </ul>
+    </nav>
+    <div class="grid">
+        <div class="side-menu">
+            <ul>
+                <li class="approvals-m"><a href="#"><i class="fas fa-inbox"></i> <span class="menu-text">Approvals</span></a></li><!--Approve bank account creation requests-->
+                <li class="admin-m"><a href="#"><i class="fas fa-user-lock"></i> <span class="menu-text">Admin Accounts</span></a></li><!--Creete admin accounts-->
+                <li class="staff-m"><a href="#"><i class="fas fa-user-cog"></i> <span class="menu-text">Staff Accounts</span></a></li><!--Create staff accounts-->
+                <li class="bank-m"><a href="#"><i class="fas fa-briefcase"></i> <span class="menu-text">Bank Accounts</span></a></li><!--view a list of all bank accounts-->
+                <li class="transact-m"><a href="#"><i class="fas fa-exchange-alt"></i> <span class="menu-text">Transactions</span></a></li><!--credit or debit user accounts -->
+            </ul>
+        </div>
+        <div class="content">
+            <div class="title-bar">
+                <h4>Administrator</h4>
+                <div class="bell">
+                    <i class="far fa-bell"></i>
+                </div>
+                <div class="user-info">
+                    <div class="text">
+                        <h4 class="ab">S.A</h4>
+                        <h4 class="name">Samuel Adafia</h4>
+                        <p>Bank Manager</p>
+                    </div>
+                    <div class="avi">
+                        <img src="img/SA_logo_face.png" alt="my face">
+                    </div>
+                </div>
+            </div>
+            <div class="approvals">
+                <table>
+                    <caption>
+                        Approvals
+                    </caption>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Status</th>
+                        <th>Branch Location</th>
+                        <th>By</th>
+                        <th>Date</th>
+                        <th>Time stamp</th>
+                    </tr>
+                    <tr>
+                        <td>Open Current account</td>
+                        <td>Pending</td>
+                        <td>Kigali</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>1:33 PM</td>
+                        <td><i class="fas fa-check-circle"></i></td>
+                        <td><i class="far fa-comment-alt"></i></td>
+                        <td><i class="far fa-trash-alt"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Open Savings account</td>
+                        <td>Procesing</td>
+                        <td>Kigali</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>1:33 PM</td>
+                        <td><i class="fas fa-check-circle"></i></td>
+                        <td><i class="far fa-comment-alt"></i></td>
+                        <td><i class="far fa-trash-alt"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Open Savings account</td>
+                        <td>Procesing</td>
+                        <td>Kigali</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>1:33 PM</td>
+                        <td><i class="fas fa-check-circle"></i></td>
+                        <td><i class="far fa-comment-alt"></i></td>
+                        <td><i class="far fa-trash-alt"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Open Savings account</td>
+                        <td>Procesing</td>
+                        <td>Kigali</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>1:33 PM</td>
+                        <td><i class="fas fa-check-circle"></i></td>
+                        <td><i class="far fa-comment-alt"></i></td>
+                        <td><i class="far fa-trash-alt"></i></td>
+                    </tr>
+                </table>
+            </div> <!--End of Approvals-->
+            <div class="admin-accounts hide">
+                <div class="admin-table">
+                    <table class="control-accounts">
+                        <caption>
+                            List of Admin Accounts
+                        </caption>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Employee ID</th>
+                            <th>Email</th>
+                            <th>Designation</th>
+                            <th>Date created</th>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-container">
+                    <form action="">
+                        <div class="title">
+                            <span>Create an Admin account</span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="Admin First Name" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="Admin Last Name" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" placeholder="Employee ID" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="Designation" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" placeholder="Admin Email" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" placeholder="Admin Password" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <hr>
+                            <p>Please upload a recent passport sized image</p>
+                            <input type="file" accept="image/*">
+                            <span class="bar"></span>
+                        </div>
+                        <button>
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="staff-accounts hide">
+                <div class="staff-table">
+                    <table class="control-accounts">
+                        <caption>
+                            List of Staff Accounts
+                        </caption>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Employee ID</th>
+                            <th>Email</th>
+                            <th>Designation</th>
+                            <th>Date created</th>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Jack Monihin</td>
+                            <td>1526</td>
+                            <td>jack@gmail.com</td>
+                            <td>Teller</td>
+                            <td>29-01-2019</td>
+                            <td><i class="fas fa-user-edit"></i></td>
+                            <td><i class="far fa-trash-alt"></i></td>
+                        </tr>
+                    </table>
+                </div><!--end of staff table-->
+                <div class="form-container">
+                    <form action="">
+                        <div class="title">
+                            <span>Create an Staff account</span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="Staff First Name" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="Staff Last Name" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" placeholder="Employee ID" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="Designation" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" placeholder="Staff Email" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" placeholder="Staff Password" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <hr>
+                            <p>Please upload a recent passport sized image</p>
+                            <input type="file" accept="image/*">
+                            <span class="bar"></span>
+                        </div>
+                        <button>
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div><!--end of Staff account-->
+            <div class="bank-accounts hide">
+                <table>
+                    <caption>
+                        List of All Bank accounts
+                    </caption>
+                    <tr class="tr">
+                        <th>Account #</th>
+                        <th>Currency</th>
+                        <th>Account Balance</th>
+                        <th>Owner</th>
+                        <th>Date created</th>
+                        <th>Last withdrawal</th>
+                        <th>Last Deposit</th>
+                        <th>Account Status</th>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1342576176</td>
+                        <td>RWF</td>
+                        <td>298,000.00</td>
+                        <td>Samuel Adafia</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>29-03-2019</td>
+                        <td>Active</td>
+                    </tr>
+                </table>
+            </div><!--end of bank accounts-->
+            <div class="user-account hide">
+                <div class="account-details">
+                    <div class="dash">
+                        <div id="user-bio" class="card">
+                            <img src="img/SA_logo_face.png" alt="myface">
+                            <h4>Samuel Adafia</h4>
+                            <p>UI/UX Designer</p>
+                        </div>
+                        <div id="summary" class="card">
+                            <h4>Account summary</h4>
+                            <div class="summary-bio">
+                                <img src="img/SA_logo_face.png" alt="myface">
+                                <p><b>Samuel Adafia</b></p>
+                                <p>UI/UX Designer</p>
+                                <hr>
+                            </div>
+                            <p>Account #: <b>10856011</b></p>
+                            <p>Account type: <b>Current</b></p>
+                            <p>Branch: <b>Kigali</b></p>
+                            <hr>
+                            <p>Date opened: <b>29-01-2019</b></p>
+                            <p>Last deposit: <b>01-03-2019</b></p>
+                            <p>Last withdrawal: <b>01-03-2019</b></p>
+                            <p>Account Balance: <b>500,000 rwf</b></p>
+                            <p>Account Officer/Manager: <b>Jack Ryan</b></p>
+                            <p>Account Status: <b>Active</b></p>
+                            <hr>
+                            <button class="message">Message owner <i class="far fa-comment-alt"></i></button>
+                            <button class="delete">Delete Account <i class="far fa-trash-alt"></i></button>
+                            <span class="close">&times;</span>
+                        </div>
+                    </div>
+                </div><!--end of account details-->
+            </div><!--end of user account-->
+            <div class="transactions hide">
+                <div class="table-container">
+                    <table class="transactions-table">
+                        <caption>
+                            Credit / Debit Transaction History
+                        </caption>
+                        <tr>
+                            <th>Transaction #</th>
+                            <th>Account #</th>
+                            <th>Account Balance</th>
+                            <th>Transaction Type</th>
+                            <th>Currency</th>
+                            <th>Amount</th>
+                            <th>Closing Balance</th>
+                            <th>Authenticated by</th>
+                            <th>Teller Name</th>
+                            <th>Date</th>
+                            <th>Time stamp</th>
+                        </tr>
+                        <tr>
+                            <td>13425</td>
+                            <td>167465649863</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Credit</td>
+                            <td>RWF</td>
+                            <td>20,000.00</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Signature</td>
+                            <td>Samuel Adafia</td>
+                            <td>29-03-2019</td>
+                            <td>1:33 PM</td>
+                        </tr>
+                        <tr>
+                            <td>13425</td>
+                            <td>167465649863</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Credit</td>
+                            <td>RWF</td>
+                            <td>20,000.00</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Signature</td>
+                            <td>Samuel Adafia</td>
+                            <td>29-03-2019</td>
+                            <td>1:33 PM</td>
+                        </tr>
+                        <tr>
+                            <td>13425</td>
+                            <td>167465649863</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Credit</td>
+                            <td>RWF</td>
+                            <td>20,000.00</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Signature</td>
+                            <td>Samuel Adafia</td>
+                            <td>29-03-2019</td>
+                            <td>1:33 PM</td>
+                        </tr>
+                        <tr>
+                            <td>13425</td>
+                            <td>167465649863</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Credit</td>
+                            <td>RWF</td>
+                            <td>20,000.00</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Signature</td>
+                            <td>Samuel Adafia</td>
+                            <td>29-03-2019</td>
+                            <td>1:33 PM</td>
+                        </tr>
+                        <tr>
+                            <td>13425</td>
+                            <td>167465649863</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Credit</td>
+                            <td>RWF</td>
+                            <td>20,000.00</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Signature</td>
+                            <td>Samuel Adafia</td>
+                            <td>29-03-2019</td>
+                            <td>1:33 PM</td>
+                        </tr>
+                        <tr>
+                            <td>13425</td>
+                            <td>167465649863</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Credit</td>
+                            <td>RWF</td>
+                            <td>20,000.00</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Signature</td>
+                            <td>Samuel Adafia</td>
+                            <td>29-03-2019</td>
+                            <td>1:33 PM</td>
+                        </tr>
+                        <tr>
+                            <td>13425</td>
+                            <td>167465649863</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Credit</td>
+                            <td>RWF</td>
+                            <td>20,000.00</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Signature</td>
+                            <td>Samuel Adafia</td>
+                            <td>29-03-2019</td>
+                            <td>1:33 PM</td>
+                        </tr>
+                        <tr>
+                            <td>13425</td>
+                            <td>167465649863</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Credit</td>
+                            <td>RWF</td>
+                            <td>20,000.00</td>
+                            <td>RWF 400,000.00</td>
+                            <td>Signature</td>
+                            <td>Samuel Adafia</td>
+                            <td>29-03-2019</td>
+                            <td>1:33 PM</td>
+                        </tr>
+                    </table>
+                </div><!--end of table container-->
+                <div class="form-container">
+                    <form action="">
+                        <div class="title">
+                            <span>Credit /Debit user Account</span>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" placeholder="Account #" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <label for="t-type">Transaction type</label>
+                            <select name="t-type" id="t-type">
+                                <option value="none">select transaction</option>
+                                <option value="credit">Credit</option>
+                                <option value="debit">Debit</option>
+                            </select>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <label for="currency">Currency</label>
+                            <select name="currency" id="currency">
+                                <option value="none">select currency</option>
+                                <option value="rwf">RWF</option>
+                                <option value="usd">USD</option>
+                            </select>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" placeholder="Amount" required>
+                            <span class="bar"></span>
+                        </div>
+                        <button>
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div><!--end of transactions-->
+        </div> <!--end of content-->
+    </div><!--End of grid-->
+    <div class="modal">
+            <form action="">
+                <div class="title">
+                    <span>Admin / Staff Login</span>
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Staff ID">
+                    <span class="bar"></span>
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Designation">
+                    <span class="bar"></span>
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Branch">
+                    <span class="bar"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password">
+                    <span class="bar"></span>
+                </div>
+                <button class="modal-btn">
+                    <i class="fas fa-angle-right"></i>
+                </button>
+                <div class="register">
+                    <a href="#">Having problems with your login? <span>Contact your Supervisor</span></a>
+                </div>
+            </form>
+        </div>
+    <script src="js/admin.js"></script>
+</body>
+</html>
