@@ -7,8 +7,7 @@
 
 
 nav {
-    background-color: #fff;
-    text-transform: uppercase;
+    background: linear-gradient(to left, #1ca4a7, #116466);
     width: 100%;
     height: 50px;
     position: fixed;
@@ -38,7 +37,7 @@ nav ul li {
 nav ul li a {
     display: block;
     text-decoration: none;
-    color: #116466;
+    color: #fff;
     padding: 0 20px;
 }
 
@@ -53,75 +52,38 @@ nav ul li a:hover{
 }
 
 .info {
+    background: linear-gradient(to left, #1ca4a7, #116466);
     height: 600px;
     width: 100%;
 }
 
 .info > p {
     position: relative;
-    top: 32%;
-    left: 17%;
-    font-size: 30px;
+    top: 35%;
+    font-size: 34px;
     font-weight: 100;
-    width: 60rem;
-    height: 8rem;
-    background: #fff;
-    padding: 2rem 25rem 2rem 2rem;
-    color: #116466;
-    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
-}
-
-
-.info .step1, .info .step2 {
-    position: absolute;
-    top: 30%;
-    width: 12rem;
-    height: 15rem;
-    border-radius: 20px;
-    background: #fff;
+    color: #fff;
     text-align: center;
-    box-shadow: 0 1px 1.5rem rgba(0, 0, 0, .1);
-}
-
-.info .step1 {
-    left: 55%;
-    color: #27ae60;
-}
-
-.info .step2 {
-    left: 70%;
-    color: #f39c12;
-}
-
-.info .step1 i {
-    margin-top: 1.5rem;
-    font-size: 7rem;
-    color: #27ae60;
-}
-
-.info .step2 i {
-    font-size: 7rem;
-    color: #f39c12;
-    margin-top: 1.5rem;
-}
-
-.info .step1 h4, .info .step2 h4{
-    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .container {
-    position: relative;
-    width: 1200px;
-    height: 300px;
+    position: absolute;
+    top: 65%;
+    width: 100%;
+    height: 100%;
     margin: 2rem auto;
+    border-radius: 2rem 2rem 0 0;
+    background: #fff;
 }
 
 .container .box {
     position: relative;
-    width: calc(400px - 30px);
-    height: calc(300px - 30px);
+    width: calc(30% - 15%);
+    height: calc(30% - 2.5%);
     float: left;
-    margin: 15px;
+    margin: 4rem 1.5rem 1.5rem 1.5rem;
+    left: calc(50% - 28%);
     box-sizing: border-box;
     border-radius: 10px;
     overflow: hidden;
@@ -139,9 +101,9 @@ nav ul li a:hover{
 
 .container .box:hover .icon {
     top: 20px;
-    left: calc(50% - 40px);
-    width: 80px;
-    height: 80px;
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -150,19 +112,19 @@ nav ul li a:hover{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 80px;
+    font-size: 40px;
     transition: 0.5s;
     color: #fff;
 }
 
 .container .box:hover .icon i {
-    font-size: 40px;
+    font-size: 20px;
 }
 
 .container .box .content {
     position: absolute;
     top: 100%;
-    height: calc(100% - 100px);
+    height: calc(100% - 50px);
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
@@ -171,21 +133,22 @@ nav ul li a:hover{
 }
 
 .container .box:hover .content {
-    top: 100px;
+    top: 50px;
     opacity: 1;
 }
 
 .container .box .content h3 {
-    margin: 0 0 10px;
+    margin: 0 0 10px 0;
     padding: 0;
     color: #fff;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .container .box .content p {
     margin: 0;
     padding: 0;
     color: #fff;
+    font-size: 13px;
 }
 
 .container .box:nth-child(1) .icon {
@@ -215,7 +178,7 @@ nav ul li a:hover{
 .form-container {
     width: 90%;
     height: 100%;
-    margin: 0 auto;
+    margin: 14rem auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -393,68 +356,58 @@ button:hover, button:focus {
 
 
 @media screen and (max-width: 1024px) {
+    .info {
+        height: 25rem;
+    }
+
     .info > p {
-        position: absolute;
-        top: 10%;
-        left: 0;
-        margin: 0 10%;
-        font-size: 25px;
-        width: 80%;
-        padding: 2rem;
-    }
-
-    .info .step1, .info .step2 {
-        top: 23%;
-        width: 13rem;
-        height: 15rem;
-        font-size: 1rem;
-    }
-
-    .info .step1 {
-        left: 25%;
-    }
-    
-    .info .step2 {
-        left: 50%;
-    }
-
-    .info .step1 i, .info .step2 i {
-        font-size: 7rem;
-    }
-    
-    .info .step1 h4, .info .step2 h4{
-        font-size: 2rem;
+        font-size: 34px;
     }
 
     .container {
-        position: absolute;
         width: 100%;
-        height: 300px;
-        margin: 1rem auto;
-        padding: 0 5%; 
+        height: 200px;
+        margin: 0;
+        top: 27%;
+        padding: 0; 
     }
     
     .container .box {
-        position: relative;
-        width: calc(300px - 20px);
-        height: calc(300px - 20px);
-        margin: 10px;
+        width: calc(30% - 40px);
+        height: calc(200px - 20px);
+        margin-top: 2rem;
+        left: 3%;
     }
     
         
     .container .box .icon i {
-        font-size: 50px;
+        font-size: 40px;
     }
 
     .container .box:hover .icon i {
-        font-size: 30px;
+        font-size: 20px;
     }
 
     .container .box:hover .icon {
-        top: 30px;
-        left: calc(50% - 30px);
-        width: 60px;
-        height: 60px;
+        top: 25px;
+        left: calc(50% - 20px);
+        width: 40px;
+        height: 40px;
+    }
+
+    
+    .container .box:hover .content {
+        top: 60px;
+        left: 60px;
+        opacity: 1;
+    }
+
+    .container .box .content h3 {
+        font-size: 25px;
+    }
+
+    .container .box .content p {
+        display: none;
     }
 
     
@@ -507,53 +460,27 @@ button:hover, button:focus {
         display: none;
     }
 
+    .info {
+        height: 20rem;
+    }
+
     .info > p {
-        position: absolute;
-        top: 14%;
-        left: 0;
-        margin: 0 12%;
-        font-size: 20px;
-        width: 80%;
-        padding: 2rem;
-    }
-
-    .info .step1, .info .step2 {
-        top: 37%;
-        width: 9rem;
-        height: 13rem;
-        font-size: 1rem;
-    }
-
-    .info .step1 {
-        left: 8%;
-    }
-    
-    .info .step2 {
-        left: 55%;
-    }
-
-    .info .step1 i, .info .step2 i {
-        font-size: 5rem;
-    }
-    
-    .info .step1 h4, .info .step2 h4{
-        font-size: 1.5rem;
+        font-size: 13px;
     }
 
     .container {
-        position: absolute;
         width: 100%;
-        height: 100px;
-        margin: 1rem auto;
-        top: 72%;
-        padding: 0 12.5%; 
+        height: 200px;
+        margin: 0;
+        top: 30%;
+        padding: 0; 
     }
     
     .container .box {
-        position: relative;
-        width: calc(100px - 20px);
+        width: calc(30% - 20px);
         height: calc(100px - 20px);
-        margin: 5px;
+        margin-top: 2rem;
+        left: 5%;
     }
     
         
@@ -573,10 +500,24 @@ button:hover, button:focus {
     }
 
     
+    .container .box:hover .content {
+        top: 25px;
+        opacity: 1;
+    }
+
+    .container .box .content h3 {
+        font-size: 10px;
+    }
+
+    .container .box .content p {
+        display: none;
+    }
+
+    
     .form-container {
         width: 90%;
         height: 100%;
-        margin: 0 auto;
+        margin: 5rem auto;
         display: block;
     }
 
