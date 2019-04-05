@@ -4,62 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/user-dashboard.css">
+    <link rel="stylesheet" href="/ui/css/user-dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="shortcut icon" type="image/png" href="img/SA_logo_face.png">
-    <script>
-        window.onload = function () {
-        
-        var chart = new CanvasJS.Chart("chartContainer", {
-            animationEnabled: true,  
-            title:{
-                // text: "Closing balance by Week"
-            },
-            axisY: {
-                title: "Closing balance in RWF",
-                valueFormatString: "#0,,.",
-                suffix: "mn",
-                prefix: "rwf "
-            },
-            data: [{
-                type: "splineArea",
-                color: "rgba(54,158,173,.7)",
-                markerSize: 5,
-                xValueFormatString: "YYYY",
-                yValueFormatString: "rwf #,##0.##",
-                dataPoints: [
-                    { x: new Date(2000, 0), y: 3289000 },
-                    { x: new Date(2001, 0), y: 3830000 },
-                    { x: new Date(2002, 0), y: 2009000 },
-                    { x: new Date(2003, 0), y: 2840000 },
-                    { x: new Date(2004, 0), y: 2396000 },
-                    { x: new Date(2005, 0), y: 1613000 },
-                    { x: new Date(2006, 0), y: 2821000 },
-                    { x: new Date(2007, 0), y: 2000000 },
-                    { x: new Date(2008, 0), y: 1397000 },
-                    { x: new Date(2009, 0), y: 2506000 },
-                    { x: new Date(2010, 0), y: 2798000 },
-                    { x: new Date(2011, 0), y: 3386000 },
-                    { x: new Date(2012, 0), y: 6704000},
-                    { x: new Date(2013, 0), y: 6026000 },
-                    { x: new Date(2014, 0), y: 2394000 },
-                    { x: new Date(2015, 0), y: 1872000 },
-                    { x: new Date(2016, 0), y: 2140000 }
-                ]
-            }]
-            });
-        chart.render();
-        
-        }
-        </script>
+    <link rel="shortcut icon" type="image/png" href="/ui/assets/SA_logo_face.png">
+    <script src="/ui/js/user-dashboard.js"></script>
     <title>User Dashboard</title>
 </head>
 <body>
     <nav>
         <ul>
-            <li class="logo"><a href="index.html">BANKA</a></li>
-            <li><a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> <span class="menu-text">Dashboard</span></a></li>
-            <li><a href="create-account.html"><i class="fas fa-folder-plus"></i> <span class="menu-text">Create Account</span></a></li>
+            <li class="logo"><a href="/ui/index.html">BANKA</a></li>
+            <li><a href="/ui/pages/user-dashboard.html"><i class="fas fa-tachometer-alt"></i> <span class="menu-text">Dashboard</span></a></li>
+            <li><a href="/ui/pages/create-account.html"><i class="fas fa-folder-plus"></i> <span class="menu-text">Create Account</span></a></li>
         </ul>
     </nav>
     <div class="title-bar">
@@ -79,7 +35,7 @@
                 <p>Full-stack Developer</p>
             </div>
             <div class="avi">
-                <img src="img/SA_logo_face.png" alt="my face">
+                <img src="/ui/assets/SA_logo_face.png" alt="my face">
             </div>
         </div>
     </div>
