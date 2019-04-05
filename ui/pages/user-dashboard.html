@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/ui/css/user-dashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="/ui/assets/SA_logo_face.png">
+    <script src="/ui/js/user-dashboard.js"></script>
+    <title>User Dashboard</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="logo"><a href="/ui/index.html">BANKA</a></li>
+            <li><a href="/ui/pages/user-dashboard.html"><i class="fas fa-tachometer-alt"></i> <span class="menu-text">Dashboard</span></a></li>
+            <li><a href="/ui/pages/create-account.html"><i class="fas fa-folder-plus"></i> <span class="menu-text">Create Account</span></a></li>
+        </ul>
+    </nav>
+    <div class="title-bar">
+        <h4>Current Account - 32541 <i class="fas fa-caret-down"></i> 
+            <ul>
+                <li>Savings Account - 32567</li>
+                <li>Investment Account - 34767</li>
+            </ul>
+        </h4>
+        <div class="bell">
+            <i class="far fa-bell"></i>
+        </div>
+        <div class="user-info">
+            <div class="text">
+                <h4 class="ab">S.A</h4>
+                <h4 class="name">Samuel Adafia</h4>
+                <p>Full-stack Developer</p>
+            </div>
+            <div class="avi">
+                <img src="/ui/assets/SA_logo_face.png" alt="my face">
+            </div>
+        </div>
+    </div>
+    <div class="dash">
+        <div id="summary" class="card">
+            <h4>Account summary</h4>
+            <p>Account #: <b>10856011</b></p>
+            <p>Account type: <b>Current</b></p>
+            <p>Branch: <b>Kigali</b></p>
+            <hr>
+            <p>Date opened: <b>29-01-2019</b></p>
+            <p>Last deposit: <b>01-03-2019</b></p>
+            <p>Last withdrawal: <b>01-03-2019</b></p>
+            <p>Account Balance: <b>500,000 rwf</b></p>
+            <p>Account Officer/Manager: <b>Jack Ryan</b></p>
+        </div>
+        <div id="graph" class="card">
+            <h4>account balance - line graph</h4>
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        </div>
+    </div>
+    <div class="transaction-history">
+        <table>
+            <caption>
+                Transaction History
+            </caption>
+            <tr>
+                <th>Transaction #</th>
+                <th>Transaction type</th>
+                <th>Amount</th>
+                <th>Closing Balance</th>
+                <th>Teller name</th>
+                <th>Location</th>
+                <th>By</th>
+                <th>Date</th>
+                <th>Time stamp</th>
+            </tr>
+            <tr>
+                <td>13245</td>
+                <td>Deposit</td>
+                <td>200,000 rwf</td>
+                <td>400,000 rwf</td>
+                <td>Jack Woof</td>
+                <td>Kigali</td>
+                <td>Samuel Adafia</td>
+                <td>29-03-2019</td>
+                <td>1:33 PM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>90,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>90,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>50,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>50,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>50,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>50,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>50,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+            <tr>
+                <td>13246</td>
+                <td>Withdrawal</td>
+                <td>50,000 rwf</td>
+                <td>50,000 rwf</td>
+                <td>Nina Meow</td>
+                <td>Kampala</td>
+                <td>Samuel Adafia</td>
+                <td>12-02-2019</td>
+                <td>10:33 AM</td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
