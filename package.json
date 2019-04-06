@@ -1,0 +1,31 @@
+{
+  "name": "banka",
+  "version": "1.0.0",
+  "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index",
+    "dev": "nodemon server/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adafia/banka.git"
+  },
+  "keywords": [],
+  "author": "Samuel Adafia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adafia/banka/issues"
+  },
+  "homepage": "https://github.com/adafia/banka#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
