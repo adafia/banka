@@ -18,8 +18,10 @@ Banka is a light-weight core banking application that powers banking operations 
 12. Admin can create staff and admin user accounts. [done]
 
 ## Features (API - Endpoints)
-1. Create bank account.
-2. Admin / Staff can activate or deactivate an account.
-3. Admin / Staff can delete an account.
-4. Staff (cashier) can credit an account.
-5. Staff (cashier) can debit an account.
+1. User sign up.
+2. User sign in.
+3. Create bank account.
+4. Admin / Staff can activate or deactivate an account.
+5. Admin / Staff can delete an account.
+6. Staff (cashier) can credit an account.
+7. Staff (cashier) can debit an account.
