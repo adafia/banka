@@ -1,14 +1,14 @@
 const express = require('express');
 const uuid = require('uuid');
-const router = express.Router();
+const accountsRouter = express.Router();
 const accounts = require('../../models/Account');
 
 // Get all accounts
-router.get('/', (req, res) => res.json(accounts));
+accountsRouter.get('/', (req, res) => res.json(accounts));
 
 
 // Create a Bank Account
-router.post('/', (req, res) => {
+accountsRouter.post('/', (req, res) => {
     const newAccount = {
         id : uuid.v4(),
         accountNumber : Math.floor(Math.random() * 10000000000),
@@ -27,4 +27,4 @@ router.post('/', (req, res) => {
     res.json(accounts);
 });
 
-module.exports = router;
+module.exports = accountsRouter;
