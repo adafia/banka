@@ -15,6 +15,9 @@ app.use(express.urlencoded({ extended: false}));
 // Set a static folder
 app.use(express.static(path.join(__dirname, '../ui')));
 
+//Users API Routes
+app.use('/api/users', require('./routes/api/users'))
+
 // Accounts API Routes
 app.use('/api/accounts', require('./routes/api/accounts'))
 
