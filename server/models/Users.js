@@ -7,6 +7,7 @@ const users = [
         password : 'password1234' ,
         type : 'client' , // client or staff
         isAdmin : false , // must be a staff user account
+        createdOn : new Date()
     },
     {
         id : 2 ,
@@ -16,6 +17,7 @@ const users = [
         password : 'password456' ,
         type : 'client' , // client or staff
         isAdmin : false , // must be a staff user account
+        createdOn : new Date()
     },
     {
         id : 3 ,
@@ -25,6 +27,7 @@ const users = [
         password : 'password789' ,
         type : 'staff' , // client or staff
         isAdmin : true , // must be a staff user account
+        createdOn : new Date()
     }
 ];
 

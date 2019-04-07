@@ -6,7 +6,7 @@ const logger = require('./middleware/logger');
 const app = express();
 
 // Init Middleware
-app.use(logger);
+// app.use(logger);
 
 // Body Parser Middleware
 app.use(express.json());
@@ -16,10 +16,11 @@ app.use(express.urlencoded({ extended: false}));
 app.use(express.static(path.join(__dirname, '../ui')));
 
 //Users API Routes
-app.use('/api/users', require('./routes/api/users'))
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/users/user', require('./routes/api/users'));
 
 // Accounts API Routes
-app.use('/api/accounts', require('./routes/api/accounts'))
+app.use('/api/accounts', require('./routes/api/accounts'));
 
 
 const PORT = process.env.PORT || 5000;
