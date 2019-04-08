@@ -1,5 +1,5 @@
 const express = require('express');
-const uuid = require('uuid');
+// const uuid = require('uuid');
 const usersRouter = express.Router();
 const users = require('../../models/Users');
 
@@ -11,6 +11,10 @@ usersRouter.post('/', (req, res) => {
     const userDetails = {
         email : req.body.email,
         password : req.body.password
+    }
+
+    if(!userDetails.email || !userDetails.password) {
+        return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});
     }
 
     const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
@@ -32,7 +36,7 @@ usersRouter.post('/', (req, res) => {
     const found = users.some(user => user.email === userDetails.email && user.password === userDetails.password);
 
     if(found) {
-        res.json(users.filter(user => user.email === userDetails.email));
+        res.status(200).json(users.filter(user => user.email === userDetails.email));
     } else {
         res.status(400).json({ msg: 'Your account details are wrong. Please input the right email and password'});
     }
@@ -41,7 +45,7 @@ usersRouter.post('/', (req, res) => {
 //Sign up an user 
 usersRouter.post('/user', (req, res) => {
     const newUser = {
-        id : uuid.v4() ,
+        id : users.length + 1 ,
         email : req.body.email,
         firstName : req.body.firstName,
         lastName : req.body.lastName,
@@ -73,7 +77,9 @@ usersRouter.post('/user', (req, res) => {
     }
 
     users.push(newUser);
-    res.send(users);
+    res.status(200).json({ 
+        status : 200,
+        data : users});
 });
 
 

@@ -14,7 +14,7 @@ const users = [
         email : 'mark@gmail.com' ,
         firstName : 'Mark' ,
         lastName : 'Brown' ,
-        password : 'password456' ,
+        password : 'Password-456' ,
         type : 'client' , // client or staff
         isAdmin : false , // must be a staff user account
         createdOn : new Date()
@@ -24,7 +24,7 @@ const users = [
         email : 'snow@gmail.com' ,
         firstName : 'Snow' ,
         lastName : 'White' ,
-        password : 'password789' ,
+        password : 'Password-789' ,
         type : 'staff' , // client or staff
         isAdmin : true , // must be a staff user account
         createdOn : new Date()
