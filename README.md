@@ -22,6 +22,6 @@ Banka is a light-weight core banking application that powers banking operations 
 2. User sign in. [done]
 3. Create bank account. [done]
 4. Admin / Staff can activate or deactivate an account. [done]
-5. Admin / Staff can delete an account.
+5. Admin / Staff can delete an account. [done]
 6. Staff (cashier) can credit an account.
 7. Staff (cashier) can debit an account.
