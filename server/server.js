@@ -1,6 +1,7 @@
-const express = require('express');
-const path = require('path');
-const logger = require('./middleware/logger');
+import express from 'express';
+import path from 'path';
+import allRoutes from './routes/api';
+// import logger from './middleware/logger';
 
 
 const app = express();
@@ -15,12 +16,8 @@ app.use(express.urlencoded({ extended: false}));
 // Set a static folder
 app.use(express.static(path.join(__dirname, '../ui')));
 
-//Users API Routes
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/users/user', require('./routes/api/users'));
-
-// Accounts API Routes
-app.use('/api/accounts', require('./routes/api/accounts'));
+// All API Routes
+app.use('/api/v1/', allRoutes);
 
 
 const PORT = process.env.PORT || 5000;
