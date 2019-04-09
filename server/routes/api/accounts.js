@@ -59,10 +59,6 @@ accountsRouter.post('/', (req, res) => {
 
 // Admin or staff can activate or deactivate a bank account
 accountsRouter.patch('/:accountNumber', (req, res) => {
-    if(parseInt(req.params.accountNumber) === isNaN) {
-        return res.status(400).json({ msg: `Account number should be an integer`});
-    }
-
     const userDetails = {
         email : req.body.email,
         password : req.body.password
@@ -109,6 +105,53 @@ accountsRouter.patch('/:accountNumber', (req, res) => {
     } else {
         res.status(400).json({ msg: `Account number: ${req.params.accountNumber} does not exist`});
     }
-})
+});
+
+
+//Admin or staff can delete a bank account
+accountsRouter.delete('/:accountNumber', (req, res) => {
+    const userDetails = {
+        email : req.body.email,
+        password : req.body.password
+    }
+
+    if(!userDetails.email || !userDetails.password) {
+        return res.status(400).json({ msg: 'Please input your email and password'});
+    }
+
+    const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
+    const validPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+    
+    if(typeof(userDetails.email) === 'number' || typeof(userDetails.password) === 'number') {
+        return res.status(400).json({ msg: 'Your email or password can not contain numbers only.'});
+    }
+
+    if(!userDetails.email.match(validEmail) || !userDetails.password.match(validPassword)) {
+        return res.status(400).json({ msg: 'Your email must follow the standard email format and your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'});
+    }
+
+    const isAuthrized = users.some(user => user.email === userDetails.email && user.password === userDetails.password && user.type === 'staff');
+
+    if(!isAuthrized) {
+        return res.status(400).json({ msg: 'You are not authorized to perform this activity'});
+    }
+    const found = accounts.some(account => account.accountNumber === parseInt(req.params.accountNumber));
+
+    if(found) {
+        accounts.forEach(account => {
+            if(account.accountNumber === parseInt(req.params.accountNumber)) {
+                const index = accounts.indexOf(account);
+                accounts.splice(index, 1);
+            }
+        })
+        res.status(200).json({
+            msg: 'Account deleted',
+            data: accounts
+        });
+    } else {
+        res.status(400).json({ msg: `Account with number ${req.params.accountNumber} does not exist`});
+    }
+});
+
 
 module.exports = accountsRouter;
