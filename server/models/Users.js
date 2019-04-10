@@ -4,7 +4,7 @@ const users = [
         email : 'jac@gmail.com' ,
         firstName : 'Jacob' ,
         lastName : 'Black' ,
-        password : 'password1234' ,
+        password : 'Password-4567' ,
         type : 'client' , // client or staff
         isAdmin : false , // must be a staff user account
         createdOn : new Date()

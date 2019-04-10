@@ -53,7 +53,7 @@ class Accounts {
         }
 
         accounts.push(newAccount);
-        res.json(accounts);
+        res.status(200).json(newAccount);
     }// end of createAccount module
 
     static accountActivateDeactivate(req, res){
