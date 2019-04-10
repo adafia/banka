@@ -46,10 +46,10 @@ class Accounts {
         newAccount.owner = owner[0].id;
         }
 
-        let isType = 'savings' || 'current';
-
-        if(!isType) {
-            return res.status(400).json({ msg: 'Sorry your account type can be either savings or current.'})
+        if(newAccount.type !== 'savings') {
+            if(newAccount.type !== 'current') {
+                return res.status(400).json({ msg: 'Sorry your account type can be either savings or current.'})
+            }
         }
 
         accounts.push(newAccount);

@@ -9,7 +9,7 @@ const accounts = [
         email : 'jack@gmail.com',
         type : 'savings', // savings, current
         status : 'draft', // draft, active, or dormant
-        balance : Math.random() * 1000 
+        balance : Math.random() * 10000 
     },
     {
         id : 2,
@@ -21,7 +21,7 @@ const accounts = [
         email : 'snow@gmail.com',
         type : 'current', // savings, current
         status : 'active', // draft, active, or dormant
-        balance : Math.random() * 1000 
+        balance : Math.random() * 10000 
     },
     {
         id : 3,
@@ -33,7 +33,7 @@ const accounts = [
         email : 'red@gmail.com',
         type : 'current', // savings, current
         status : 'dormant', // draft, active, or dormant
-        balance : Math.random() * 1000 
+        balance : Math.random() * 10000 
     }
 ];
 
