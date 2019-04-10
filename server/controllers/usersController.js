@@ -36,7 +36,7 @@ class Users {
         const found = users.some(user => user.email === userDetails.email && user.password === userDetails.password);
 
         if(found) {
-            res.status(200).json(users.filter(user => user.email === userDetails.email));
+            res.status(200).json(users.filter(user => user.email === userDetails.email)[0]);
         } else {
             res.status(400).json({ msg: 'Your account details are wrong. Please input the right email and password'});
         }
@@ -80,7 +80,7 @@ class Users {
         users.push(newUser);
         res.status(200).json({ 
             status : 200,
-            data : users});
+            data : newUser});
 
     }
 }
