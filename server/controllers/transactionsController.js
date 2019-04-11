@@ -40,17 +40,17 @@ class Transactions {
 
         const isUser = users.some(user => user.id === newTransaction.cashier);
         if(!isUser){
-            return res.status(400).json({ msg: `Cashier with id: ${req.body.cashier} does not exist`});
+            return res.status(404).json({ msg: `Cashier with id: ${req.body.cashier} does not exist`});
         }
 
         const user = users.filter(user => user.id === newTransaction.cashier);
         if(user[0].type !== 'staff'){
-            return res.status(400).json({ msg: 'You are not Authorized to perform this activity'})
+            return res.status(401).json({ msg: 'You are not Authorized to perform this activity'})
         }
 
         const isAccount = accounts.some(account => account.accountNumber === newTransaction.accountNumber);
         if(!isAccount){
-            return res.status(400).json({ msg: `Account with number: ${req.body.accountNumber} does not exist`});
+            return res.status(404).json({ msg: `Account with number: ${req.body.accountNumber} does not exist`});
         }
         
         const account = accounts.filter(account => account.accountNumber === newTransaction.accountNumber);
@@ -70,7 +70,7 @@ class Transactions {
         }
 
         if(!sufficientFunds){
-            res.json({ msg : `Sorry account with number: ${newTransaction.accountNumber} has insufficient funds for this transaction`})
+            res.status(405).json({ msg : `Sorry account with number: ${newTransaction.accountNumber} has insufficient funds for this transaction`})
         }
 
         }
