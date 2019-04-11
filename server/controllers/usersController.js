@@ -78,8 +78,8 @@ class Users {
         }
 
         users.push(newUser);
-        res.status(200).json({ 
-            status : 200,
+        res.status(201).json({ 
+            status : 201,
             data : newUser});
 
     }

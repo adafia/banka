@@ -53,7 +53,7 @@ class Accounts {
         }
 
         accounts.push(newAccount);
-        res.status(200).json(newAccount);
+        res.status(201).json(newAccount);
     }// end of createAccount module
 
     static accountActivateDeactivate(req, res){
@@ -81,7 +81,7 @@ class Accounts {
         const isAuthrized = users.some(user => user.email === userDetails.email && user.password === userDetails.password && user.type === 'staff');
 
         if(!isAuthrized) {
-            return res.status(400).json({ msg: 'You are not authorized to perform this activity'});
+            return res.status(401).json({ msg: 'You are not authorized to perform this activity'});
         }
         
 
@@ -103,7 +103,7 @@ class Accounts {
                 }
             });
         } else {
-            res.status(400).json({ msg: `Account number: ${req.params.accountNumber} does not exist`});
+            res.status(404).json({ msg: `Account number: ${req.params.accountNumber} does not exist`});
         }
     }// end of accountActivateDeactivate module
 
@@ -132,7 +132,7 @@ class Accounts {
         const isAuthrized = users.some(user => user.email === userDetails.email && user.password === userDetails.password && user.type === 'staff');
 
         if(!isAuthrized) {
-            return res.status(400).json({ msg: 'You are not authorized to perform this activity'});
+            return res.status(401).json({ msg: 'You are not authorized to perform this activity'});
         }
         const found = accounts.some(account => account.accountNumber === parseInt(req.params.accountNumber));
 
@@ -148,7 +148,7 @@ class Accounts {
                 data: accounts
             });
         } else {
-            res.status(400).json({ msg: `Account with number ${req.params.accountNumber} does not exist`});
+            res.status(404).json({ msg: `Account with number ${req.params.accountNumber} does not exist`});
         }
     }// end of deleteAccount module
 }// end of Accounts class
