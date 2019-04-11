@@ -91,9 +91,10 @@ class Accounts {
             accounts.forEach(account => {
                 if (account.accountNumber === parseInt(req.params.accountNumber)) {
 
-                    let option = 'active' || 'dormant';
-                    if(updAccount.status !== option) {
-                        return res.status(400).json({ msg: 'Sorry you can only set status to active or dormant.'})
+                    if(updAccount.status !== 'active') {
+                        if(updAccount.status !== 'dormant') {
+                            return res.status(400).json({ msg: 'Sorry you can only set status to active or dormant.'})
+                        }
                     }
                     account.status = updAccount.status ? updAccount.status : account.status;
                     res.status(200).json({ 

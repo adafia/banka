@@ -43,4 +43,55 @@ describe('accounts', () => {
                 });
         });
     });
+
+    describe('PATCH /accounts/:accountNumber', () => {
+        it('should activate a bank account', (done) => {
+            const updAccount = {
+                email : 'snow@gmail.com',
+                password : 'Password-789',
+                status : 'active' 
+            }
+            chai.request(server)
+                .patch('/api/v1/accounts/1985253383')
+                .send(updAccount)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should deactivate a bank account', (done) => {
+            const updAccount = {
+                email : 'snow@gmail.com',
+                password : 'Password-789',
+                status : 'dormant' 
+            }
+            chai.request(server)
+                .patch('/api/v1/accounts/1985253379')
+                .send(updAccount)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+    });
+
+    describe('DELETE /accounts/:accountNumber', () => {
+        it('should delete a bank account', (done) => {
+            const userDetails = {
+                email : 'snow@gmail.com',
+                password : 'Password-789',
+            }
+            chai.request(server)
+                .delete('/api/v1/accounts/1985253383')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+    });
 });
