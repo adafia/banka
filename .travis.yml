@@ -6,7 +6,8 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script: 
-  - npm run test:coveralls
+  - npm run test
+  - npm run coverage
 cache: 
       directories:
         - node_modules,
