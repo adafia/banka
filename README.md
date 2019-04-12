@@ -1,5 +1,8 @@
 # BANKA
 
+## Badges
+[![Build Status](https://travis-ci.com/adafia/banka.svg?branch=develop)](https://travis-ci.com/adafia/banka)
+
 ## Project Overview
 Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money
 
@@ -23,5 +26,5 @@ Banka is a light-weight core banking application that powers banking operations 
 3. Create bank account. [done]
 4. Admin / Staff can activate or deactivate an account. [done]
 5. Admin / Staff can delete an account. [done]
-6. Staff (cashier) can credit an account.
-7. Staff (cashier) can debit an account.
+6. Staff (cashier) can credit an account. [done]
+7. Staff (cashier) can debit an account. [done]
