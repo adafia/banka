@@ -1,7 +1,7 @@
 # BANKA
 
 ## Badges
-[![Build Status](https://travis-ci.com/adafia/banka.svg?branch=develop)](https://travis-ci.com/adafia/banka) [![Coverage Status](https://coveralls.io/repos/github/adafia/banka/badge.svg?branch=develop)](https://coveralls.io/github/adafia/banka?branch=develop)
+[![Build Status](https://travis-ci.com/adafia/banka.svg?branch=develop)](https://travis-ci.com/adafia/banka)  [![Coverage Status](https://coveralls.io/repos/github/adafia/banka/badge.svg?branch=develop)](https://coveralls.io/github/adafia/banka?branch=develop)
 
 ## Project Overview
 Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money

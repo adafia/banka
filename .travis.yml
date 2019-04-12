@@ -7,10 +7,9 @@ before_script:
   - ./cc-test-reporter before-build
 script: 
   - npm run test
-  - npm run coverage
 cache: 
       directories:
         - node_modules,
         - build
 after_success:
- - npm run coverage
+ - npm run test:coveralls
