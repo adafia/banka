@@ -133,7 +133,24 @@
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,28 +237,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import users from '../models/Users';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import dotenv from 'dotenv';
+dotenv.config();
+import jwt from 'jsonwebtoken';
+import users from '../models/Users';
 &nbsp;
 class Users {
     static getAllUsers(req, res){
         // Get all users
         res.json(users);
-    }
+    }<span class="branch-1 cbranch-no" title="branch not covered" ></span>
 &nbsp;
-    static userSignIn(req, res){
-        //Sign in a user<span class="branch-1 cbranch-no" title="branch not covered" ></span>
-        const userDetails = {
-<span class="fstat-no" title="function not covered" >            email : req.b</span>ody.email,<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span>
-            password : req.body.password
-        }<span class="missing-if-branch" title="else path not taken" >E</span>
-&nbsp;
-        if(!userDetails.email || !userDetails.password) {<span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span><span class="missing-if-branch" title="if path not taken" >I</span></span>
-            return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});
+    stati<span class="fstat-no" title="function not covered" >c userSignIn(req</span>, res, next){<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span>
+        //Sign in a user
+        const userDetails = {<span class="missing-if-branch" title="else path not taken" >E</span>
+            email : req.body.email,
+            password : req.body.password<span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span><span class="missing-if-branch" title="if path not taken" >I</span></span>
         }
 &nbsp;
+        if(!userDetails.email || !userDetails.password) {
+            return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});
+        }<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
-        con<span class="fstat-no" title="function not covered" >st val</span>idPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{8,}$/
-<span class="cstat-no" title="statement not covered" >        // At least one upper case</span> English letter, (?=.*?[A-Z])
+        const validPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{8,}$/
+        // At least one upper case English letter, (?=.*?[A-Z])
         // At least one lower case English letter, (?=.*?[a-z])
         // At least one digit, (?=.*?[0-9])
         // At least one special character, (?=.*?[#?!@$%^&amp;*-])
@@ -258,7 +295,16 @@ class Users {
         const found = users.some(user =&gt; user.email === userDetails.email &amp;&amp; user.password === userDetails.password);
 &nbsp;
         if(found) {
-            res.status(200).json(users.filter(user =&gt; user.email === userDetails.email)[0]);
+            let user = users.filter(user =&gt; user.email === userDetails.email)[0];
+            jwt.sign(user, process.env.SECRET_OR_KEY, { expiresIn: '1h' }, (err, token) =&gt; {
+                if(err) { console.log(err) }
+                res.status(200).json({
+                    token: token,
+                    msg: 'You have logged in successfully',
+                    data: user
+                });
+            });
+            // res.status(200).json(user);
         } else {
             res.status(400).json({ msg: 'Your account details are wrong. Please input the right email and password'});
         }
@@ -266,8 +312,8 @@ class Users {
     }
 &nbsp;
     static userSignUp(req, res){
-        //Sign up an user 
-        const newUser = {
+      <span class="missing-if-branch" title="if path not taken" >I</span>  //Sign up an user 
+<span class="cstat-no" title="statement not covered" >        const newUser = {</span>
             id : users.length + 1 ,
             email : req.body.email,
             firstName : req.body.firstName,
@@ -278,8 +324,8 @@ class Users {
             createdOn : new Date()
         }
 &nbsp;
-      <span class="missing-if-branch" title="if path not taken" >I</span>  if(!newUser.email || !newUser.firstName || !newUser.lastName || !newUser.password) {
-<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});</span>
+        if(!newUser.email || !newUser.firstName || !newUser.lastName || !newUser.password) {
+            return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});
         }
         const validName = /^[A-Za-z]*$/
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
@@ -300,9 +346,14 @@ class Users {
         }
 &nbsp;
         users.push(newUser);
-        res.status(201).json({ 
-            status : 201,
-            data : newUser});
+        jwt.sign(newUser, process.env.SECRET_OR_KEY, { expiresIn: '1h' }, (err, token) =&gt; {
+            if(err) { console.log(err) }
+            res.status(201).json({
+                token: token, 
+                msg: 'User account has been created successfully',
+                data : newUser});
+        });
+        
 &nbsp;
     }
 }
@@ -313,7 +364,7 @@ export default Users;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Apr 13 2019 12:26:25 GMT+0200 (South Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Apr 14 2019 16:31:50 GMT+0200 (South Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

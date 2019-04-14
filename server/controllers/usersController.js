@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+import jwt from 'jsonwebtoken';
 import users from '../models/Users';
 
 class Users {
@@ -6,7 +9,7 @@ class Users {
         res.json(users);
     }
 
-    static userSignIn(req, res){
+    static userSignIn(req, res, next){
         //Sign in a user
         const userDetails = {
             email : req.body.email,
@@ -36,7 +39,16 @@ class Users {
         const found = users.some(user => user.email === userDetails.email && user.password === userDetails.password);
 
         if(found) {
-            res.status(200).json(users.filter(user => user.email === userDetails.email)[0]);
+            let user = users.filter(user => user.email === userDetails.email)[0];
+            jwt.sign(user, process.env.SECRET_OR_KEY, { expiresIn: '1h' }, (err, token) => {
+                if(err) { console.log(err) }
+                res.status(200).json({
+                    token: token,
+                    msg: 'You have logged in successfully',
+                    data: user
+                });
+            });
+            // res.status(200).json(user);
         } else {
             res.status(400).json({ msg: 'Your account details are wrong. Please input the right email and password'});
         }
@@ -78,9 +90,14 @@ class Users {
         }
 
         users.push(newUser);
-        res.status(201).json({ 
-            status : 201,
-            data : newUser});
+        jwt.sign(newUser, process.env.SECRET_OR_KEY, { expiresIn: '1h' }, (err, token) => {
+            if(err) { console.log(err) }
+            res.status(201).json({
+                token: token, 
+                msg: 'User account has been created successfully',
+                data : newUser});
+        });
+        
 
     }
 }
