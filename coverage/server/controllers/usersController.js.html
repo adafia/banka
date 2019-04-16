@@ -150,7 +150,11 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,6 +258,10 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import dotenv from 'dotenv';
 dotenv.config();
 import jwt from 'jsonwebtoken';
@@ -273,7 +281,7 @@ class Users {
         }
 &nbsp;
         if(!userDetails.email || !userDetails.password) {
-            return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});
+            return res.status(400).json({ message: 'Please fill in all required inputs of the form'});
         }<span class="fstat-no" title="function not covered" ></span>
 <span class="cstat-no" title="statement not covered" ></span>
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
@@ -285,11 +293,15 @@ class Users {
         // Minimum eight in length .{8,} (with the anchors)
         
         if(typeof(userDetails.email) === 'number' || typeof(userDetails.password) === 'number') {
-            return res.status(400).json({ msg: 'Your email or password can not contain numbers only.'});
+            return res.status(400).json({ message: 'Your email or password can not contain numbers only.'});
         }
 &nbsp;
-        if(!userDetails.email.match(validEmail) || !userDetails.password.match(validPassword)) {
-            return res.status(400).json({ msg: 'Your email must follow the standard email format and your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'});
+        if(!userDetails.email.match(validEmail)) {
+            return res.status(400).json({ message: 'Your email must follow the standard email format eg: test@gmail.com'});
+        }
+&nbsp;
+        if(!userDetails.password.match(validPassword)) {
+            return res.status(400).json({ message: 'Your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'});
         }
 &nbsp;
         const found = users.some(user =&gt; user.email === userDetails.email &amp;&amp; user.password === userDetails.password);
@@ -300,20 +312,20 @@ class Users {
                 if(err) { console.log(err) }
                 res.status(200).json({
                     token: token,
-                    msg: 'You have logged in successfully',
+                    message: 'You have logged in successfully',
                     data: user
                 });
             });
             // res.status(200).json(user);
         } else {
-            res.status(400).json({ msg: 'Your account details are wrong. Please input the right email and password'});
+            res.status(400).json({ message: 'Your password does not much your account details provided. Please input the right email and password'});
         }
-       
-    }
+      <span class="missing-if-branch" title="if path not taken" >I</span> 
+    }<span class="cstat-no" title="statement not covered" ></span>
 &nbsp;
     static userSignUp(req, res){
-      <span class="missing-if-branch" title="if path not taken" >I</span>  //Sign up an user 
-<span class="cstat-no" title="statement not covered" >        const newUser = {</span>
+        //Sign up an user 
+        const newUser = {
             id : users.length + 1 ,
             email : req.body.email,
             firstName : req.body.firstName,
@@ -325,24 +337,24 @@ class Users {
         }
 &nbsp;
         if(!newUser.email || !newUser.firstName || !newUser.lastName || !newUser.password) {
-            return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});
+            return res.status(400).json({ message: 'Please fill in all required inputs of the form'});
         }
         const validName = /^[A-Za-z]*$/
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
         const validPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{8,}$/
         
         if(typeof(newUser.firstName) === 'number' || typeof(newUser.lastName) === 'number') {
-            return res.status(400).json({ msg: 'Your first name or last name can not be numbers, please input alphabets only'});
+            return res.status(400).json({ message: 'Your first name or last name can not be numbers, please input alphabets only'});
         }
 &nbsp;
         if(!newUser.firstName.match(validName) || !newUser.lastName.match(validName) || !newUser.email.match(validEmail) || !newUser.password.match(validPassword)) {
-            return res.status(400).json({ msg: 'All or at least one of your inputs are invalid, please provide the appropriate characters for each input field'});
+            return res.status(400).json({ message: 'All or at least one of your inputs are invalid, please provide the appropriate characters for each input field'});
         }
 &nbsp;
         const found = users.some(user =&gt; user.email === newUser.email);
 &nbsp;
         if (found) {
-            return res.status(409).json({ msg: `Sorry email: ${newUser.email} is already in use`})
+            return res.status(409).json({ message: `Sorry email: ${newUser.email} is already in use`})
         }
 &nbsp;
         users.push(newUser);
@@ -350,7 +362,7 @@ class Users {
             if(err) { console.log(err) }
             res.status(201).json({
                 token: token, 
-                msg: 'User account has been created successfully',
+                message: 'User account has been created successfully',
                 data : newUser});
         });
         
@@ -364,7 +376,7 @@ export default Users;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Apr 14 2019 16:31:50 GMT+0200 (South Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Apr 16 2019 22:34:45 GMT+0200 (South Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

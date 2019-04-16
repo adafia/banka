@@ -17,7 +17,7 @@ class Users {
         }
 
         if(!userDetails.email || !userDetails.password) {
-            return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});
+            return res.status(400).json({ message: 'Please fill in all required inputs of the form'});
         }
 
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
@@ -29,11 +29,15 @@ class Users {
         // Minimum eight in length .{8,} (with the anchors)
         
         if(typeof(userDetails.email) === 'number' || typeof(userDetails.password) === 'number') {
-            return res.status(400).json({ msg: 'Your email or password can not contain numbers only.'});
+            return res.status(400).json({ message: 'Your email or password can not contain numbers only.'});
         }
 
-        if(!userDetails.email.match(validEmail) || !userDetails.password.match(validPassword)) {
-            return res.status(400).json({ msg: 'Your email must follow the standard email format and your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'});
+        if(!userDetails.email.match(validEmail)) {
+            return res.status(400).json({ message: 'Your email must follow the standard email format eg: test@gmail.com'});
+        }
+
+        if(!userDetails.password.match(validPassword)) {
+            return res.status(400).json({ message: 'Your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'});
         }
 
         const found = users.some(user => user.email === userDetails.email && user.password === userDetails.password);
@@ -44,13 +48,13 @@ class Users {
                 if(err) { console.log(err) }
                 res.status(200).json({
                     token: token,
-                    msg: 'You have logged in successfully',
+                    message: 'You have logged in successfully',
                     data: user
                 });
             });
             // res.status(200).json(user);
         } else {
-            res.status(400).json({ msg: 'Your account details are wrong. Please input the right email and password'});
+            res.status(400).json({ message: 'Your password does not much your account details provided. Please input the right email and password'});
         }
        
     }
@@ -69,24 +73,24 @@ class Users {
         }
 
         if(!newUser.email || !newUser.firstName || !newUser.lastName || !newUser.password) {
-            return res.status(400).json({ msg: 'Please fill in all required inputs of the form'});
+            return res.status(400).json({ message: 'Please fill in all required inputs of the form'});
         }
         const validName = /^[A-Za-z]*$/
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
         const validPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
         
         if(typeof(newUser.firstName) === 'number' || typeof(newUser.lastName) === 'number') {
-            return res.status(400).json({ msg: 'Your first name or last name can not be numbers, please input alphabets only'});
+            return res.status(400).json({ message: 'Your first name or last name can not be numbers, please input alphabets only'});
         }
 
         if(!newUser.firstName.match(validName) || !newUser.lastName.match(validName) || !newUser.email.match(validEmail) || !newUser.password.match(validPassword)) {
-            return res.status(400).json({ msg: 'All or at least one of your inputs are invalid, please provide the appropriate characters for each input field'});
+            return res.status(400).json({ message: 'All or at least one of your inputs are invalid, please provide the appropriate characters for each input field'});
         }
 
         const found = users.some(user => user.email === newUser.email);
 
         if (found) {
-            return res.status(409).json({ msg: `Sorry email: ${newUser.email} is already in use`})
+            return res.status(409).json({ message: `Sorry email: ${newUser.email} is already in use`})
         }
 
         users.push(newUser);
@@ -94,7 +98,7 @@ class Users {
             if(err) { console.log(err) }
             res.status(201).json({
                 token: token, 
-                msg: 'User account has been created successfully',
+                message: 'User account has been created successfully',
                 data : newUser});
         });
         
