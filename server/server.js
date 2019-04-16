@@ -2,13 +2,10 @@ import express from 'express';
 import path from 'path';
 import allRoutes from './routes/api';
 import bodyParser from 'body-parser'
-// import logger from './middleware/logger';
 
 
 const app = express();
 
-// Init Middleware
-// app.use(logger);
 
 // Body Parser Middleware
 // support parsing of application/json type post data
