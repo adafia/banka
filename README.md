@@ -1,5 +1,8 @@
 # BANKA
 
+## Badges
+[![Build Status](https://travis-ci.com/adafia/banka.svg?branch=develop)](https://travis-ci.com/adafia/banka)  [![Coverage Status](https://coveralls.io/repos/github/adafia/banka/badge.svg?branch=develop)](https://coveralls.io/github/adafia/banka?branch=develop)
+
 ## Project Overview
 Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money
 
@@ -18,8 +21,10 @@ Banka is a light-weight core banking application that powers banking operations 
 12. Admin can create staff and admin user accounts. [done]
 
 ## Features (API - Endpoints)
-1. Create bank account.
-2. Admin / Staff can activate or deactivate an account.
-3. Admin / Staff can delete an account.
-4. Staff (cashier) can credit an account.
-5. Staff (cashier) can debit an account.
+1. User sign up. [done]
+2. User sign in. [done]
+3. Create bank account. [done]
+4. Admin / Staff can activate or deactivate an account. [done]
+5. Admin / Staff can delete an account. [done]
+6. Staff (cashier) can credit an account. [done]
+7. Staff (cashier) can debit an account. [done]

@@ -1,0 +1,4 @@
+node_modules
+build
+.coveralls.yml
+.env

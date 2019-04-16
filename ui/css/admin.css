@@ -604,11 +604,10 @@ span.close {
 
 
 @media screen and (max-width: 768px) {
-    
     .modal form {
         margin: 30% 5%;
         width: 90%;
-        position: relative;
+        position: absolute;        
     }
 
     .modal .input-group input {

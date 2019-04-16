@@ -1,0 +1,48 @@
+{
+  "name": "banka",
+  "version": "1.0.0",
+  "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "nyc report --reporter=html --reporter=text mocha --timeout 3000 --require @babel/register test/*js",
+    "start": "node bin/dev",
+    "dev": "nodemon bin/dev",
+    "clean": "rm -rf build",
+    "build": "npm run clean && mkdir build && babel server -s -d build",
+    "production": "npm run build && node bin/production",
+    "coverage": "nyc report --reporter=html --reporter=text _mocha",
+    "test:coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adafia/banka.git"
+  },
+  "keywords": [],
+  "author": "Samuel Adafia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adafia/banka/issues"
+  },
+  "homepage": "https://github.com/adafia/banka#readme",
+  "dependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "coveralls": "^3.0.3",
+    "mocha": "^6.1.2",
+    "nodemon": "^1.18.10",
+    "nyc": "^13.3.0"
+  }
+}
