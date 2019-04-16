@@ -82,8 +82,8 @@ nav ul li a:hover{
     width: calc(30% - 15%);
     height: calc(30% - 2.5%);
     float: left;
-    margin: 4rem 1.5rem 1.5rem 1.5rem;
-    left: calc(50% - 28%);
+    margin: 4rem 7rem 1.5rem 7rem;
+    left: 5%;
     box-sizing: border-box;
     border-radius: 10px;
     overflow: hidden;
@@ -177,10 +177,11 @@ nav ul li a:hover{
 .form-container {
     width: 90%;
     height: 100%;
-    margin: 20rem auto;
+    margin: 12.5rem auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 form {
@@ -476,17 +477,10 @@ button:hover, button:focus {
     }
     
     .container .box {
-<<<<<<< HEAD
         width: calc(30% - 10%);
         height: calc(100px - 20px);
-        margin-top: 2rem;
-        left: 1%;
-=======
-        width: calc(30% - 25px);
-        height: calc(100px - 20px);
         margin: 2rem .5rem;
-        left: 8%;
->>>>>>> 895c0e23945e410898cc92d36786c17da3236402
+        left: 12%;
     }
     
         
@@ -523,7 +517,7 @@ button:hover, button:focus {
     .form-container {
         width: 90%;
         height: 100%;
-        margin: 5rem auto;
+        margin: 1rem auto;
         display: block;
     }
 
