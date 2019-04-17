@@ -13,7 +13,7 @@ describe('users', () => {
                 .get('/api/v1/users')
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('array');
+                    res.body.should.be.a('object');
                     done();
                 });
         });
@@ -26,7 +26,7 @@ describe('users', () => {
                 password : 'Password-456'
             };
             chai.request(server)
-                .post('/api/v1/users')
+                .post('/api/v1/auth/signin')
                 .send(userDetails)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -35,13 +35,13 @@ describe('users', () => {
                 });
         });
 
-        it('should not sign-in a user if any input field is empty', (done) => {
+        it('should not sign-in a user if email input field is empty', (done) => {
             const userDetails = {
                 email : '',
                 password : 'Password-456'
             };
             chai.request(server)
-                .post('/api/v1/users')
+                .post('/api/v1/auth/signin')
                 .send(userDetails)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -50,13 +50,118 @@ describe('users', () => {
                 });
         });
 
-        it('should not sign-in a user if any email and password input field have type number', (done) => {
+        it('should not sign-in a user if password input field is empty', (done) => {
             const userDetails = {
-                email : 123,
-                password : 765
+                email : 'mark@gmail.com',
+                password : ''
             };
             chai.request(server)
-                .post('/api/v1/users')
+                .post('/api/v1/auth/signin')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if email input is a number', (done) => {
+            const userDetails = {
+                email : 123,
+                password : 'Password-456'
+            };
+            chai.request(server)
+                .post('/api/v1/auth/signin')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if the email provided does not follow the standard email format', (done) => {
+            const userDetails = {
+                email : 'markgmailcom',
+                password : 'Password-456'
+            };
+            chai.request(server)
+                .post('/api/v1/auth/signin')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if the password provided does have an uppercase letter', (done) => {
+            const userDetails = {
+                email : 'mark@gmail.com',
+                password : 'password-456'
+            };
+            chai.request(server)
+                .post('/api/v1/auth/signin')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if the password provided does have an lowercase letter', (done) => {
+            const userDetails = {
+                email : 'mark@gmail.com',
+                password : 'PASSWORD-456'
+            };
+            chai.request(server)
+                .post('/api/v1/auth/signin')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if the password provided does have a special character', (done) => {
+            const userDetails = {
+                email : 'mark@gmail.com',
+                password : 'Password456'
+            };
+            chai.request(server)
+                .post('/api/v1/auth/signin')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if the password provided does have a number', (done) => {
+            const userDetails = {
+                email : 'mark@gmail.com',
+                password : 'Password-'
+            };
+            chai.request(server)
+                .post('/api/v1/auth/signin')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if the password length is less done 8 characters', (done) => {
+            const userDetails = {
+                email : 'mark@gmail.com',
+                password : 'Pas-12'
+            };
+            chai.request(server)
+                .post('/api/v1/auth/signin')
                 .send(userDetails)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -71,7 +176,7 @@ describe('users', () => {
                 password : 'Password-456'
             };
             chai.request(server)
-                .post('/api/v1/users')
+                .post('/api/v1/auth/signin')
                 .send(userDetails)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -94,7 +199,7 @@ describe('users', () => {
                 createdOn : new Date()
             }
             chai.request(server)
-                .post('/api/v1/users/user')
+                .post('/api/v1/auth/signup')
                 .send(newUser)
                 .end((err, res) => {
                     res.should.have.status(201);
@@ -103,7 +208,7 @@ describe('users', () => {
                 });
         });
 
-        it('should not sign-up a user if any of the required fields are empty', (done) => {
+        it('should not sign-up a user if email field is empty', (done) => {
             const newUser = {
                 id : users.length + 1 ,
                 email : '',
@@ -115,7 +220,7 @@ describe('users', () => {
                 createdOn : new Date()
             }
             chai.request(server)
-                .post('/api/v1/users/user')
+                .post('/api/v1/auth/signup')
                 .send(newUser)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -124,11 +229,95 @@ describe('users', () => {
                 });
         });
 
-        it('should not sign-up a user if the first and last name fields are of type number', (done) => {
+        it('should not sign-up a user if first name field is empty', (done) => {
+            const newUser = {
+                id : users.length + 1 ,
+                email : 'ama@gmail.com',
+                firstName : '',
+                lastName : 'Silver',
+                password : 'Password-967811',
+                type : 'client' ,
+                isAdmin : false , 
+                createdOn : new Date()
+            }
+            chai.request(server)
+                .post('/api/v1/auth/signup')
+                .send(newUser)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-up a user if last name field is empty', (done) => {
+            const newUser = {
+                id : users.length + 1 ,
+                email : 'ama@gmail.com',
+                firstName : 'Ama',
+                lastName : '',
+                password : 'Password-967811',
+                type : 'client' ,
+                isAdmin : false , 
+                createdOn : new Date()
+            }
+            chai.request(server)
+                .post('/api/v1/auth/signup')
+                .send(newUser)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-up a user if password field is empty', (done) => {
+            const newUser = {
+                id : users.length + 1 ,
+                email : 'ama@gmail.com',
+                firstName : 'Ama',
+                lastName : 'Silver',
+                password : '',
+                type : 'client' ,
+                isAdmin : false , 
+                createdOn : new Date()
+            }
+            chai.request(server)
+                .post('/api/v1/auth/signup')
+                .send(newUser)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-up a user if the first name provided is a number', (done) => {
             const newUser = {
                 id : users.length + 1 ,
                 email : 'ama@gmail.com',
                 firstName : 1234,
+                lastName : 'Silver',
+                password : 'Password-967811',
+                type : 'client' ,
+                isAdmin : false , 
+                createdOn : new Date()
+            }
+            chai.request(server)
+                .post('/api/v1/auth/signup')
+                .send(newUser)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-up a user if the last name provided is a number', (done) => {
+            const newUser = {
+                id : users.length + 1 ,
+                email : 'ama@gmail.com',
+                firstName : 'Ama',
                 lastName : 1234,
                 password : 'Password-967811',
                 type : 'client' ,
@@ -136,7 +325,7 @@ describe('users', () => {
                 createdOn : new Date()
             }
             chai.request(server)
-                .post('/api/v1/users/user')
+                .post('/api/v1/auth/signup')
                 .send(newUser)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -145,7 +334,7 @@ describe('users', () => {
                 });
         });
 
-        it('should not sign-up a user if the email filled in does not follow the standard email format', (done) => {
+        it('should not sign-up a user if the email provided does not follow the standard email format', (done) => {
             const newUser = {
                 id : users.length + 1 ,
                 email : 'amagmailcom',
@@ -157,7 +346,7 @@ describe('users', () => {
                 createdOn : new Date()
             }
             chai.request(server)
-                .post('/api/v1/users/user')
+                .post('/api/v1/auth/signup')
                 .send(newUser)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -178,7 +367,7 @@ describe('users', () => {
                 createdOn : new Date()
             }
             chai.request(server)
-                .post('/api/v1/users/user')
+                .post('/api/v1/auth/signup')
                 .send(newUser)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -199,7 +388,7 @@ describe('users', () => {
                 createdOn : new Date()
             }
             chai.request(server)
-                .post('/api/v1/users/user')
+                .post('/api/v1/auth/signup')
                 .send(newUser)
                 .end((err, res) => {
                     res.should.have.status(409);
