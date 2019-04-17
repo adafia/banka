@@ -13,7 +13,7 @@ describe('accounts', () => {
                 .get('/api/v1/accounts')
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('array');
+                    res.body.should.be.a('object');
                     done();
                 });
         });
@@ -43,7 +43,7 @@ describe('accounts', () => {
                 });
         });
 
-        it('should not create an account for a user if any of the required fields are empty', (done) => {
+        it('should not create an account for a user if the first name field is empty', (done) => {
             const newAccount = {
                 id : accounts.length + 1,
                 accountNumber : Math.floor(Math.random() * 10000000000),
@@ -53,6 +53,75 @@ describe('accounts', () => {
                 lastName : 'Brown',
                 email : 'mark@gmail.com',
                 type : 'current',
+                status : 'draft',
+                balance : 0.0 
+            }
+            chai.request(server)
+                .post('/api/v1/accounts')
+                .send(newAccount)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not create an account for a user if the last name field is empty', (done) => {
+            const newAccount = {
+                id : accounts.length + 1,
+                accountNumber : Math.floor(Math.random() * 10000000000),
+                createdOn : new Date(),
+                owner : '',
+                firstName : 'Mark',
+                lastName : '',
+                email : 'mark@gmail.com',
+                type : 'current',
+                status : 'draft',
+                balance : 0.0 
+            }
+            chai.request(server)
+                .post('/api/v1/accounts')
+                .send(newAccount)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not create an account for a user if the email field is empty', (done) => {
+            const newAccount = {
+                id : accounts.length + 1,
+                accountNumber : Math.floor(Math.random() * 10000000000),
+                createdOn : new Date(),
+                owner : '',
+                firstName : 'Mark',
+                lastName : 'Brown',
+                email : '',
+                type : 'current',
+                status : 'draft',
+                balance : 0.0 
+            }
+            chai.request(server)
+                .post('/api/v1/accounts')
+                .send(newAccount)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not create an account for a user if the account type field is empty', (done) => {
+            const newAccount = {
+                id : accounts.length + 1,
+                accountNumber : Math.floor(Math.random() * 10000000000),
+                createdOn : new Date(),
+                owner : '',
+                firstName : 'Mark',
+                lastName : 'Brown',
+                email : 'mark@gmail.com',
+                type : '',
                 status : 'draft',
                 balance : 0.0 
             }
@@ -99,6 +168,29 @@ describe('accounts', () => {
                 lastName : 1234,
                 email : 'mark@gmail.com',
                 type : 'current',
+                status : 'draft',
+                balance : 0.0 
+            }
+            chai.request(server)
+                .post('/api/v1/accounts')
+                .send(newAccount)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not create an account for a user if the account type provided is of type number', (done) => {
+            const newAccount = {
+                id : accounts.length + 1,
+                accountNumber : Math.floor(Math.random() * 10000000000),
+                createdOn : new Date(),
+                owner : '',
+                firstName : 'Mark',
+                lastName : 'Brown',
+                email : 'mark@gmail.com',
+                type : 12453,
                 status : 'draft',
                 balance : 0.0 
             }
@@ -215,10 +307,26 @@ describe('accounts', () => {
                 });
         });
 
-        it('should neither activate nor deactivate a bank account if any of the required fields are empty', (done) => {
+        it('should neither activate nor deactivate a bank account if the email field empty', (done) => {
             const updAccount = {
                 email : '',
                 password : 'Password-789',
+                status : 'dormant' 
+            }
+            chai.request(server)
+                .patch('/api/v1/accounts/1985253379')
+                .send(updAccount)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should neither activate nor deactivate a bank account if password field empty', (done) => {
+            const updAccount = {
+                email : 'snow@gmail.com',
+                password : '',
                 status : 'dormant' 
             }
             chai.request(server)
@@ -360,10 +468,55 @@ describe('accounts', () => {
                 });
         });
 
-        it('should not delete a bank account if any of the required input fields are empty', (done) => {
+        it('should not delete a bank account if the email field is empty', (done) => {
             const userDetails = {
                 email : '',
                 password : 'Password-789',
+            }
+            chai.request(server)
+                .delete('/api/v1/accounts/1985253383')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not delete a bank account if the password field is empty', (done) => {
+            const userDetails = {
+                email : 'snow@gmail.com',
+                password : '',
+            }
+            chai.request(server)
+                .delete('/api/v1/accounts/1985253383')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not delete a bank account if the email provided does not follow the standard email format', (done) => {
+            const userDetails = {
+                email : 'snowgmailcom',
+                password : 'Password-789',
+            }
+            chai.request(server)
+                .delete('/api/v1/accounts/1985253383')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not delete a bank account if the password provided does not follow the standard format', (done) => {
+            const userDetails = {
+                email : 'snow@gmail.com',
+                password : 'password789',
             }
             chai.request(server)
                 .delete('/api/v1/accounts/1985253383')

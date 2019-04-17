@@ -4,7 +4,11 @@ import users from '../models/Users';
 class Accounts {
    static getAllAccounts(req, res){
         // Get all accounts
-        res.json(accounts);
+        res.status(200).json({
+            status: 200,
+            message: 'All bank accounts have been fetched successfully',
+            data: accounts
+        });
     }// end of getAllAccounts module
 
     static createAccount(req, res){
@@ -23,44 +27,71 @@ class Accounts {
         }
 
         if(!newAccount.firstName) {
-            return res.status(400).json({ message: 'Please fill out your first name, it is a required field'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Please fill out your first name, it is a required field'
+            });
         }
 
         if(!newAccount.lastName) {
-            return res.status(400).json({ message: 'Please fill out your last name, it is a required field'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Please fill out your last name, it is a required field'
+            });
         }
 
         if(!newAccount.email) {
-            return res.status(400).json({ message: 'Please fill out your email, it is a required field'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Please fill out your email, it is a required field'
+            });
         }
 
         if(!newAccount.type) {
-            return res.status(400).json({ message: 'Please fill out your account type, it is a required field'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Please fill out your account type, it is a required field'
+            });
         }
 
         const validName = /^[A-Za-z]*$/
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
             
         if(typeof(newAccount.type) === 'number') {
-            return res.status(400).json({ message: 'Your account type can not be a number'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your account type can not be a number'
+            });
+        }
+        
+        if(!newAccount.firstName.toString().match(validName)) {
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your first name can only have alphabets in them'
+            });
         }
 
-        if(!newAccount.firstName.match(validName) || typeof(newAccount.firstName) === 'number') {
-            return res.status(400).json({ message: 'Your first name can only have alphabets in them'});
+        if(!newAccount.lastName.toString().match(validName)) {
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your last name can only have alphabets in them'
+            });
         }
 
-        if(!newAccount.lastName.match(validName) || typeof(newAccount.lastName) === 'number') {
-            return res.status(400).json({ message: 'Your last name can only have alphabets in them'});
-        }
-
-        if(!newAccount.email.match(validEmail) || typeof(newAccount.email) === 'number') {
-            return res.status(400).json({ message: 'Your email must follow the standard email format eg: test@gmail.com'});
+        if(!newAccount.email.toString().match(validEmail)) {
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your email must follow the standard email format eg: test@gmail.com'
+            });
         }
 
         const found = users.some(user => user.email === newAccount.email);
 
         if(!found) {
-        return res.status(404).json({ message: 'Sorry you do not have a user account yet, please sign up and return to this page'});
+        return res.status(404).json({ 
+            status: 404,
+            message: 'Sorry you do not have a user account yet, please sign up and return to this page'
+        });
         } else {
         let owner = users.filter(user => user.email === newAccount.email) 
         newAccount.owner = owner[0].id;
@@ -68,12 +99,19 @@ class Accounts {
 
         if(newAccount.type !== 'savings') {
             if(newAccount.type !== 'current') {
-                return res.status(400).json({ message: 'Sorry your account type can be either savings or current.'})
+                return res.status(400).json({ 
+                    status: 400,
+                    message: 'Sorry your account type can be either savings or current.'
+                })
             }
         }
 
         accounts.push(newAccount);
-        res.status(201).json(newAccount);
+        res.status(201).json({
+            status: 201,
+            message: 'Your bank account has been created successfully',
+            data: newAccount
+        });
     }// end of createAccount module
 
     static accountActivateDeactivate(req, res){
@@ -84,36 +122,57 @@ class Accounts {
         }
 
         if(!userDetails.email) {
-            return res.status(400).json({ message: 'Please input your email'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Please input your email'
+            });
         }
 
         if(!userDetails.password) {
-            return res.status(400).json({ message: 'Please input your password'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Please input your password'
+            });
         }
 
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
         const validPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
         
         if(typeof(userDetails.email) === 'number') {
-            return res.status(400).json({ message: 'Your email can not be a number.'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your email can not be a number.'
+            });
         }
 
         if(typeof(userDetails.password) === 'number') {
-            return res.status(400).json({ message: 'Your password can not be a number.'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your password can not be a number.'
+            });
         }
 
         if(!userDetails.email.match(validEmail)) {
-            return res.status(400).json({ message: 'Your email must follow the standard email format eg: test@gmail.com'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your email must follow the standard email format eg: test@gmail.com'
+            });
         }
 
         if(!userDetails.password.match(validPassword)) {
-            return res.status(400).json({ message: 'Your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'
+            });
         }
 
         const isAuthrized = users.some(user => user.email === userDetails.email && user.password === userDetails.password && user.type === 'staff');
 
         if(!isAuthrized) {
-            return res.status(401).json({ message: 'You are not authorized to perform this activity'});
+            return res.status(401).json({ 
+                status: 401,
+                message: 'You are not authorized to perform this activity'
+            });
         }
         
 
@@ -125,17 +184,25 @@ class Accounts {
 
                     if(updAccount.status !== 'active') {
                         if(updAccount.status !== 'dormant') {
-                            return res.status(400).json({ message: 'Sorry you can only set status to active or dormant.'})
+                            return res.status(400).json({ 
+                                status: 400,
+                                message: 'Sorry you can only set status to active or dormant.'
+                            });
                         }
                     }
                     account.status = updAccount.status ? updAccount.status : account.status;
-                    res.status(200).json({ 
+                    res.status(200).json({
+                        status: 200, 
                         message: `Account with number ${req.params.accountNumber} has been made ${updAccount.status}`,
-                        data: account});
+                        data: account
+                    });
                 }
             });
         } else {
-            res.status(404).json({ message: `Account number: ${req.params.accountNumber} does not exist`});
+            res.status(404).json({ 
+                status: 404,
+                message: `Account number: ${req.params.accountNumber} does not exist`
+            });
         }
     }// end of accountActivateDeactivate module
 
@@ -147,28 +214,43 @@ class Accounts {
         }
 
         if(!userDetails.email) {
-            return res.status(400).json({ message: 'Please input your email'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Please input your email'
+            });
         }
 
         if(!userDetails.password) {
-            return res.status(400).json({ message: 'Please input your password'});
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Please input your password'
+            });
         }
 
         const validEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
         const validPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
-        if(!userDetails.email.match(validEmail) || typeof(userDetails.email) === 'number') {
-            return res.status(400).json({ message: 'Your email must follow the standard email format eg: test@gmail.com'});
+        if(!userDetails.email.toString().match(validEmail)) {
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your email must follow the standard email format eg: test@gmail.com'
+            });
         }
 
-        if(!userDetails.password.match(validPassword) || typeof(userDetails.password) === 'number') {
-            return res.status(400).json({ message: 'Your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'});
+        if(!userDetails.password.toString().match(validPassword)) {
+            return res.status(400).json({ 
+                status: 400,
+                message: 'Your password should have at least one upper case English letter,one lower case English letter, one digit, one special character and a Minimum eight characters'
+            });
         }
 
         const isAuthrized = users.some(user => user.email === userDetails.email && user.password === userDetails.password && user.type === 'staff');
 
         if(!isAuthrized) {
-            return res.status(401).json({ message: 'You are not authorized to perform this activity'});
+            return res.status(401).json({ 
+                status: 400,
+                message: 'You are not authorized to perform this activity'
+            });
         }
         const found = accounts.some(account => account.accountNumber === parseInt(req.params.accountNumber));
 
@@ -180,11 +262,15 @@ class Accounts {
                 }
             })
             res.status(200).json({
-                message: 'Account deleted',
+                status: 200,
+                message: 'Account successfully deleted',
                 data: accounts
             });
         } else {
-            res.status(404).json({ message: `Account with number ${req.params.accountNumber} does not exist`});
+            res.status(404).json({ 
+                status: 404,
+                message: `Account with number ${req.params.accountNumber} does not exist`
+            });
         }
     }// end of deleteAccount module
 }// end of Accounts class
