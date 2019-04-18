@@ -9,7 +9,7 @@
   "scripts": {
     "test": "nyc report --reporter=html --reporter=text mocha --timeout 3000 --require @babel/register test/*js",
     "test:mocha": "mocha --timeout 3000 --require @babel/register test/*js",
-    "start": "node bin/dev",
+    "start": "npm run build && node bin/dev",
     "dev": "nodemon bin/dev",
     "clean": "rm -rf build",
     "build": "npm run clean && mkdir build && babel server -s -d build",
@@ -29,16 +29,16 @@
   },
   "homepage": "https://github.com/adafia/banka#readme",
   "dependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
-    "@babel/register": "^7.4.0",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "coveralls": "^3.0.3",
