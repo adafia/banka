@@ -1,5 +1,5 @@
-import accounts from '../models/Account';
-import users from '../models/Users';
+import accounts from '../../models/v1/Account';
+import users from '../../models/v1/Users';
 
 class Accounts {
    static getAllAccounts(req, res){

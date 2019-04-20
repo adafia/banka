@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../server/server';
-import transactions from '../server/models/Transactions'
+import server from '../../server/server';
+import transactions from '../../server/models/v1/Transactions'
 
 chai.use(chaiHttp);
 chai.should();
@@ -235,6 +235,24 @@ describe('transactions', () => {
                 .send(newTransaction)
                 .end((err, res) => {
                     res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not debit a bank account if the account has in sufficient account', (done) => {
+            const newTransaction = {
+                id : transactions.length + 1,
+                createdOn : new Date(),
+                cashier : 3, // cashier who consummated the transaction
+                amount : 5009900000,
+                newBalance : 0
+            }
+            chai.request(server)
+                .post('/api/v1//transactions/8365373668/debit')
+                .send(newTransaction)
+                .end((err, res) => {
+                    res.should.have.status(405);
                     res.body.should.be.a('object');
                     done();
                 });

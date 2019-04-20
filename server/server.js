@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import allRoutes from './routes/api';
+import allRoutes from './routes/api/v1';
 import bodyParser from 'body-parser'
 
 

@@ -1,6 +1,6 @@
-import transactions from '../models/Transactions';
-import users from '../models/Users';
-import accounts from '../models/Account';
+import transactions from '../../models/v1/Transactions';
+import users from '../../models/v1/Users';
+import accounts from '../../models/v1/Account';
 
 class Transactions {
     static getAllTransactions(req, res) {
