@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import jwt from 'jsonwebtoken';
-import users from '../models/Users';
+import users from '../../models/v1/Users';
 
 class Users {
     static getAllUsers(req, res){
@@ -57,7 +57,6 @@ class Users {
         if(found) {
             let user = users.filter(user => user.email === userDetails.email)[0];
             jwt.sign(user, process.env.SECRET_OR_KEY, { expiresIn: '1h' }, (err, token) => {
-                if(err) { console.log(err) }
                 res.status(200).json({
                     status: 200,
                     token: token,
@@ -144,7 +143,6 @@ class Users {
 
         users.push(newUser);
         jwt.sign(newUser, process.env.SECRET_OR_KEY, { expiresIn: '1h' }, (err, token) => {
-            if(err) { console.log(err) }
             res.status(201).json({
                 status: 201,
                 token: token, 

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../server/server';
-import accounts from '../server/models/Account'
+import server from '../../server/server';
+import accounts from '../../server/models/v1/Account'
 
 chai.use(chaiHttp);
 chai.should();
