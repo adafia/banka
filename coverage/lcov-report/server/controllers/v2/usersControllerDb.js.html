@@ -20,31 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">45% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>20/20</span>
+        <span class='fraction'>9/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">90% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>9/10</span>
+        <span class='fraction'>0/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">45% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>20/20</span>
+        <span class='fraction'>9/20</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -110,40 +110,40 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">82x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,9 +166,9 @@ import checkToken from '../../helpers/checkToken';
 import Joi from 'joi';
 import userSchema from '../../helpers/userValidation';
 &nbsp;
-const Users = <span class="branch-5 cbranch-no" title="branch not covered" >{</span>
+const Users = {
     async userSignUp(req, res) {
-        const user = {
+        const <span class="cstat-no" title="statement not covered" >user = {</span>
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
@@ -176,30 +176,30 @@ const Users = <span class="branch-5 cbranch-no" title="branch not covered" >{</s
             password: req.body.password,
             created_on: Date.now()
         };
-        const result = Joi.validate(user, userSchema);
+        const <span class="cstat-no" title="statement not covered" >result = Joi.validate(user, userSchema);</span>
             if (result.error){
-                res.status(400).send(result.error.details[0].message);
+<span class="cstat-no" title="statement not covered" >                res.</span>status(400).send(result.error.details[0].message);
                 return
             }
-        const found = `SELECT * FROM users WHERE email = $1`;
-        const response = await db.query(found, [req.body.email]);
+        const <span class="cstat-no" title="statement not covered" >found = `SELECT * FROM users WHERE email = $1`;</span>
+        const <span class="cstat-no" title="statement not covered" >response = await db.query(found, [req.body.email]);</span>
             if(response.rows[0]) {
                 return res.status(409).send({ 
                     status: 409,
                     message: `Sorry email: ${user.email} is already in use`})
             }
 &nbsp;
-        const text = `INSERT INTO users(first_name, last_name, email, type, password, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-        const values = [user.first_name, user.last_name, user.email, user.type, user.password, user.created_on];
+        const <span class="cstat-no" title="statement not covered" >text = `INSERT INTO users(first_name, last_name, email, type, password, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;</span>
+        const <span class="cstat-no" title="statement not covered" >values = [user.first_name, user.last_name, user.email, user.type, user.password, user.created_on];</span>
         
         try {
-            const { rows } = await db.query(text, values);
-            const payload = {
+            const { <span class="cstat-no" title="statement not covered" >rows } = await db.query(text, values);</span>
+            const <span class="cstat-no" title="statement not covered" >payload = {</span>
                 last_name: req.body.last_name,
                 email: req.body.email
                 }
-            jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1h'}, (err, token) =&gt; {
-                return res.status(201).send({
+<span class="cstat-no" title="statement not covered" >            jwt.s</span>ign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1h'}, <span class="fstat-no" title="function not covered" >(e</span>rr, token) =&gt; {
+<span class="cstat-no" title="statement not covered" >                return r</span>es.status(201).send({
                     status: 201,
                     token: token,
                     message: 'User account has been created successfully',
@@ -220,7 +220,7 @@ export default Users;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Apr 21 2019 14:00:01 GMT+0200 (South Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Apr 21 2019 14:28:48 GMT+0200 (South Africa Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>
