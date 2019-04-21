@@ -18,8 +18,10 @@ const Users = {
         };
         const result = Joi.validate(user, userSchema);
             if (result.error){
-                res.status(400).send(result.error.details[0].message);
-                return
+                return res.status(400).send({
+                    status: 400,
+                    message: result.error.details[0].message
+                });
             }
         const found = `SELECT * FROM users WHERE email = $1`;
         const response = await db.query(found, [req.body.email]);
