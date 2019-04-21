@@ -37,13 +37,13 @@ const createAccountTables = () => {
         accounts(
             id SERIAL PRIMARY KEY,
             account_number BIGSERIAL,
-            owner INT NOT NULL,
+            owner INT,
             first_name VARCHAR(50) NOT NULL,
             last_name VARCHAR(50) NOT NULL,
             email VARCHAR(225) NOT NULL,
             type VARCHAR(7) NOT NULL,
             status VARCHAR(7),
-            balance INT,
+            balance FLOAT,
             created_on FLOAT,
             FOREIGN KEY (owner) REFERENCES users(id) ON DELETE NO ACTION
         )`;
