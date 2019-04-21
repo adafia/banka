@@ -123,4 +123,67 @@ describe('users', () => {
         });
 
     });
+
+    describe('POST /users', () => {
+        it('should sign-in a user', (done) => {
+            const user = {
+                email : 'job@gmail.com',
+                password : 'Passwor-1job',
+            }
+            chai.request(server)
+                .post('/api/v2/auth/signin')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if inputs do not pass joi validation', (done) => {
+            const user = {
+                email : 'jobgmail.com',
+                password : 'Passwor-1job',
+            }
+            chai.request(server)
+                .post('/api/v2/auth/signin')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user password is invalid', (done) => {
+            const user = {
+                email : 'job@gmail.com',
+                password : 'Passwor-2job',
+            }
+            chai.request(server)
+                .post('/api/v2/auth/signin')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not sign-in a user if the user does not have an account', (done) => {
+            const user = {
+                email : 'thomson@gmail.com',
+                password : 'Passwor-2job',
+            }
+            chai.request(server)
+                .post('/api/v2/auth/signin')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+    });
 });
