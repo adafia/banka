@@ -1,7 +1,9 @@
 import express from 'express';
 import path from 'path';
+import '@babel/polyfill';
 import allRoutes from './routes/api/v1';
-import bodyParser from 'body-parser'
+import allRoutesDb from './routes/api/v2';
+import bodyParser from 'body-parser';
 
 
 const app = express();
@@ -19,6 +21,7 @@ app.use(express.static(path.join(__dirname, '../ui')));
 
 // All API Routes
 app.use('/api/v1/', allRoutes);
+app.use('/api/v2/', allRoutesDb);
 
 
 const PORT = process.env.PORT || 5000;

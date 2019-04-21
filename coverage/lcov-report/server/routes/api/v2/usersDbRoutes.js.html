@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for server/routes/api/v1/transactionsRoutes.js</title>
+    <title>Code coverage report for server/routes/api/v2/usersDbRoutes.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\..\..\base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">server/routes/api/v1</a> transactionsRoutes.js
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">server/routes/api/v2</a> usersDbRoutes.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>5/5</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>5/5</span>
       </div>
     </div>
     <p class="quiet">
@@ -53,30 +53,21 @@
 <a name='L5'></a><a href='#L5'>5</a>
 <a name='L6'></a><a href='#L6'>6</a>
 <a name='L7'></a><a href='#L7'>7</a>
-<a name='L8'></a><a href='#L8'>8</a>
-<a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a>
-<a name='L11'></a><a href='#L11'>11</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L8'></a><a href='#L8'>8</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { Router } from 'express';
-import allTransactions from '../../../controllers/v1/transactionsController';
+import allUsersDb from '../../../controllers/v2/usersControllerDb';
 &nbsp;
-const transactionRoutes = Router();
+const usersRouterDb = Router();
 &nbsp;
-transactionRoutes.get('/transactions', allTransactions.getAllTransactions);
-transactionRoutes.post('/transactions/:accountNumber/credit', allTransactions.accountCredit);
-transactionRoutes.post('/transactions/:accountNumber/debit', allTransactions.accountDebit);
+usersRouterDb.post('/auth/signup', allUsersDb.userSignUp);
 &nbsp;
-&nbsp;
-export default transactionRoutes;</pre></td></tr>
+export default usersRouterDb;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
