@@ -19,7 +19,7 @@ const createUserTables = () => {
             password VARCHAR(1000) NOT NULL,
             type VARCHAR(6) NOT NULL,
             is_admin BOOLEAN DEFAULT FALSE,
-            created_on TIMESTAMP
+            created_on FLOAT
         )`;
     pool.query(userTable)
         .then((res) => {
@@ -44,7 +44,7 @@ const createAccountTables = () => {
             type VARCHAR(7) NOT NULL,
             status VARCHAR(7),
             balance INT,
-            created_on TIMESTAMP,
+            created_on FLOAT,
             FOREIGN KEY (owner) REFERENCES users(id) ON DELETE NO ACTION
         )`;
     pool.query(accountsTable)
@@ -65,9 +65,9 @@ const createTransactionTables = () => {
             account_number BIGSERIAL,
             cashier INT NOT NULL,
             type VARCHAR(7) NOT NULL,
-            old_balance INT,
-            new_balance INT,
-            created_on TIMESTAMP
+            old_balance FLOAT,
+            new_balance FLOAT,
+            created_on FLOAT
         )`;
     pool.query(transactionsTable)
         .then((res) => {
@@ -82,8 +82,8 @@ const createTransactionTables = () => {
 
 
 const dropTables = () => {
-    const queryText = 'DROP TABLE IF EXISTS users, accounts, transactions';
-    pool.query(queryText)
+    const deleteTables = 'DROP TABLE IF EXISTS users, accounts, transactions';
+    pool.query(deleteTables)
       .then((res) => {
         console.log(res);
         pool.end();
