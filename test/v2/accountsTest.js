@@ -167,4 +167,82 @@ describe('accounts', () => {
 
     });
 
+    describe('DELETE /accounts', () => {
+        it('should allow an admin to delete a bank account', (done) => {
+            const staff = {
+                email: 'adafia@gmail.com',
+                password: 'Password-1234',
+            }
+            chai.request(server)
+                .delete('/api/v2/accounts/1')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not allow an admin to delete a bank account if the account does not exist', (done) => {
+            const staff = {
+                email: 'adafia@gmail.com',
+                password: 'Password-1234',
+            }
+            chai.request(server)
+                .delete('/api/v2/accounts/190')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not allow an admin to delete a bank account if the input provided does not pass joi validation', (done) => {
+            const staff = {
+                email: 'adafiagmail.com',
+                password: 'Password-1234',
+            }
+            chai.request(server)
+                .delete('/api/v2/accounts/2')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not allow an admin to delete a bank account if the password is invalid', (done) => {
+            const staff = {
+                email: 'adafia@gmail.com',
+                password: 'Password-1434',
+            }
+            chai.request(server)
+                .delete('/api/v2/accounts/2')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not delete a bank account if user is not authorized', (done) => {
+            const staff = {
+                email: 'mark@gmail.com',
+                password: 'Passwor-1mark',
+            }
+            chai.request(server)
+                .delete('/api/v2/accounts/2')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+    });
+
 });

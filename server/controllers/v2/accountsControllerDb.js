@@ -81,7 +81,7 @@ const Accounts = {
         }
         const found = `SELECT * FROM users WHERE email = $1`;
         const response = await db.query(found, [req.body.email]);
-        if(response.rows[0].is_admin !== true){
+        if(response.rows[0].type !== 'staff'){
             return res.status(401).send({
                 status: 401,
                 message: 'You are not authorized to perform this function'
@@ -107,7 +107,7 @@ const Accounts = {
             });
         }
 
-        const findAccount = 'SELECT * FROM accounts WHERE id = $1';
+        const findAccount = 'SELECT * FROM accounts WHERE account_number = $1';
         const upDateAcc = 'UPDATE accounts SET status = $1 WHERE account_number = $2 RETURNING *';
         const values = [accountUpdate.status, accountUpdate.account_number];
 
@@ -129,6 +129,56 @@ const Accounts = {
         } catch(err) {
             return res.status(400).send(err);
         }
+    },
+
+    async deleteAccount(req, res){
+        const userDetails = {
+            email : req.body.email,
+            password : req.body.password
+        }
+        const allow = Joi.validate(userDetails, loginSchema)
+        if (allow.error){
+            return res.status(400).send({
+                status: 400,
+                message: allow.error.details[0].message
+            });
+        }
+        const found = `SELECT * FROM users WHERE email = $1`;
+        const response = await db.query(found, [req.body.email]);
+        if(response.rows[0].type !== 'staff'){
+            return res.status(401).send({
+                status: 401,
+                message: 'You are not authorized to perform this function'
+            });
+        }
+        if(response.rows[0].password !== req.body.password){
+            return res.status(403).send({
+                status: 403,
+                message: 'Invalid password'
+            });
+        }
+        const findAccount = 'SELECT * FROM accounts WHERE account_number = $1';
+        const { rows } = await db.query(findAccount, [req.params.accountNumber]);
+        try {
+            if(!rows[0]) {
+                return res.status(404).send({
+                    status: 404,
+                    message: `Account with number: ${req.params.accountNumber} does not exist`
+                });
+            } else {
+                const deleteAccount = 'DELETE FROM accounts WHERE account_number = $1 RETURNING *';
+                const deleted = await db.query(deleteAccount, [req.params.accountNumber]);
+                return res.status(200).send({
+                    status: 200,
+                    message: `Account with number: ${req.params.accountNumber} has been deleted`,
+                    data: deleted.rows[0]
+                });
+            }
+        } catch(error){
+            return res.status(400).send(error);
+        }
+        
+        
     }
 }
 
