@@ -6,6 +6,18 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('users', () => {
+    describe('GET /users', () => {
+        it('should get all users', (done) => {
+            chai.request(server)
+                .get('/api/v2/users')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+    });
 
     describe('POST /users', () => {
         it('should sign-up a user', (done) => {
@@ -127,8 +139,8 @@ describe('users', () => {
     describe('POST /users', () => {
         it('should sign-in a user', (done) => {
             const user = {
-                email : 'job@gmail.com',
-                password : 'Passwor-1job',
+                email : 'adafia@gmail.com',
+                password : 'Password-1234',
             }
             chai.request(server)
                 .post('/api/v2/auth/signin')
@@ -142,8 +154,8 @@ describe('users', () => {
 
         it('should not sign-in a user if inputs do not pass joi validation', (done) => {
             const user = {
-                email : 'jobgmail.com',
-                password : 'Passwor-1job',
+                email : 'adafiagmail.com',
+                password : 'Password-1234',
             }
             chai.request(server)
                 .post('/api/v2/auth/signin')
@@ -157,7 +169,7 @@ describe('users', () => {
 
         it('should not sign-in a user password is invalid', (done) => {
             const user = {
-                email : 'job@gmail.com',
+                email : 'adafia@gmail.com',
                 password : 'Passwor-2job',
             }
             chai.request(server)

@@ -8,6 +8,19 @@ chai.should();
 
 describe('accounts', () => {
     
+    describe('GET /accounts', () => {
+        it('should get all bank accounts', (done) => {
+            chai.request(server)
+                .get('/api/v2/accounts')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+    });
+
     describe('POST /accounts', () => {
         it('should create an account for a user', (done) => {
             const newAccount = {
@@ -70,4 +83,88 @@ describe('accounts', () => {
         });
 
     });
+
+    describe('PATCH /accounts', () => {
+        it('should allow an admin to update a bank account', (done) => {
+            const staff = {
+                email: 'adafia@gmail.com',
+                password: 'Password-1234',
+                status: 'active'
+            }
+            chai.request(server)
+                .patch('/api/v2/accounts/1')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+        
+        it('should not allow an admin to update a bank account if the input provided does not pass Joi validation', (done) => {
+            const staff = {
+                email: 'adafiagmail.com',
+                password: 'Password-1234',
+                status: 'active'
+            }
+            chai.request(server)
+                .patch('/api/v2/accounts/1')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not update a bank account if the user is not an admin', (done) => {
+            const staff = {
+                email: 'mark@gmail.com',
+                password: 'Passwor-1mark',
+                status: 'active'
+            }
+            chai.request(server)
+                .patch('/api/v2/accounts/1')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not update a bank account if the password provided is not valid', (done) => {
+            const staff = {
+                email: 'adafia@gmail.com',
+                password: 'Passwor-1mark',
+                status: 'active'
+            }
+            chai.request(server)
+                .patch('/api/v2/accounts/1')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not update a bank account if account number does not exist', (done) => {
+            const staff = {
+                email: 'adafia@gmail.com',
+                password: 'Password-1234',
+                status: 'active'
+            }
+            chai.request(server)
+                .patch('/api/v2/accounts/1190')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+    });
+
 });
