@@ -6,6 +6,7 @@ import checkToken from '../../helpers/checkToken';
 import Joi from 'joi';
 import loginSchema from '../../helpers/loginValidation';
 import transactionSchema from '../../helpers/transactionValidation';
+import accountTransactions from '../../helpers/getAccountTransctionValidation';
 
 const Transactions = {
     async getAllTransactions (req, res) {
@@ -167,6 +168,54 @@ const Transactions = {
             return res.status(400).send(err);
         }
 
+    },
+
+    async getAccountTransactions(req, res){
+        const userDetails = {
+            email : req.body.email,
+            password : req.body.password,
+            account_number: req.params.accountNumber
+        }
+        const allow = Joi.validate(userDetails, accountTransactions)
+        if (allow.error){
+            return res.status(400).send({
+                status: 400,
+                message: allow.error.details[0].message
+            });
+        }
+        const found = `SELECT * FROM users WHERE email = $1`;
+        const response = await db.query(found, [req.body.email]);
+        const text = 'SELECT * FROM transactions WHERE account_number =$1';
+        const { rows } = await db.query(text, [req.params.accountNumber]);
+        const accountSearch = 'SELECT * FROM accounts WHERE owner =$1';
+        if(response.rows[0]) {
+            const isOwner = await db.query(accountSearch, [response.rows[0].id]);
+            if(isOwner.rows[0]) {
+                if(!rows[0]){
+                    return res.status(404).send({
+                        status: 404,
+                        message: 'No transactions have occured involving account'
+                    });
+                } else {
+                    return res.status(200).send({
+                        status: 200,
+                        message: `Transactions for account with number ${req.params.accountNumber} have been fetched successfully`,
+                        data: rows
+                    });
+                } 
+            } else {
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Sorry you can only view transactions of accounts you own'})
+            }
+        } else {
+            return res.status(404).send({
+                status: 404,
+                message: 'Sorry, this feature is reserved for users only'});
+        }
+        
+
+        
     }
 }
 
