@@ -44,8 +44,7 @@ const createAccountTables = () => {
             type VARCHAR(7) NOT NULL,
             status VARCHAR(7),
             balance FLOAT,
-            created_on FLOAT,
-            FOREIGN KEY (owner) REFERENCES users(id) ON DELETE NO ACTION
+            created_on FLOAT
         )`;
     pool.query(accountsTable)
         .then((res) => {
