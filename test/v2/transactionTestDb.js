@@ -121,6 +121,89 @@ describe('accounts', () => {
 
     });
 
+    describe('POST /transactions/:accountNumber/credit', () => {
+        it('should allow an admin to credit a bank account', (done) => {
+            const staff = {
+                    email: 'adafia@gmail.com',
+                    password: 'Password-1234',
+                    amount: 1000
+                }
+            chai.request(server)
+                .post('/api/v2/transactions/2/credit')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not allow an admin to credit a bank account if input provided does not pass Joi validation', (done) => {
+            const staff = {
+                    email: 'adafiagmail.com',
+                    password: 'Password-1234',
+                    amount: 1000
+                }
+            chai.request(server)
+                .post('/api/v2/transactions/1/credit')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not allow an admin to credit a bank account if the account number does not exist', (done) => {
+            const staff = {
+                    email: 'adafia@gmail.com',
+                    password: 'Password-1234',
+                    amount: 1000
+                }
+            chai.request(server)
+                .post('/api/v2/transactions/2017/credit')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not allow an admin to credit a bank account if the password is invalid', (done) => {
+            const staff = {
+                    email: 'adafia@gmail.com',
+                    password: 'Password-1434',
+                    amount: 10
+                }
+            chai.request(server)
+                .post('/api/v2/transactions/2/credit')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not credit a bank account if the user is not authorized', (done) => {
+            const staff = {
+                    email: 'mark@gmail.com',
+                    password: 'Passwor-1mark',
+                    amount: 10
+                }
+            chai.request(server)
+                .post('/api/v2/transactions/2/credit')
+                .send(staff)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+    });
+
     
 
 });
