@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for server/routes/api/v2/accountsDbRoutes.js</title>
+    <title>Code coverage report for server/routes/api/v2/transactionsDbRoutes.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\..\..\base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">server/routes/api/v2</a> accountsDbRoutes.js
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">server/routes/api/v2</a> transactionsDbRoutes.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>7/7</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>7/7</span>
       </div>
     </div>
     <p class="quiet">
@@ -64,22 +64,22 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { Router } from 'express';
 import checkToken from '../../../helpers/checkToken';
-import allAccountsDb from '../../../controllers/v2/accountsControllerDb';
+import allTransactionsDb from '../../../controllers/v2/transactionsControllerDb';
 &nbsp;
-const accountsRouterDb = Router();
+const transactionRoutesDb = Router();
 &nbsp;
-accountsRouterDb.get('/accounts', allAccountsDb.getAllaccounts);
-accountsRouterDb.post('/accounts', allAccountsDb.createAccount);
-accountsRouterDb.patch('/accounts/:accountNumber', allAccountsDb.accountActivateDeactivate);
-accountsRouterDb.delete('/accounts/:accountNumber', allAccountsDb.deleteAccount);
+transactionRoutesDb.get('/transactions', allTransactionsDb.getAllTransactions);
+// transactionRoutesDb.post('/transactions/:accountNumber/credit', allTransactionsDb.accountCredit);
+transactionRoutesDb.post('/transactions/:accountNumber/debit', allTransactionsDb.accountDebit);
 &nbsp;
-export default accountsRouterDb;</pre></td></tr>
+&nbsp;
+export default transactionRoutesDb;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->

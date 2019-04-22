@@ -62,7 +62,7 @@ const createTransactionTables = () => {
     const transactionsTable = `CREATE TABLE IF NOT EXISTS
         transactions(
             id SERIAL PRIMARY KEY,
-            account_number BIGSERIAL,
+            account_number INT NOT NULL,
             cashier INT NOT NULL,
             type VARCHAR(7) NOT NULL,
             old_balance FLOAT,
