@@ -8,6 +8,16 @@ import signupSchema from '../../helpers/userValidation';
 import loginSchema from '../../helpers/loginValidation';
 
 const Users = {
+    async getAllUsers(req, res){
+        const fetchAll = 'SELECT * FROM users';
+        try {
+            const { rows, rowCount } = await db.query(fetchAll);
+            return res.status(200).send({ rows, rowCount});
+        } catch(error){
+            return res.status(400).send(error);
+        }
+    },
+
     async userSignUp(req, res) {
         const user = {
             first_name: req.body.first_name,
