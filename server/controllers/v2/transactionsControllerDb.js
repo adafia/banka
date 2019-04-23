@@ -77,7 +77,7 @@ const Transactions = {
                     const response = await db.query(debitAccount, values);
                     //creating a transaction
                     const text = `INSERT INTO transactions(account_number, cashier, type, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-                    const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'debit', oldBalance, newBalance, Date.now()];
+                    const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'debit', oldBalance, newBalance, new Date()];
                     const newTransaction = await db.query(text, transactvalues);
                     return res.status(200).send({
                         status: 200,
@@ -155,7 +155,7 @@ const Transactions = {
                 const response = await db.query(creditAccount, values);
                 //creating a transaction
                 const text = `INSERT INTO transactions(account_number, cashier, type, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-                const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'credit', oldBalance, newBalance, Date.now()];
+                const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'credit', oldBalance, newBalance, new Date()];
                 const newTransaction = await db.query(text, transactvalues);
                 return res.status(200).send({
                     status: 200,
@@ -253,7 +253,6 @@ const Transactions = {
         }
 
         if(isOwner.rows[0].owner === response.rows[0].id){
-            console.log(isOwner.rows[0].owner)
             return res.status(200).send({
                 status: 200,
                 message: `Transaction with id: ${req.params.id} has been fetched successfully`,

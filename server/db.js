@@ -19,7 +19,7 @@ const createUserTables = () => {
             password VARCHAR(1000) NOT NULL,
             type VARCHAR(6) NOT NULL,
             is_admin BOOLEAN DEFAULT FALSE,
-            created_on FLOAT
+            created_on VARCHAR(50) NOT NULL
         )`;
     pool.query(userTable)
         .then((res) => {
@@ -44,7 +44,7 @@ const createAccountTables = () => {
             type VARCHAR(7) NOT NULL,
             status VARCHAR(7),
             balance FLOAT,
-            created_on FLOAT
+            created_on VARCHAR(50) NOT NULL
         )`;
     pool.query(accountsTable)
         .then((res) => {
@@ -66,7 +66,7 @@ const createTransactionTables = () => {
             type VARCHAR(7) NOT NULL,
             old_balance FLOAT,
             new_balance FLOAT,
-            created_on FLOAT
+            created_on VARCHAR(50) NOT NULL
         )`;
     pool.query(transactionsTable)
         .then((res) => {
