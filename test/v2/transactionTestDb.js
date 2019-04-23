@@ -312,6 +312,84 @@ describe('accounts', () => {
 
     });
 
+    describe('GET /transactions/:id', () => {
+        it('should get a specific transaction by id upon request from the owner of the account', (done) => {
+            const userDetails = {
+                email : 'mark@gmail.com',
+                password : 'Passwor-1mark'
+            }
+            chai.request(server)
+                .get('/api/v2/transactions/8')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not get a specific transaction if the id does not exist', (done) => {
+            const userDetails = {
+                email : 'mark@gmail.com',
+                password : 'Passwor-1mark'
+            }
+            chai.request(server)
+                .get('/api/v2/transactions/10097')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not get a specific transaction if the client does not have a user account', (done) => {
+            const userDetails = {
+                email : 'mar@gmail.com',
+                password : 'Passwor-1mark'
+            }
+            chai.request(server)
+                .get('/api/v2/transactions/10097')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not get a specific transaction if the user is not the owner of the account', (done) => {
+            const userDetails = {
+                email : 'mark@gmail.com',
+                password : 'Passwor-1mark'
+            }
+            chai.request(server)
+                .get('/api/v2/transactions/11')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it('should not get a specific transaction if the user input does not pass the Joi validation', (done) => {
+            const userDetails = {
+                email : 'markgmail.com',
+                password : 'Passwor-1mark'
+            }
+            chai.request(server)
+                .get('/api/v2/transactions/11')
+                .send(userDetails)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+    });
+
     
 
 });
