@@ -6,6 +6,7 @@ import checkToken from '../../helpers/checkToken';
 import Joi from 'joi';
 import signupSchema from '../../helpers/userValidation';
 import loginSchema from '../../helpers/loginValidation';
+import bcrypt from 'bcrypt';
 
 const Users = {
     async getAllUsers(req, res){
@@ -34,6 +35,9 @@ const Users = {
                     message: result.error.details[0].message
                 });
             }
+        let salt = bcrypt.genSaltSync(10);
+        let hash = bcrypt.hashSync(user.password, salt);
+
         const found = `SELECT * FROM users WHERE email = $1`;
         const response = await db.query(found, [req.body.email]);
             if(response.rows[0]) {
@@ -43,7 +47,7 @@ const Users = {
             }
 
         const text = `INSERT INTO users(first_name, last_name, email, type, password, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-        const values = [user.first_name, user.last_name, user.email, user.type, user.password, user.created_on];
+        const values = [user.first_name, user.last_name, user.email, user.type, hash, user.created_on];
         
         try {
             const { rows } = await db.query(text, values);
@@ -53,7 +57,7 @@ const Users = {
                     status: 201,
                     token: token,
                     message: 'User account has been created successfully',
-                    data: rows[0]
+                    data: rows[0].first_name
                 });
             });
             
@@ -78,14 +82,15 @@ const Users = {
         const found = `SELECT * FROM users WHERE email = $1`;
         const response = await db.query(found, [req.body.email]);
         if(response.rows[0]) {
-            if(response.rows[0].password === req.body.password){
+            let validPassword = bcrypt.compareSync(req.body.password, response.rows[0].password);
+            if(validPassword){
                 jwt.sign({ email: req.body.email }, process.env.SECRET_OR_KEY, { expiresIn: '1h' }, (err, token) => {
                     if(err) res.send(err)
                     return res.status(200).send({
                         status: 200,
                         token: token,
                         message: 'You have logged in successfully',
-                        data: response.rows[0]
+                        data: response.rows[0].first_name
                     });
                 });
             } else {

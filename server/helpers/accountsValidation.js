@@ -7,7 +7,7 @@ const createAccountSchema = Joi.object().keys({
     status: Joi.string().trim().alphanum().equal(['active','dormant','draft']).required(),
     type: Joi.string().trim().alphanum().equal(['savings','current']).required(),
     balance: Joi.number().required(),
-    created_on: Joi.number().required()
+    created_on: Joi.required()
 });
 
 export default createAccountSchema;

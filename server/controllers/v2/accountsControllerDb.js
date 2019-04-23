@@ -26,7 +26,7 @@ const Accounts = {
             type: req.body.type,
             status: 'draft',
             balance: 0.0,
-            created_on: Date.now(),
+            created_on: new Date(),
         }
 
         const result = Joi.validate(newAccount, createAccountSchema);
@@ -43,8 +43,8 @@ const Accounts = {
         
 
         if(response.rows[0]) {
-            const text = `INSERT INTO accounts(owner, first_name, last_name, email, type, status, balance, created_on) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
-            const values = [response.rows[0].id, newAccount.first_name, newAccount.last_name, newAccount.email, newAccount.type, newAccount.status, newAccount.balance, newAccount.created_on];
+            const text = `INSERT INTO accounts(account_number, owner, first_name, last_name, email, type, status, balance, created_on) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+            const values = [Math.floor(Math.random() * 10000000000), response.rows[0].id, newAccount.first_name, newAccount.last_name, newAccount.email, newAccount.type, newAccount.status, newAccount.balance, newAccount.created_on];
             try {
                 const { rows } = await db.query(text, values);
                 const payload = { email: req.body.email }
