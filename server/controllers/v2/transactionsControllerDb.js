@@ -7,6 +7,7 @@ import Joi from 'joi';
 import loginSchema from '../../helpers/loginValidation';
 import transactionSchema from '../../helpers/transactionValidation';
 import accountTransactions from '../../helpers/getAccountTransctionValidation';
+import specificTransactionsSchema from '../../helpers/specificTransactionValidation';
 
 const Transactions = {
     async getAllTransactions (req, res) {
@@ -213,9 +214,60 @@ const Transactions = {
                 status: 404,
                 message: 'Sorry, this feature is reserved for users only'});
         }
+           
+    },
+
+    async viewSpecificTransaction(req, res){
+        const userDetails = {
+            email : req.body.email,
+            password : req.body.password,
+            id: req.params.id
+        }
+        const allow = Joi.validate(userDetails, specificTransactionsSchema)
+        if (allow.error){
+            return res.status(400).send({
+                status: 400,
+                message: allow.error.details[0].message
+            });
+        }
+
+        const text = 'SELECT * FROM transactions WHERE id = $1';
+        const { rows } = await db.query(text, [req.params.id]);
+        if(!rows[0]) {
+            return res.status(404).send({
+                status: 404,
+                message: `Transaction with id: ${req.params.id} does not exist`
+            });
+        }
+
+        const accountSearch = 'SELECT * FROM accounts WHERE account_number =$1';
+        const isOwner = await db.query(accountSearch, [rows[0].account_number]);
         
 
+        const found = `SELECT * FROM users WHERE email = $1`;
+        const response = await db.query(found, [req.body.email]);
+        if(!response.rows[0]){
+            return res.status(404).send({
+                status: 404,
+                message: 'Sorry, this feature is reserved for users only'});
+        }
+
+        if(isOwner.rows[0].owner === response.rows[0].id){
+            console.log(isOwner.rows[0].owner)
+            return res.status(200).send({
+                status: 200,
+                message: `Transaction with id: ${req.params.id} has been fetched successfully`,
+                data: rows[0]
+            });
+        } else {
+            return res.status(403).send({
+                status: 403,
+                message: 'Sorry you can only view transactions of accounts you own'
+            });
+        }
+
         
+
     }
 }
 
