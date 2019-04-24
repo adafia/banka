@@ -4,11 +4,11 @@ import allTransactionsDb from '../../../controllers/v2/transactionsControllerDb'
 
 const transactionRoutesDb = Router();
 
-transactionRoutesDb.get('/transactions', allTransactionsDb.getAllTransactions);
-transactionRoutesDb.post('/transactions/:accountNumber/credit', allTransactionsDb.accountCredit);
-transactionRoutesDb.post('/transactions/:accountNumber/debit', allTransactionsDb.accountDebit);
-transactionRoutesDb.get('/accounts/:accountNumber/transactions', allTransactionsDb.getAccountTransactions);
-transactionRoutesDb.get('/transactions/:id', allTransactionsDb.viewSpecificTransaction);
+transactionRoutesDb.get('/transactions', checkToken, allTransactionsDb.getAllTransactions);
+transactionRoutesDb.post('/transactions/:accountNumber/credit', checkToken, allTransactionsDb.accountCredit);
+transactionRoutesDb.post('/transactions/:accountNumber/debit', checkToken, allTransactionsDb.accountDebit);
+transactionRoutesDb.get('/accounts/:accountNumber/transactions', checkToken, allTransactionsDb.getAccountTransactions);
+transactionRoutesDb.get('/transactions/:id', checkToken, allTransactionsDb.viewSpecificTransaction);
 
 
 export default transactionRoutesDb;

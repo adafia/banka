@@ -2,11 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import jwt from 'jsonwebtoken';
 import db from '../../models/v2/index';
-import checkToken from '../../helpers/checkToken';
 import Joi from 'joi';
-import loginSchema from '../../helpers/loginValidation';
 import transactionSchema from '../../helpers/transactionValidation';
-import accountTransactions from '../../helpers/getAccountTransctionValidation';
 import specificTransactionsSchema from '../../helpers/specificTransactionValidation';
 
 const Transactions = {
@@ -14,38 +11,39 @@ const Transactions = {
         const fetchAll = 'SELECT * FROM transactions';
         try {
             const { rows, rowCount } = await db.query(fetchAll);
-            return res.status(200).send({ rows, rowCount});
+            jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+                if(err){
+                    return res.status(403).send({
+                        status: 403,
+                        message: 'Forbidden access'
+                    });
+                } else if(authrizedData.is_admin === true){
+                    return res.status(200).send({ rows, rowCount});
+                } else {
+                    return res.status(401).send({ message: 'You are not authorized'});
+                }
+            })
         } catch(error){
             return res.status(400).send(error);
         }
     },
 
     async accountDebit (req, res){
-        const userDetails = {
-            email : req.body.email,
-            password : req.body.password
-        }
-        const allow = Joi.validate(userDetails, loginSchema)
-        if (allow.error){
-            return res.status(400).send({
-                status: 400,
-                message: allow.error.details[0].message
-            });
-        }
+        let cashierEmail = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else if (authrizedData.is_cashier !== true){
+                return res.status(401).send({ message: 'You are not authorized' });
+            } else {
+                cashierEmail = authrizedData.email
+            }
+        });
         const found = `SELECT * FROM users WHERE email = $1`;
-        const cashier = await db.query(found, [req.body.email]);
-        if(cashier.rows[0].type !== 'staff'){
-            return res.status(401).send({
-                status: 401,
-                message: 'You are not authorized to perform this function'
-            });
-        }
-        if(cashier.rows[0].password !== req.body.password){
-            return res.status(403).send({
-                status: 403,
-                message: 'Invalid password'
-            });
-        }
+        const cashier = await db.query(found, [cashierEmail]);
 
         const debitDetails = {
             amount: req.body.amount,
@@ -100,31 +98,23 @@ const Transactions = {
     },
 
     async accountCredit (req, res){
-        const userDetails = {
-            email : req.body.email,
-            password : req.body.password
-        }
-        const allow = Joi.validate(userDetails, loginSchema)
-        if (allow.error){
-            return res.status(400).send({
-                status: 400,
-                message: allow.error.details[0].message
-            });
-        }
+        let cashierEmail = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+                    
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else if(authrizedData.is_cashier !== true){
+                return res.status(401).send({message: 'You are not authorized'});
+                 
+            } else {
+                cashierEmail = authrizedData.email
+            }
+        })
         const found = `SELECT * FROM users WHERE email = $1`;
-        const cashier = await db.query(found, [req.body.email]);
-        if(cashier.rows[0].type !== 'staff'){
-            return res.status(401).send({
-                status: 401,
-                message: 'You are not authorized to perform this function'
-            });
-        }
-        if(cashier.rows[0].password !== req.body.password){
-            return res.status(403).send({
-                status: 403,
-                message: 'Invalid password'
-            });
-        }
+        const cashier = await db.query(found, [cashierEmail]);
 
         const creditDetails = {
             amount: req.body.amount,
@@ -172,20 +162,21 @@ const Transactions = {
     },
 
     async getAccountTransactions(req, res){
-        const userDetails = {
-            email : req.body.email,
-            password : req.body.password,
-            account_number: req.params.accountNumber
-        }
-        const allow = Joi.validate(userDetails, accountTransactions)
-        if (allow.error){
-            return res.status(400).send({
-                status: 400,
-                message: allow.error.details[0].message
-            });
-        }
+        let userEmail = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else {
+                userEmail = authrizedData.email;
+            }
+        });
+        console.log(userEmail);
+
         const found = `SELECT * FROM users WHERE email = $1`;
-        const response = await db.query(found, [req.body.email]);
+        const response = await db.query(found, [userEmail]);
         const text = 'SELECT * FROM transactions WHERE account_number =$1';
         const { rows } = await db.query(text, [req.params.accountNumber]);
         const accountSearch = 'SELECT * FROM accounts WHERE owner =$1';
@@ -223,6 +214,7 @@ const Transactions = {
             password : req.body.password,
             id: req.params.id
         }
+
         const allow = Joi.validate(userDetails, specificTransactionsSchema)
         if (allow.error){
             return res.status(400).send({

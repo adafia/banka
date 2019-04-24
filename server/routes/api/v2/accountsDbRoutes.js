@@ -4,9 +4,9 @@ import allAccountsDb from '../../../controllers/v2/accountsControllerDb';
 
 const accountsRouterDb = Router();
 
-accountsRouterDb.get('/accounts', allAccountsDb.getAllaccounts);
-accountsRouterDb.post('/accounts', allAccountsDb.createAccount);
-accountsRouterDb.patch('/accounts/:accountNumber', allAccountsDb.accountActivateDeactivate);
-accountsRouterDb.delete('/accounts/:accountNumber', allAccountsDb.deleteAccount);
+accountsRouterDb.get('/accounts', checkToken, allAccountsDb.getAllaccounts);
+accountsRouterDb.post('/accounts', checkToken, allAccountsDb.createAccount);
+accountsRouterDb.patch('/accounts/:accountNumber', checkToken, allAccountsDb.accountActivateDeactivate);
+accountsRouterDb.delete('/accounts/:accountNumber', checkToken, allAccountsDb.deleteAccount);
 
 export default accountsRouterDb;

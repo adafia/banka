@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
+const bcrypt = require('bcrypt');
 const { Pool } = require('pg');
 
 const pool = new Pool({connectionString: process.env.DATABASE_URL});
@@ -18,6 +19,7 @@ const createUserTables = () => {
             email VARCHAR(225) NOT NULL,
             password VARCHAR(1000) NOT NULL,
             type VARCHAR(6) NOT NULL,
+            is_cashier BOOLEAN DEFAULT FALSE,
             is_admin BOOLEAN DEFAULT FALSE,
             created_on VARCHAR(50) NOT NULL
         )`;
@@ -36,7 +38,7 @@ const createAccountTables = () => {
     const accountsTable = `CREATE TABLE IF NOT EXISTS
         accounts(
             id SERIAL PRIMARY KEY,
-            account_number BIGSERIAL,
+            account_number INT NOT NULL,
             owner INT,
             first_name VARCHAR(50) NOT NULL,
             last_name VARCHAR(50) NOT NULL,
@@ -79,6 +81,23 @@ const createTransactionTables = () => {
         });
 };
 
+const addAdmin = () => {
+    let salt = bcrypt.genSaltSync(10);
+    let hash = bcrypt.hashSync('Password-1234', salt);
+    const text = `INSERT INTO users(first_name, last_name, email, password, type, is_cashier, is_admin, created_on) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+    const values = ['Samuel', 'Adafia', 'adafia@gmail.com', hash, 'staff', true, true, new Date()];
+
+    pool.query(text, values)
+        .then((res) => {
+            console.log(res);
+            pool.end();
+        })
+        .catch((err) => {
+            console.log(err);
+            pool.end();
+        });
+}
+
 
 const dropTables = () => {
     const deleteTables = 'DROP TABLE IF EXISTS users, accounts, transactions';
@@ -103,6 +122,7 @@ module.exports = {
     createAccountTables,
     createTransactionTables,
     dropTables,
+    addAdmin,
     pool,
 };
 
