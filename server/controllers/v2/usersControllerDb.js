@@ -193,7 +193,7 @@ const Users = {
         
         try {
             const { rows } = await db.query(text, values);
-            const payload = { email: req.body.email, type: user.type }
+            const payload = { email: req.body.email, type: user.type , is_cashier: user.is_cashier, is_admin: user.is_admin }
             jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1h'}, (err, token) => {
                 return res.status(201).send({
                     status: 201,

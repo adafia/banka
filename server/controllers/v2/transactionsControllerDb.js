@@ -66,30 +66,32 @@ const Transactions = {
                     status: 404,
                     message: 'Account number does not exist'
                 });
+            } else if (rows[0].status !== 'active'){
+                return res.status(400).send({
+                    status: 400,
+                    message: `Account with number ${debitDetails.account_number} is not yet active`
+                });
+
+            } else if (rows[0].balance > debitDetails.amount) {
+                let oldBalance = rows[0].balance
+                let newBalance = oldBalance - debitDetails.amount;
+                const debitAccount = 'UPDATE accounts SET balance = $1 WHERE account_number = $2 RETURNING *';
+                const values = [newBalance, debitDetails.account_number];
+                const response = await db.query(debitAccount, values);
+                //creating a transaction
+                const text = `INSERT INTO transactions(account_number, cashier, type, amount, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+                const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'debit', debitDetails.amount, oldBalance, newBalance, new Date()];
+                const newTransaction = await db.query(text, transactvalues);
+                return res.status(200).send({
+                    status: 200,
+                    message: `Account with number ${debitDetails.account_number} has been made debited with ${debitDetails.amount} the new balance is ${newBalance}`,
+                    data: newTransaction.rows[0]
+                }); 
             } else {
-                if(rows[0].balance > debitDetails.amount){
-                    let oldBalance = rows[0].balance
-                    let newBalance = oldBalance - debitDetails.amount;
-                    const debitAccount = 'UPDATE accounts SET balance = $1 WHERE account_number = $2 RETURNING *';
-                    const values = [newBalance, debitDetails.account_number];
-                    const response = await db.query(debitAccount, values);
-                    //creating a transaction
-                    const text = `INSERT INTO transactions(account_number, cashier, type, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-                    const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'debit', oldBalance, newBalance, new Date()];
-                    const newTransaction = await db.query(text, transactvalues);
-                    return res.status(200).send({
-                        status: 200,
-                        message: `Account with number ${debitDetails.account_number} has been made debited with ${debitDetails.amount} the new balance is ${newBalance}`,
-                        data: response.rows[0],
-                        new_transaction: newTransaction.rows[0]
-                    });
-                } else {
-                    return res.status(405).json({ 
-                        status: 405,
-                        message : `Sorry account with number: ${debitDetails.account_number} has insufficient funds for this transaction`
-                    });
-                }
-                
+                return res.status(405).json({ 
+                    status: 405,
+                    message : `Sorry account with number: ${debitDetails.account_number} has insufficient funds for this transaction`
+                });
             }
         } catch(err) {
             return res.status(400).send(err);
@@ -137,23 +139,26 @@ const Transactions = {
                     status: 404,
                     message: 'Account number does not exist'
                 });
-            } else {
+            } else if(rows[0].status === 'active'){
                 let oldBalance = rows[0].balance
                 let newBalance = oldBalance + creditDetails.amount;
                 const creditAccount = 'UPDATE accounts SET balance = $1 WHERE account_number = $2 RETURNING *';
                 const values = [newBalance, creditDetails.account_number];
                 const response = await db.query(creditAccount, values);
                 //creating a transaction
-                const text = `INSERT INTO transactions(account_number, cashier, type, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-                const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'credit', oldBalance, newBalance, new Date()];
+                const text = `INSERT INTO transactions(account_number, cashier, type, amount, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+                const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'credit', creditDetails.amount, oldBalance, newBalance, new Date()];
                 const newTransaction = await db.query(text, transactvalues);
                 return res.status(200).send({
                     status: 200,
                     message: `Account with number ${creditDetails.account_number} has been made credited with ${creditDetails.amount} the new balance is ${newBalance}`,
-                    data: response.rows[0],
-                    new_transaction: newTransaction.rows[0]
+                    data: newTransaction.rows[0]
+                }); 
+            } else {
+                return res.status(400).send({
+                    status: 400,
+                    message: `Account with number ${creditDetails.account_number} is not yet active`
                 });
-                
             }
         } catch(err) {
             return res.status(400).send(err);

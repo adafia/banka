@@ -37,7 +37,6 @@ const createUserTables = () => {
 const createAccountTables = () => {
     const accountsTable = `CREATE TABLE IF NOT EXISTS
         accounts(
-            id SERIAL PRIMARY KEY,
             account_number INT NOT NULL,
             owner INT,
             first_name VARCHAR(50) NOT NULL,
@@ -46,7 +45,8 @@ const createAccountTables = () => {
             type VARCHAR(7) NOT NULL,
             status VARCHAR(7),
             balance FLOAT,
-            created_on VARCHAR(50) NOT NULL
+            created_on VARCHAR(50) NOT NULL,
+            FOREIGN KEY (owner) REFERENCES users(id) ON DELETE NO ACTION
         )`;
     pool.query(accountsTable)
         .then((res) => {
@@ -66,8 +66,9 @@ const createTransactionTables = () => {
             account_number INT NOT NULL,
             cashier INT NOT NULL,
             type VARCHAR(7) NOT NULL,
-            old_balance FLOAT,
-            new_balance FLOAT,
+            amount FLOAT NOT NULL,
+            old_balance FLOAT NOT NULL,
+            new_balance FLOAT NOT NULL,
             created_on VARCHAR(50) NOT NULL
         )`;
     pool.query(transactionsTable)

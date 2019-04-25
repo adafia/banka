@@ -28,3 +28,8 @@ Banka is a light-weight core banking application that powers banking operations 
 5. Admin / Staff can delete an account. [done]
 6. Staff (cashier) can credit an account. [done]
 7. Staff (cashier) can debit an account. [done]
+
+## How to use test
+ 1. ```git clone ssh:https://github.com/adafia/banka.git```
+ 2. ```npm install```
+ 3. ```npm run dev```
