@@ -180,6 +180,42 @@ const Accounts = {
         }
         
         
+    },
+
+    async userViewAccount(req, res){
+        let userInfo = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) =>{
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access (403)'
+                });
+            } else {
+                userInfo = authrizedData;
+            }
+        });
+
+        const findAccount = 'SELECT * FROM accounts WHERE account_number = $1';
+        const { rows } = await db.query(findAccount, [req.params.accountNumber]);
+        if(rows[0]){
+            if(userInfo.email === rows[0].email){
+                return res.status(200).send({
+                    status: 200,
+                    message: `Account with number ${req.params.accountNumber} has been fetched successfully`,
+                    data: rows[0]
+                });
+            } else {
+                return res.status(403).send({
+                    status: 403,
+                    message: 'You can only view details of accounts you own'
+                });
+            }
+        } else {
+            return res.status(404).send({
+                status: 404,
+                message: `Account with number ${req.params.accountNumber} does not exist`
+            });
+        }
     }
 }
 

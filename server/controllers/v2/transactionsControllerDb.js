@@ -166,7 +166,7 @@ const Transactions = {
 
     },
 
-    async getAccountTransactions(req, res){
+    async getTransactionHistory(req, res){
         let userEmail = '';
         jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
             if(err){
@@ -191,7 +191,7 @@ const Transactions = {
                 if(!rows[0]){
                     return res.status(404).send({
                         status: 404,
-                        message: 'No transactions have occured involving account'
+                        message: 'No transactions have occured involving your account'
                     });
                 } else {
                     return res.status(200).send({
@@ -215,11 +215,19 @@ const Transactions = {
 
     async viewSpecificTransaction(req, res){
         const userDetails = {
-            email : req.body.email,
-            password : req.body.password,
             id: req.params.id
         }
-
+        let userInfo = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else {
+                userInfo = authrizedData;
+            }
+        });
         const allow = Joi.validate(userDetails, specificTransactionsSchema)
         if (allow.error){
             return res.status(400).send({
@@ -242,7 +250,7 @@ const Transactions = {
         
 
         const found = `SELECT * FROM users WHERE email = $1`;
-        const response = await db.query(found, [req.body.email]);
+        const response = await db.query(found, [userInfo.email]);
         if(!response.rows[0]){
             return res.status(404).send({
                 status: 404,

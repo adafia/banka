@@ -7,7 +7,7 @@ const transactionRoutesDb = Router();
 transactionRoutesDb.get('/transactions', checkToken, allTransactionsDb.getAllTransactions);
 transactionRoutesDb.post('/transactions/:accountNumber/credit', checkToken, allTransactionsDb.accountCredit);
 transactionRoutesDb.post('/transactions/:accountNumber/debit', checkToken, allTransactionsDb.accountDebit);
-transactionRoutesDb.get('/accounts/:accountNumber/transactions', checkToken, allTransactionsDb.getAccountTransactions);
+transactionRoutesDb.get('/accounts/:accountNumber/transactions', checkToken, allTransactionsDb.getTransactionHistory);
 transactionRoutesDb.get('/transactions/:id', checkToken, allTransactionsDb.viewSpecificTransaction);
 
 
