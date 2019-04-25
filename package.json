@@ -11,7 +11,7 @@
     "test:db": "nyc --reporter=text --reporter=lcov mocha --timeout 3000 --require @babel/register test/v2/*js --exit",
     "start": "node bin/dev",
     "dev": "nodemon bin/dev",
-    "create": "node server/db createUserTables && node server/db createAccountTables && node server/db createTransactionTables",
+    "create": "node server/db createUserTables && node server/db createAccountTables && node server/db createTransactionTables && node server/db addAdmin",
     "drop": "node server/db dropTables",
     "clean": "rm -rf build",
     "build": "npm run clean && mkdir build && babel server -s -d build",

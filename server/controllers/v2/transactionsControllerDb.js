@@ -2,11 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import jwt from 'jsonwebtoken';
 import db from '../../models/v2/index';
-import checkToken from '../../helpers/checkToken';
 import Joi from 'joi';
-import loginSchema from '../../helpers/loginValidation';
 import transactionSchema from '../../helpers/transactionValidation';
-import accountTransactions from '../../helpers/getAccountTransctionValidation';
 import specificTransactionsSchema from '../../helpers/specificTransactionValidation';
 
 const Transactions = {
@@ -14,38 +11,39 @@ const Transactions = {
         const fetchAll = 'SELECT * FROM transactions';
         try {
             const { rows, rowCount } = await db.query(fetchAll);
-            return res.status(200).send({ rows, rowCount});
+            jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+                if(err){
+                    return res.status(403).send({
+                        status: 403,
+                        message: 'Forbidden access'
+                    });
+                } else if(authrizedData.is_admin === true){
+                    return res.status(200).send({ rows, rowCount});
+                } else {
+                    return res.status(401).send({ message: 'You are not authorized'});
+                }
+            })
         } catch(error){
             return res.status(400).send(error);
         }
     },
 
     async accountDebit (req, res){
-        const userDetails = {
-            email : req.body.email,
-            password : req.body.password
-        }
-        const allow = Joi.validate(userDetails, loginSchema)
-        if (allow.error){
-            return res.status(400).send({
-                status: 400,
-                message: allow.error.details[0].message
-            });
-        }
+        let cashierEmail = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else if (authrizedData.is_cashier !== true){
+                return res.status(401).send({ message: 'You are not authorized' });
+            } else {
+                cashierEmail = authrizedData.email
+            }
+        });
         const found = `SELECT * FROM users WHERE email = $1`;
-        const cashier = await db.query(found, [req.body.email]);
-        if(cashier.rows[0].type !== 'staff'){
-            return res.status(401).send({
-                status: 401,
-                message: 'You are not authorized to perform this function'
-            });
-        }
-        if(cashier.rows[0].password !== req.body.password){
-            return res.status(403).send({
-                status: 403,
-                message: 'Invalid password'
-            });
-        }
+        const cashier = await db.query(found, [cashierEmail]);
 
         const debitDetails = {
             amount: req.body.amount,
@@ -68,30 +66,32 @@ const Transactions = {
                     status: 404,
                     message: 'Account number does not exist'
                 });
+            } else if (rows[0].status !== 'active'){
+                return res.status(400).send({
+                    status: 400,
+                    message: `Account with number ${debitDetails.account_number} is not yet active`
+                });
+
+            } else if (rows[0].balance > debitDetails.amount) {
+                let oldBalance = rows[0].balance
+                let newBalance = oldBalance - debitDetails.amount;
+                const debitAccount = 'UPDATE accounts SET balance = $1 WHERE account_number = $2 RETURNING *';
+                const values = [newBalance, debitDetails.account_number];
+                const response = await db.query(debitAccount, values);
+                //creating a transaction
+                const text = `INSERT INTO transactions(account_number, cashier, type, amount, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+                const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'debit', debitDetails.amount, oldBalance, newBalance, new Date()];
+                const newTransaction = await db.query(text, transactvalues);
+                return res.status(200).send({
+                    status: 200,
+                    message: `Account with number ${debitDetails.account_number} has been debited with ${debitDetails.amount} the new balance is ${newBalance}`,
+                    data: newTransaction.rows[0]
+                }); 
             } else {
-                if(rows[0].balance > debitDetails.amount){
-                    let oldBalance = rows[0].balance
-                    let newBalance = oldBalance - debitDetails.amount;
-                    const debitAccount = 'UPDATE accounts SET balance = $1 WHERE account_number = $2 RETURNING *';
-                    const values = [newBalance, debitDetails.account_number];
-                    const response = await db.query(debitAccount, values);
-                    //creating a transaction
-                    const text = `INSERT INTO transactions(account_number, cashier, type, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-                    const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'debit', oldBalance, newBalance, new Date()];
-                    const newTransaction = await db.query(text, transactvalues);
-                    return res.status(200).send({
-                        status: 200,
-                        message: `Account with number ${debitDetails.account_number} has been made debited with ${debitDetails.amount} the new balance is ${newBalance}`,
-                        data: response.rows[0],
-                        new_transaction: newTransaction.rows[0]
-                    });
-                } else {
-                    return res.status(405).json({ 
-                        status: 405,
-                        message : `Sorry account with number: ${debitDetails.account_number} has insufficient funds for this transaction`
-                    });
-                }
-                
+                return res.status(405).json({ 
+                    status: 405,
+                    message : `Sorry account with number: ${debitDetails.account_number} has insufficient funds for this transaction`
+                });
             }
         } catch(err) {
             return res.status(400).send(err);
@@ -100,31 +100,23 @@ const Transactions = {
     },
 
     async accountCredit (req, res){
-        const userDetails = {
-            email : req.body.email,
-            password : req.body.password
-        }
-        const allow = Joi.validate(userDetails, loginSchema)
-        if (allow.error){
-            return res.status(400).send({
-                status: 400,
-                message: allow.error.details[0].message
-            });
-        }
+        let cashierEmail = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+                    
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else if(authrizedData.is_cashier !== true){
+                return res.status(401).send({message: 'You are not authorized'});
+                 
+            } else {
+                cashierEmail = authrizedData.email
+            }
+        })
         const found = `SELECT * FROM users WHERE email = $1`;
-        const cashier = await db.query(found, [req.body.email]);
-        if(cashier.rows[0].type !== 'staff'){
-            return res.status(401).send({
-                status: 401,
-                message: 'You are not authorized to perform this function'
-            });
-        }
-        if(cashier.rows[0].password !== req.body.password){
-            return res.status(403).send({
-                status: 403,
-                message: 'Invalid password'
-            });
-        }
+        const cashier = await db.query(found, [cashierEmail]);
 
         const creditDetails = {
             amount: req.body.amount,
@@ -147,23 +139,26 @@ const Transactions = {
                     status: 404,
                     message: 'Account number does not exist'
                 });
-            } else {
+            } else if(rows[0].status === 'active'){
                 let oldBalance = rows[0].balance
                 let newBalance = oldBalance + creditDetails.amount;
                 const creditAccount = 'UPDATE accounts SET balance = $1 WHERE account_number = $2 RETURNING *';
                 const values = [newBalance, creditDetails.account_number];
                 const response = await db.query(creditAccount, values);
                 //creating a transaction
-                const text = `INSERT INTO transactions(account_number, cashier, type, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-                const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'credit', oldBalance, newBalance, new Date()];
+                const text = `INSERT INTO transactions(account_number, cashier, type, amount, old_balance, new_balance, created_on) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+                const transactvalues = [response.rows[0].account_number, cashier.rows[0].id, 'credit', creditDetails.amount, oldBalance, newBalance, new Date()];
                 const newTransaction = await db.query(text, transactvalues);
                 return res.status(200).send({
                     status: 200,
-                    message: `Account with number ${creditDetails.account_number} has been made credited with ${creditDetails.amount} the new balance is ${newBalance}`,
-                    data: response.rows[0],
-                    new_transaction: newTransaction.rows[0]
+                    message: `Account with number ${creditDetails.account_number} has been credited with ${creditDetails.amount} the new balance is ${newBalance}`,
+                    data: newTransaction.rows[0]
+                }); 
+            } else {
+                return res.status(400).send({
+                    status: 400,
+                    message: `Account with number ${creditDetails.account_number} is not yet active`
                 });
-                
             }
         } catch(err) {
             return res.status(400).send(err);
@@ -172,20 +167,21 @@ const Transactions = {
     },
 
     async getAccountTransactions(req, res){
-        const userDetails = {
-            email : req.body.email,
-            password : req.body.password,
-            account_number: req.params.accountNumber
-        }
-        const allow = Joi.validate(userDetails, accountTransactions)
-        if (allow.error){
-            return res.status(400).send({
-                status: 400,
-                message: allow.error.details[0].message
-            });
-        }
+        let userEmail = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else {
+                userEmail = authrizedData.email;
+            }
+        });
+        console.log(userEmail);
+
         const found = `SELECT * FROM users WHERE email = $1`;
-        const response = await db.query(found, [req.body.email]);
+        const response = await db.query(found, [userEmail]);
         const text = 'SELECT * FROM transactions WHERE account_number =$1';
         const { rows } = await db.query(text, [req.params.accountNumber]);
         const accountSearch = 'SELECT * FROM accounts WHERE owner =$1';
@@ -223,6 +219,7 @@ const Transactions = {
             password : req.body.password,
             id: req.params.id
         }
+
         const allow = Joi.validate(userDetails, specificTransactionsSchema)
         if (allow.error){
             return res.status(400).send({
