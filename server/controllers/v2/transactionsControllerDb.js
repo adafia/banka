@@ -84,7 +84,7 @@ const Transactions = {
                 const newTransaction = await db.query(text, transactvalues);
                 return res.status(200).send({
                     status: 200,
-                    message: `Account with number ${debitDetails.account_number} has been made debited with ${debitDetails.amount} the new balance is ${newBalance}`,
+                    message: `Account with number ${debitDetails.account_number} has been debited with ${debitDetails.amount} the new balance is ${newBalance}`,
                     data: newTransaction.rows[0]
                 }); 
             } else {
@@ -151,7 +151,7 @@ const Transactions = {
                 const newTransaction = await db.query(text, transactvalues);
                 return res.status(200).send({
                     status: 200,
-                    message: `Account with number ${creditDetails.account_number} has been made credited with ${creditDetails.amount} the new balance is ${newBalance}`,
+                    message: `Account with number ${creditDetails.account_number} has been credited with ${creditDetails.amount} the new balance is ${newBalance}`,
                     data: newTransaction.rows[0]
                 }); 
             } else {
