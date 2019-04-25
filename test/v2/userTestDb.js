@@ -1,15 +1,21 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../server/server';
+import jwt from 'jsonwebtoken';
+import keys from '../../server/config/keys'
+
+
 
 chai.use(chaiHttp);
 chai.should();
+const token = jwt.sign({ email: 'adafia@gmail.com', password: 'Password-1234' }, keys.SECRET_OR_KEY, { expiresIn: '1hr' });
 
 describe('users', () => {
     describe('GET /users', () => {
         it('should get all users', (done) => {
             chai.request(server)
                 .get('/api/v2/users')
+                .set('Authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');

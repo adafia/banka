@@ -1,10 +1,24 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import keys from '../../config/keys'
 import { Pool } from 'pg';
 
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
-});
+let pool;
+if(process.env.NODE_ENV === 'production'){
+    pool = new Pool({
+        connectionString: keys.DATABASE_URL
+    });
+}
+
+if(process.env.NODE_ENV === 'test'){
+    pool = new Pool({
+        connectionString: keys.DATABASE_URL
+    });
+}else {
+    pool = new Pool({
+        connectionString: keys.DATABASE_URL
+    });
+}
+
+
 
 export default {
     query(text, params){
