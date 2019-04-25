@@ -216,6 +216,55 @@ const Accounts = {
                 message: `Account with number ${req.params.accountNumber} does not exist`
             });
         }
+    },
+
+    async adminViewUserAccount(req, res){
+        let isAuth = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) =>{
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else {
+                isAuth = authrizedData.is_admin
+            }
+        });
+
+        if(isAuth === false){
+            return res.status(401).send({
+                status: 401,
+                message: 'You are not authorized'
+            });
+        }
+
+        const userDetail = {
+            email: req.params.email
+        }
+
+        const findUser = 'SELECT * FROM users WHERE email = $1';
+        const found = await db.query(findUser, [req.params.email]);
+        if (!found.rows[0]){
+            res.status(404).send({
+                status: 404,
+                message: `User with email: ${userDetail.email} does not exist`
+            });
+        }
+
+        const findAccount = 'SELECT * FROM accounts WHERE owner = $1';
+        const { rows } = await db.query(findAccount, [found.rows[0].id]);
+        if(!rows[0]){
+            return res.status(404).send({
+                status: 404,
+                message: `User with email: ${req.params.email} has not opened an account yet.`
+            })
+        } else {
+            return res.status(200).send({
+                status: 200,
+                message: `Bank account(s) for user with email ${req.params.email} has(have) been retrieved successfully`,
+                data: rows[0]
+            });
+        }
     }
 }
 

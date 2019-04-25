@@ -9,5 +9,6 @@ accountsRouterDb.post('/accounts', checkToken, allAccountsDb.createAccount);
 accountsRouterDb.patch('/accounts/:accountNumber', checkToken, allAccountsDb.accountActivateDeactivate);
 accountsRouterDb.delete('/accounts/:accountNumber', checkToken, allAccountsDb.deleteAccount);
 accountsRouterDb.get('/accounts/:accountNumber', checkToken, allAccountsDb.userViewAccount);
+accountsRouterDb.get('/user/:email/accounts', checkToken, allAccountsDb.adminViewUserAccount);
 
 export default accountsRouterDb;
