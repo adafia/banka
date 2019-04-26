@@ -1,4 +1,4 @@
 module.exports = {
-    DATABASE_URL: process.env.DATABASE_URL,
-    SECRET_OR_KEY: process.env.SECRET_OR_KEY 
+    DATABASE_URL: 'postgres://postgres:12345@127.0.0.1:5432/banka_test_db',
+    SECRET_OR_KEY: 'gameofthroneswinterishere' 
 }

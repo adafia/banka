@@ -12,3 +12,7 @@ if(process.env.NODE_ENV === 'test'){
 } else {
     module.exports = devKeys;
 }
+
+console.log(process.env.DATABASE_URL);
+console.log(process.env.NODE_ENV);
+
