@@ -173,7 +173,7 @@ const Users = {
             userInfo = authrizedData;
         });
 
-        if(userInfo.is_admin === false){
+        if(userInfo.is_admin !== true){
             return res.status(401).send({
                 status: 401,
                 message: 'You are not authorized'
