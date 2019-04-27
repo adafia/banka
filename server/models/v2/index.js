@@ -10,11 +10,11 @@ if(process.env.NODE_ENV === 'production'){
 
 if(process.env.NODE_ENV === 'test'){
     pool = new Pool({
-        connectionString: Keys.DATABASE_URL
+        connectionString: keys.DATABASE_URL
     });
 }else {
     pool = new Pool({
-        connectionString: Keys.DATABASE_URL
+        connectionString: keys.DATABASE_URL
     });
 }
 
