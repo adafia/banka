@@ -25,10 +25,10 @@ export default {
         return new Promise((resolve, reject) => {
             pool.query(text, params)
                 .then((res) => {
-                    console.log(res);
                     resolve(res);
                 })
                 .catch((err) => {
+                    console.log({err});
                     reject(err);
                 })
         })
