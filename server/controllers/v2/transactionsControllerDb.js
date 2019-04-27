@@ -37,7 +37,9 @@ const Transactions = {
                     message: 'Forbidden access'
                 });
             } else if (authrizedData.is_cashier !== true){
-                return res.status(401).send({ message: 'You are not authorized' });
+                return res.status(401).send({ 
+                    status: 401,
+                    message: 'You are not authorized' });
             } else {
                 cashierEmail = authrizedData.email
             }
@@ -101,15 +103,17 @@ const Transactions = {
 
     async accountCredit (req, res){
         let cashierEmail = '';
-        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
-                    
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => { 
             if(err){
                 return res.status(403).send({
                     status: 403,
                     message: 'Forbidden access'
                 });
             } else if(authrizedData.is_cashier !== true){
-                return res.status(401).send({message: 'You are not authorized'});
+                return res.status(401).send({
+                    status: 401,
+                    message: 'You are not authorized'
+                });
                  
             } else {
                 cashierEmail = authrizedData.email
@@ -178,7 +182,6 @@ const Transactions = {
                 userEmail = authrizedData.email;
             }
         });
-        console.log(userEmail);
 
         const found = `SELECT * FROM users WHERE email = $1`;
         const response = await db.query(found, [userEmail]);

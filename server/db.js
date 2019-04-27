@@ -85,7 +85,7 @@ const addAdmin = () => {
     let salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync('Password-1234', salt);
     const text = `INSERT INTO users(first_name, last_name, email, password, type, is_cashier, is_admin, created_on) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
-    const values = ['Samuel', 'Adafia', 'adafia@gmail.com', hash, 'staff', true, true, new Date()];
+    const values = ['Samuel', 'Adafia', 'adafia@gmail.com', hash, 'staff', false, true, new Date()];
 
     pool.query(text, values)
         .then((res) => {

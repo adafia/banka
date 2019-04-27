@@ -5,6 +5,7 @@ import Joi from 'joi';
 import db from '../../models/v2/index';
 import activateSchema from '../../helpers/activateDeactivateValidation';
 import createAccountSchema from '../../helpers/accountsValidation';
+import viewaccountSchema from '../../helpers/viewAccount';
 
 
 const Accounts = {
@@ -37,7 +38,7 @@ const Accounts = {
 
     async createAccount(req, res) {
         const newAccount = {
-            account_number: Math.floor(Math.random() * 10000000),
+            account_number: Math.floor(Math.random() * 10000),
             type: req.body.type,
             status: 'draft',
             balance: 0.0,
@@ -59,7 +60,9 @@ const Accounts = {
                 });
             } else {
                 if(authrizedData.type !== 'client'){
-                    return res.status(401).send({message: 'You are not authorized'});
+                    return res.status(401).send({
+                        status: 401,
+                        message: 'You are not authorized'});
                 }  
             }
             userInfo = authrizedData
@@ -67,8 +70,12 @@ const Accounts = {
 
         const search = 'SELECT * FROM users WHERE email = $1';
         const found = await db.query(search, [userInfo.email]);
-        if(!found.rows[0]){
-            return res.status(404).send('Sorry, you can only create a bank account if you are a user')
+        
+        if(found.rows[0] === undefined){
+            return res.status(404).send({
+                status: 404,
+                message: 'Sorry, you can only create a bank account if you are a user'
+            });
         }
 
         let owner = found.rows[0].id;
@@ -121,10 +128,11 @@ const Accounts = {
                             status: 403,
                             message: 'Forbidden access'
                         });
-                    } else {
-                        if(authrizedData.is_admin !== true){
-                            return res.status(401).send({message: 'You are not authorized'});
-                        }   
+                    } else if (authrizedData.is_admin !== true){
+                        return res.status(401).send({
+                            status: 401,
+                            message: 'You are not authorized'
+                        });  
                     }
                 })
                 const response = await db.query(upDateAcc, values);
@@ -152,12 +160,16 @@ const Accounts = {
                     status: 403,
                     message: 'Forbidden access'
                 });
-            }
-            isAuth = authrizedData.is_admin
+            } else {
+                isAuth = authrizedData.is_admin
+            } 
         });
 
         if(isAuth === false){
-            return res.status(401).send({message: 'You are not authorized'});
+            return res.status(401).send({
+                status: 401,
+                message: 'You are not authorized'
+            });
         }
         const findAccount = 'SELECT * FROM accounts WHERE account_number = $1';
         const { rows } = await db.query(findAccount, [req.params.accountNumber]);
@@ -183,6 +195,16 @@ const Accounts = {
     },
 
     async userViewAccount(req, res){
+        const userDetail = {
+            account_number: req.params.accountNumber
+        }
+        const result = Joi.validate(userDetail, viewaccountSchema);
+        if(result.error){
+            return res.status(400).send({
+                status: 400,
+                message: result.error.details[0].message
+            });
+        }
         let userInfo = '';
         jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) =>{
             if(err){
