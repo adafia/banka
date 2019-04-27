@@ -13,7 +13,7 @@ const clientToken2 = jwt.sign({ email: 'apple@gmail.com', type: 'client' , is_ca
 const invalidToken = jwt.sign({ email: 'noaccount@gmail.com', type: 'client', is_cashier: false, is_admin: false }, keys.SECRET_OR_KEY, { expiresIn: '1hr' });
 
 
-before('Before testing accounts routes, a user 1 should be signed up', (done) => {
+before('Before testing accounts routes, user 1 should be signed up', (done) => {
     chai
       .request(server)
       .post('/api/v2/auth/signup')
@@ -33,7 +33,7 @@ before('Before testing accounts routes, a user 1 should be signed up', (done) =>
       });
   });
 
-before('Before testing accounts routes, a user 2 should be signed up', (done) => {
+before('Before testing accounts routes, user 2 should be signed up', (done) => {
     chai
       .request(server)
       .post('/api/v2/auth/signup')
