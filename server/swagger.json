@@ -162,7 +162,7 @@
         }
       }
     },
-    "/accounts": {
+    "/account": {
       "post": {
         "tags": [
           "Accounts"
