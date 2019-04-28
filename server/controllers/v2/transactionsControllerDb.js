@@ -29,23 +29,25 @@ const Transactions = {
     },
 
     async accountDebit (req, res){
-        let cashierEmail = '';
+        let staff = '';
         jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
             if(err){
                 return res.status(403).send({
                     status: 403,
                     message: 'Forbidden access'
                 });
-            } else if (authrizedData.is_cashier !== true){
-                return res.status(401).send({ 
-                    status: 401,
-                    message: 'You are not authorized' });
             } else {
-                cashierEmail = authrizedData.email
-            }
+                staff = authrizedData
+            } 
         });
+
+        if(staff.is_cashier !== true){
+            return res.status(401).send({ 
+                status: 401,
+                message: 'You are not authorized' });
+        }
         const found = `SELECT * FROM users WHERE email = $1`;
-        const cashier = await db.query(found, [cashierEmail]);
+        const cashier = await db.query(found, [staff.email]);
 
         const debitDetails = {
             amount: req.body.amount,
@@ -68,13 +70,16 @@ const Transactions = {
                     status: 404,
                     message: 'Account number does not exist'
                 });
-            } else if (rows[0].status !== 'active'){
+            }
+
+            if (rows[0].status !== 'active'){
                 return res.status(400).send({
                     status: 400,
                     message: `Account with number ${debitDetails.account_number} is not yet active`
                 });
+            }
 
-            } else if (rows[0].balance > debitDetails.amount) {
+            if (rows[0].balance > debitDetails.amount) {
                 let oldBalance = rows[0].balance
                 let newBalance = oldBalance - debitDetails.amount;
                 const debitAccount = 'UPDATE accounts SET balance = $1 WHERE account_number = $2 RETURNING *';
@@ -102,25 +107,25 @@ const Transactions = {
     },
 
     async accountCredit (req, res){
-        let cashierEmail = '';
+        let staff = '';
         jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => { 
             if(err){
                 return res.status(403).send({
                     status: 403,
                     message: 'Forbidden access'
                 });
-            } else if(authrizedData.is_cashier !== true){
-                return res.status(401).send({
-                    status: 401,
-                    message: 'You are not authorized'
-                });
-                 
             } else {
-                cashierEmail = authrizedData.email
+                staff = authrizedData;
             }
         })
+        if(staff.is_cashier !== true){
+            return res.status(401).send({
+                status: 401,
+                message: 'You are not authorized'
+            });
+        }
         const found = `SELECT * FROM users WHERE email = $1`;
-        const cashier = await db.query(found, [cashierEmail]);
+        const cashier = await db.query(found, [staff.email]);
 
         const creditDetails = {
             amount: req.body.amount,
@@ -185,35 +190,43 @@ const Transactions = {
 
         const found = `SELECT * FROM users WHERE email = $1`;
         const response = await db.query(found, [userEmail]);
-        const text = 'SELECT * FROM transactions WHERE account_number =$1';
-        const { rows } = await db.query(text, [req.params.accountNumber]);
         const accountSearch = 'SELECT * FROM accounts WHERE owner =$1';
+        if(!response.rows[0]){
+            return res.status(404).send({
+                status: 404,
+                message: 'Sorry, this feature is reserved for users only'});
+        }
         if(response.rows[0]) {
             const isOwner = await db.query(accountSearch, [response.rows[0].id]);
-            if(isOwner.rows[0]) {
+            console.log(`users id: ${response.rows[0].id}`);
+            console.log(`account that has owner equal to user id ${isOwner.rows[0]}`);
+            
+            if(isOwner.rows[0].owner !== response.rows[0].id){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Sorry you can only view transactions of accounts you own'})
+            }
+
+            if(isOwner.rows[0].owner === response.rows[0].id) {
+                const text = 'SELECT * FROM transactions WHERE account_number =$1';
+                const { rows } = await db.query(text, [req.params.accountNumber]);
                 if(!rows[0]){
                     return res.status(404).send({
                         status: 404,
                         message: 'No transactions have occured involving your account'
                     });
-                } else {
+                } 
+                if(rows[0]){
                     return res.status(200).send({
                         status: 200,
                         message: `Transactions for account with number ${req.params.accountNumber} have been fetched successfully`,
-                        data: rows
+                        data: rows,
+                        account: isOwner.rows[0]
                     });
                 } 
-            } else {
-                return res.status(403).send({
-                    status: 403,
-                    message: 'Sorry you can only view transactions of accounts you own'})
             }
-        } else {
-            return res.status(404).send({
-                status: 404,
-                message: 'Sorry, this feature is reserved for users only'});
-        }
-           
+        } 
+   
     },
 
     async viewSpecificTransaction(req, res){

@@ -24,11 +24,11 @@ const createUserTables = () => {
         )`;
     pool.query(userTable)
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             pool.end();
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             pool.end();
         });
 };
@@ -49,11 +49,11 @@ const createAccountTables = () => {
         )`;
     pool.query(accountsTable)
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             pool.end();
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             pool.end();
         });
 };
@@ -72,11 +72,11 @@ const createTransactionTables = () => {
         )`;
     pool.query(transactionsTable)
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             pool.end();
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             pool.end();
         });
 };
@@ -89,11 +89,11 @@ const addAdmin = () => {
 
     pool.query(text, values)
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             pool.end();
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             pool.end();
         });
 }
@@ -103,11 +103,11 @@ const dropTables = () => {
     const deleteTables = 'DROP TABLE IF EXISTS users, accounts, transactions';
     pool.query(deleteTables)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         pool.end();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         pool.end();
       });
   };

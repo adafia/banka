@@ -8,7 +8,6 @@ import keys from '../../server/config/keys';
 
 chai.use(chaiHttp);
 const token = jwt.sign({ email: 'adafia@gmail.com', type: 'staff' , is_cashier: false, is_admin: true }, keys.SECRET_OR_KEY, { expiresIn: '1hr' });
-const invalidToken = jwt.sign({ email: 'noaccount@gmail.com', type: 'client', is_cashier: false, is_admin: false }, keys.SECRET_OR_KEY, { expiresIn: '1hr' });
 const unAuthToken = jwt.sign({ email: 'job@gmail.com', type: 'client' , is_cashier: false, is_admin: false}, keys.SECRET_OR_KEY, { expiresIn: '1hr' });
 
 describe('users', () => {
@@ -139,6 +138,7 @@ describe('users', () => {
               .post('/api/v2/auth/signin')
               .send({email:'adafia@gmail.com', password: 'Password-1734'})
               .end((err, res) => {
+                // console.log(res.body)
                 expect(res.body).to.be.an('object');
                 expect(res.body.status).to.equal(403);
                 expect(res.body.message).to.be.a('string');
