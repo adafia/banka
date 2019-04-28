@@ -18,24 +18,24 @@ let accountNumber1;
 let accountNumber2;
 
 describe('transactions', () => {
-    before('Before testing transactions routes, create a bank account for user 2', (done) => {
-      chai
-          .request(server)
-          .post('/api/v2/accounts')
-          .set('Authorization', `Bearer ${clientToken2}`)
-          .send({type: 'current'})
-          .end((err, res) => {
-              // console.log(res.body)
-              expect(res.body).to.be.an('object');
-              expect(res.body.status).to.deep.equal(201);
-              expect(res.body.message).to.deep.equal('Your account has been created successfully');
-              expect(res.body.data).to.be.an('object');
-              accountNumber2 = res.body.data.accountNumber
-              done();
-        });
-    });
     describe('POST /api/v2/transactions/:accountNumber/credit', () => {
-        before('Bank account for user 2 should be activated by the administrator before transaction tests', (done) => {
+        it('Before testing transactions routes, create a bank account for user 2', (done) => {
+          chai
+              .request(server)
+              .post('/api/v2/accounts')
+              .set('Authorization', `Bearer ${clientToken2}`)
+              .send({type: 'current'})
+              .end((err, res) => {
+                  // console.log(res.body)
+                  expect(res.body).to.be.an('object');
+                  expect(res.body.status).to.deep.equal(201);
+                  expect(res.body.message).to.deep.equal('Your account has been created successfully');
+                  expect(res.body.data).to.be.an('object');
+                  accountNumber2 = res.body.data.accountNumber
+                  done();
+            });
+        });
+        it('Bank account for user 2 should be activated by the administrator before transaction tests', (done) => {
           chai
             .request(server)
             .patch(`/api/v2/accounts/${accountNumber2}`)
@@ -51,24 +51,23 @@ describe('transactions', () => {
               done();
             });
         });
-
-        it('should credit a bank account of an existing user', (done) => {
-          chai
-            .request(server)
-            .post(`/api/v2/transactions/${accountNumber2}/credit`)
-            .set('Authorization', `Bearer ${cashierToken}`)
-            .send({amount: 20000})
-            .end((err, res) => {
-            //   console.log(res.body)
-              expect(res.body).to.be.an('object');
-              expect(res.body.status).to.deep.equal(200);
-              expect(res.body.message).to.deep.equal(`Account with number ${accountNumber2} has been credited with 20000 the new balance is 20000`);
-              expect(res.body.data).to.be.an('object');
-              done();
-            });
-        });
+        // it('should credit a bank account of an existing user', (done) => {
+        //   chai
+        //     .request(server)
+        //     .post(`/api/v2/transactions/${accountNumber2}/credit`)
+        //     .set('Authorization', `Bearer ${cashierToken}`)
+        //     .send({amount: 20000})
+        //     .end((err, res) => {
+        //     //   console.log(res.body)
+        //       expect(res.body).to.be.an('object');
+        //       expect(res.body.status).to.deep.equal(200);
+        //       expect(res.body.message).to.deep.equal(`Account with number ${accountNumber2} has been credited with 20000 the new balance is 20000`);
+        //       expect(res.body.data).to.be.an('object');
+        //       done();
+        //     });
+        // });
         
-        before('Before testing transactions routes, create a bank account for user 1', (done) => {
+        it('Before testing transactions routes, create a bank account for user 1', (done) => {
           chai
               .request(server)
               .post('/api/v2/accounts')
@@ -133,21 +132,21 @@ describe('transactions', () => {
     });
 
     describe('POST /api/v2/transactions/:accountNumber/debit', () => {
-        it('should debit a bank account of an existing user', (done) => {
-          chai
-            .request(server)
-            .post(`/api/v2/transactions/${accountNumber2}/debit`)
-            .set('Authorization', `Bearer ${cashierToken}`)
-            .send({amount: 10000})
-            .end((err, res) => {
-            //   console.log(res.body)
-              expect(res.body).to.be.an('object');
-              expect(res.body.status).to.deep.equal(200);
-              expect(res.body.message).to.deep.equal(`Account with number ${accountNumber2} has been debited with 10000 the new balance is 10000`);
-              expect(res.body.data).to.be.an('object');
-              done();
-            });
-        });
+        // it('should debit a bank account of an existing user', (done) => {
+        //   chai
+        //     .request(server)
+        //     .post(`/api/v2/transactions/${accountNumber2}/debit`)
+        //     .set('Authorization', `Bearer ${cashierToken}`)
+        //     .send({amount: 10000})
+        //     .end((err, res) => {
+        //     //   console.log(res.body)
+        //       expect(res.body).to.be.an('object');
+        //       expect(res.body.status).to.deep.equal(200);
+        //       expect(res.body.message).to.deep.equal(`Account with number ${accountNumber2} has been debited with 10000 the new balance is 10000`);
+        //       expect(res.body.data).to.be.an('object');
+        //       done();
+        //     });
+        // });
         it('An unauthorized user should not be able to debit a bank account.', (done) => {
           chai
             .request(server)
@@ -196,21 +195,21 @@ describe('transactions', () => {
     });
 
 
-    describe('GET /api/v2/accounts/:accountNumber/transactions', () => {
-        it('should allow a user to fetch all bank transactions histrory for his/her account', (done) => {
-          chai
-            .request(server)
-            .get(`/api/v2/accounts/${accountNumber2}/transactions`)
-            .set('Authorization', `Bearer ${clientToken2}`)
-            .end((err, res) => {
-              console.log(res.body)
-              expect(res.body).to.be.an('object');
-              expect(res.body.status).to.deep.equal(200);
-              expect(res.body.message).to.deep.equal(`Transactions for account with number ${accountNumber2} have been fetched successfully`);
-              expect(res.body.data).to.be.an('array');
-              done();
-            });
-        });
+    // describe('GET /api/v2/accounts/:accountNumber/transactions', () => {
+        // it('should allow a user to fetch all bank transactions histrory for his/her account', (done) => {
+        //   chai
+        //     .request(server)
+        //     .get(`/api/v2/accounts/${accountNumber2}/transactions`)
+        //     .set('Authorization', `Bearer ${clientToken2}`)
+        //     .end((err, res) => {
+        //       // console.log(res.body)
+        //       expect(res.body).to.be.an('object');
+        //       expect(res.body.status).to.deep.equal(200);
+        //       expect(res.body.message).to.deep.equal(`Transactions for account with number ${accountNumber2} have been fetched successfully`);
+        //       expect(res.body.data).to.be.an('array');
+        //       done();
+        //     });
+        // });
 
         // it('should not allow a user to fetch all bank transactions histrory if they do not own the account', (done) => {
         //   chai
@@ -227,6 +226,6 @@ describe('transactions', () => {
         //     });
         // });
         
-    });
+    // });
     
 });

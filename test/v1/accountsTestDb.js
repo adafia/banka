@@ -14,7 +14,7 @@ const invalidToken = jwt.sign({ email: 'noaccount@gmail.com', type: 'client', is
 
 
 describe('accounts', () => {
-  before('Before testing accounts routes, user 1 should be signed up', (done) => {
+  it('Before testing accounts routes, user 1 should be signed up', (done) => {
     chai
       .request(server)
       .post('/api/v2/auth/signup')
@@ -36,7 +36,7 @@ describe('accounts', () => {
 });
 
 describe('Accounts', () => {
-  before('Before testing accounts routes, user 2 should be signed up', (done) => {
+  it('Before testing accounts routes, user 2 should be signed up', (done) => {
       chai
         .request(server)
         .post('/api/v2/auth/signup')
@@ -124,8 +124,6 @@ describe('accounts', () => {
               done();
             });
         });
-      
-        
     });
     
     describe('GET /api/v2/accounts/:accountNumber', () => {
@@ -280,11 +278,7 @@ describe('accounts', () => {
               expect(res.body.message).to.deep.equal('"status" is not allowed to be empty');
               done();
             });
-        });
-
-        
-      
-        
+        }); 
     });
 
     describe('DELETE /api/v2/accounts/:accountNumber', () => {

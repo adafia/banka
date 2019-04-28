@@ -55,18 +55,21 @@ const Users = {
         let hash = bcrypt.hashSync(user.password, salt);
 
         const found = `SELECT * FROM users WHERE email = $1`;
-        const response = await db.query(found, [req.body.email]);
-            if(response.rows[0]) {
+        await db.query(found, [req.body.email]).then(response =>{
+            if(response.rows.length) {
                 return res.status(409).send({ 
                     status: 409,
                     message: `Sorry email: ${user.email} is already in use`})
             }
+        }).catch(error =>{
+            res.status(400).send({error})
+        });
+            
 
         const text = `INSERT INTO users(first_name, last_name, email, type, password, created_on) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
         const values = [user.first_name, user.last_name, user.email, user.type, hash, user.created_on];
-        
-        try {
-            const { rows } = await db.query(text, values);
+    
+        await db.query(text, values).then(userInfo => {
             const payload = { email: req.body.email, type: user.type }
             jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1d'}, (err, token) => {
                 return res.status(201).send({
@@ -74,17 +77,17 @@ const Users = {
                     message: 'User account has been created successfully',
                     data: {
                         token: token,
-                        id: rows[0].id,
-                        firstName: rows[0].first_name, 
-                        lastName: rows[0].last_name, 
-                        email: rows[0].email 
+                        id: userInfo.rows.id,
+                        firstName: userInfo.rows.first_name, 
+                        lastName: userInfo.rows.last_name, 
+                        email: userInfo.rows.email 
                         }
                 });
             });
-            
-        } catch(error) {
+        }).catch(error => {
             return res.status(400).send(error.detail);
-        }
+        }); 
+        
     },
 
     async userSignIn (req, res) {

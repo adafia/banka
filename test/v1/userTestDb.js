@@ -138,7 +138,7 @@ describe('users', () => {
               .post('/api/v2/auth/signin')
               .send({email:'adafia@gmail.com', password: 'Password-1734'})
               .end((err, res) => {
-                console.log(res.body)
+                // console.log(res.body)
                 expect(res.body).to.be.an('object');
                 expect(res.body.status).to.equal(403);
                 expect(res.body.message).to.be.a('string');
