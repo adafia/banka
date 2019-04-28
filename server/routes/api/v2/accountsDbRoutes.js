@@ -10,5 +10,6 @@ accountsRouterDb.patch('/accounts/:accountNumber', checkToken, allAccountsDb.acc
 accountsRouterDb.delete('/accounts/:accountNumber', checkToken, allAccountsDb.deleteAccount);
 accountsRouterDb.get('/accounts/:accountNumber', checkToken, allAccountsDb.userViewAccount);
 accountsRouterDb.get('/user/:email/accounts', checkToken, allAccountsDb.adminViewUserAccount);
+accountsRouterDb.get('/account/:status', checkToken, allAccountsDb.adminSortAccountStatus);
 
 export default accountsRouterDb;
