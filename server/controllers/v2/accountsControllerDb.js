@@ -104,6 +104,24 @@ const Accounts = {
     },
 
     async accountActivateDeactivate(req, res) {
+        let isAuth;
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else {
+                isAuth = authrizedData;   
+            }
+        });
+
+        if(isAuth.is_admin !== true){
+            return res.status(401).send({
+                status: 401,
+                message: 'You are not authorized'
+            }); 
+        }
         const accountUpdate = {
             status: req.body.status,
             account_number: req.params.accountNumber
@@ -121,35 +139,25 @@ const Accounts = {
         const values = [accountUpdate.status, accountUpdate.account_number];
 
         try {
-            const { rows } = await db.query(findAccount, [req.params.accountNumber]);
-            if(rows[0]){
-                jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
-                    if(err){
-                        return res.status(403).send({
-                            status: 403,
-                            message: 'Forbidden access'
-                        });
-                    } else if (authrizedData.is_admin !== true){
-                        return res.status(401).send({
-                            status: 401,
-                            message: 'You are not authorized'
-                        });  
-                    }
-                })
+            const { rows } = await db.query(findAccount, [accountUpdate.account_number]);
+            if(!rows[0]){
+                return res.status(404).send({
+                    status: 404,
+                    message: 'Account number does not exist'
+                });
+            } else {
                 const response = await db.query(upDateAcc, values);
                 return res.status(200).send({
                     status: 200,
                     message: `Account with number ${accountUpdate.account_number} has been made ${accountUpdate.status}`,
                     data: response.rows[0]
                 });
-            } else {
-                return res.status(404).send({
-                    status: 404,
-                    message: 'Account number does not exist'
-                });
             }
         } catch(err) {
-            return res.status(400).send(err);
+            return res.status(400).send({
+                status: 400,
+                error: err
+            });
         }
     },
 

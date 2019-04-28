@@ -13,7 +13,8 @@ const clientToken2 = jwt.sign({ email: 'apple@gmail.com', type: 'client' , is_ca
 const invalidToken = jwt.sign({ email: 'noaccount@gmail.com', type: 'client', is_cashier: false, is_admin: false }, keys.SECRET_OR_KEY, { expiresIn: '1hr' });
 
 
-before('Before testing accounts routes, user 1 should be signed up', (done) => {
+describe('accounts', () => {
+  before('Before testing accounts routes, user 1 should be signed up', (done) => {
     chai
       .request(server)
       .post('/api/v2/auth/signup')
@@ -22,7 +23,7 @@ before('Before testing accounts routes, user 1 should be signed up', (done) => {
         last_name : 'Jobs',
         email : 'job@gmail.com',
         password : 'Password-1job'
-    })
+          })
       .end((err, res) => {
         // console.log(res.body)
         expect(res.body).to.be.an('object');
@@ -32,26 +33,30 @@ before('Before testing accounts routes, user 1 should be signed up', (done) => {
         done();
       });
   });
+});
 
-before('Before testing accounts routes, user 2 should be signed up', (done) => {
-    chai
-      .request(server)
-      .post('/api/v2/auth/signup')
-      .send({
-        first_name : 'Adam',
-        last_name : 'Apple',
-        email : 'apple@gmail.com',
-        password : 'Password-1app'
-    })
-      .end((err, res) => {
-        // console.log(res.body)
-        expect(res.body).to.be.an('object');
-        expect(res.body.status).to.be.equal(201);
-        expect(res.body.message).to.be.equal('User account has been created successfully');
-        expect(res.body.data).to.be.an('object');
-        done();
-      });
+describe('Accounts', () => {
+  before('Before testing accounts routes, user 2 should be signed up', (done) => {
+      chai
+        .request(server)
+        .post('/api/v2/auth/signup')
+        .send({
+          first_name : 'Adam',
+          last_name : 'Apple',
+          email : 'apple@gmail.com',
+          password : 'Password-1app'
+      })
+        .end((err, res) => {
+          // console.log(res.body)
+          expect(res.body).to.be.an('object');
+          expect(res.body.status).to.be.equal(201);
+          expect(res.body.message).to.be.equal('User account has been created successfully');
+          expect(res.body.data).to.be.an('object');
+          done();
+        });
   });
+});
+
 let accountNumber1;
 let accountNumber2;
 describe('accounts', () => {
@@ -229,6 +234,22 @@ describe('accounts', () => {
     });
     
     describe('PATCH /api/v2/accounts/:accountNumber', () => {
+      
+      it('should not allow an unauthorized user to activate an account', (done) => {
+        chai
+          .request(server)
+          .patch(`/api/v2/accounts/${accountNumber1}`)
+          .set('Authorization', `Bearer ${clientToken1}`)
+          .send({status: 'active'})
+          .end((err, res) => {
+            // console.log(res.body)
+            expect(res.body).to.be.an('object');
+            expect(res.body.status).to.deep.equal(401);
+            expect(res.body.message).to.deep.equal('You are not authorized');
+            done();
+          });
+      });
+
         it('should allow a user with administrator privilages to activate an account', (done) => {
           chai
             .request(server)
@@ -261,20 +282,7 @@ describe('accounts', () => {
             });
         });
 
-        // it('should not allow an unauthorized user to activate an account', (done) => {
-        //   chai
-        //     .request(server)
-        //     .patch(`/api/v2/accounts/${accountNumber1}`)
-        //     .set('Authorization', `Bearer ${clientToken1}`)
-        //     .send({status: 'active'})
-        //     .end((err, res) => {
-        //       // console.log(res.body)
-        //       expect(res.body).to.be.an('object');
-        //       expect(res.body.status).to.deep.equal(401);
-        //       expect(res.body.message).to.deep.equal('You are not authorized');
-        //       done();
-        //     });
-        // });
+        
       
         
     });
