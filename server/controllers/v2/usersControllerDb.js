@@ -68,7 +68,7 @@ const Users = {
         try {
             const { rows } = await db.query(text, values);
             const payload = { email: req.body.email, type: user.type }
-            jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1h'}, (err, token) => {
+            jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1d'}, (err, token) => {
                 return res.status(201).send({
                     status: 201,
                     message: 'User account has been created successfully',
@@ -111,7 +111,7 @@ const Users = {
                     is_admin: response.rows[0].is_admin,  
                     is_cashier: response.rows[0].is_cashier 
                 }
-                jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1h' }, (err, token) => {
+                jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1d' }, (err, token) => {
                     if(err) res.send(err)
                     return res.status(200).send({
                         status: 200,
@@ -194,7 +194,7 @@ const Users = {
         try {
             const { rows } = await db.query(text, values);
             const payload = { email: req.body.email, type: user.type , is_cashier: user.is_cashier, is_admin: user.is_admin }
-            jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1h'}, (err, token) => {
+            jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1d'}, (err, token) => {
                 return res.status(201).send({
                     status: 201,
                     message: `${user.type} account has been created successfully`,

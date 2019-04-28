@@ -6,6 +6,7 @@ import db from '../../models/v2/index';
 import activateSchema from '../../helpers/activateDeactivateValidation';
 import createAccountSchema from '../../helpers/accountsValidation';
 import viewaccountSchema from '../../helpers/viewAccount';
+import statusSchema from '../../helpers/statusSchema';
 
 
 const Accounts = {
@@ -287,6 +288,83 @@ const Accounts = {
                 data: rows[0]
             });
         }
+    },
+    async adminSortAccountStatus(req, res){
+        let isAuth = '';
+        jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) =>{
+            if(err){
+                return res.status(403).send({
+                    status: 403,
+                    message: 'Forbidden access'
+                });
+            } else {
+                isAuth = authrizedData.is_admin
+            }
+        });
+
+        if(isAuth === false){
+            return res.status(401).send({
+                status: 401,
+                message: 'You are not authorized'
+            });
+        }
+
+        const requestDetail = {
+            status: req.params.status
+        }
+
+        const result = Joi.validate(requestDetail, statusSchema);
+        if(result.error){
+            return res.status(400).send({
+                status: 400,
+                message: result.error.details[0].message
+            });
+        }
+
+        if(req.params.status === 'active'){
+            const findAccount = 'SELECT * FROM accounts WHERE status = $1';
+            const { rows } = await db.query(findAccount, ['active']);
+            if (!rows[0]){
+                return res.status(404).send({
+                    status: 404,
+                    message: 'There are no active accounts in the database'
+                });
+            } else{
+                return res.status(200).send({
+                    status: 200,
+                    message: rows[0]
+                });
+            }
+        } else if(req.params.status === 'dormant'){
+            const findAccount = 'SELECT * FROM accounts WHERE status = $1';
+            const { rows } = await db.query(findAccount, ['dormant']);
+            if (!rows[0]){
+                return res.status(404).send({
+                    status: 404,
+                    message: 'There are no dormant accounts in the database'
+                });
+            } else{
+                return res.status(200).send({
+                    status: 200,
+                    message: rows[0]
+                });
+            }
+        } else if(req.params.status === 'draft'){
+            const findAccount = 'SELECT * FROM accounts WHERE status = $1';
+            const { rows } = await db.query(findAccount, ['draft']);
+            if (!rows[0]){
+                return res.status(404).send({
+                    status: 404,
+                    message: 'There are no draft accounts in the database'
+                });
+            } else{
+                return res.status(200).send({
+                    status: 200,
+                    message: rows[0]
+                });
+            }
+        }
+
     }
 }
 
