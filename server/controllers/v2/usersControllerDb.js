@@ -11,8 +11,7 @@ import bcrypt from 'bcrypt';
 const Users = {
     async getAllUsers(req, res){
         const fetchAll = 'SELECT * FROM users';
-        try {
-            const { rows, rowCount } = await db.query(fetchAll); 
+        await db.query(fetchAll).then(users => {
             jwt.verify(req.token, process.env.SECRET_OR_KEY, (err, authrizedData) => {
                 if(err){
                     return res.status(403).send({
@@ -21,7 +20,10 @@ const Users = {
                     });
                 } else {
                     if(authrizedData.is_admin === true){
-                        return res.status(200).send({ rows, rowCount});
+                        return res.status(200).send({  
+                            number_of_rows: users.rowCount,
+                            data: users.rows
+                        });
                     } else {
                         return res.status(401).send({
                             status: 401,
@@ -29,10 +31,12 @@ const Users = {
                         });
                     }
                 }
-            });   
-        } catch(error){
-            return res.status(400).send(error);
-        }
+            });
+        }).catch((error) => {
+            return res.status(400).send({
+                message: error
+            });
+        })
     },
 
     async userSignUp(req, res) {
@@ -77,10 +81,10 @@ const Users = {
                     message: 'User account has been created successfully',
                     data: {
                         token: token,
-                        id: userInfo.rows.id,
-                        firstName: userInfo.rows.first_name, 
-                        lastName: userInfo.rows.last_name, 
-                        email: userInfo.rows.email 
+                        id: userInfo.rows[0].id,
+                        firstName: userInfo.rows[0].first_name, 
+                        lastName: userInfo.rows[0].last_name, 
+                        email: userInfo.rows[0].email 
                         }
                 });
             });
@@ -103,42 +107,48 @@ const Users = {
                     message: result.error.details[0].message
                 });
             }
-        const found = `SELECT * FROM users WHERE email = $1`;
-        const response = await db.query(found, [req.body.email]);
-        if(response.rows[0]) {
-            let validPassword = bcrypt.compareSync(req.body.password, response.rows[0].password);
-            if(validPassword){
-                let payload = { 
-                    email: req.body.email, 
-                    type: response.rows[0].type, 
-                    is_admin: response.rows[0].is_admin,  
-                    is_cashier: response.rows[0].is_cashier 
-                }
-                jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1d' }, (err, token) => {
-                    if(err) res.send(err)
-                    return res.status(200).send({
-                        status: 200,
-                        message: 'You have logged in successfully',
-                        data: {
-                            token: token,
-                            id: response.rows[0].id,
-                            firstName: response.rows[0].first_name, 
-                            lastName: response.rows[0].last_name, 
-                            email: response.rows[0].email 
-                            }
+        try {
+            const found = `SELECT * FROM users WHERE email = $1`;
+            await db.query(found, [req.body.email]).then(output => {
+                let validPassword = bcrypt.compareSync(req.body.password, output.rows[0].password);
+                if(validPassword){
+                    let payload = { 
+                        email: req.body.email, 
+                        type: output.rows[0].type, 
+                        is_admin: output.rows[0].is_admin,  
+                        is_cashier: output.rows[0].is_cashier 
+                    }
+                    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1d' }, (err, token) => {
+                        if(err) res.send(err)
+                        return res.status(200).send({
+                            status: 200,
+                            message: 'You have logged in successfully',
+                            data: {
+                                token: token,
+                                id: output.rows[0].id,
+                                firstName: output.rows[0].first_name, 
+                                lastName: output.rows[0].last_name, 
+                                email: output.rows[0].email 
+                                }
+                        });
                     });
-                });
-            } else {
-                return res.status(403).send({
+                } else {
+                    return res.status(403).send({
+                        status: 403,
+                        message: 'Invalid password'
+                    });
+                }
+            }).catch((error) => {
+                return res.status(403).send({ 
                     status: 403,
-                    message: 'Invalid password'
-                });
-            }        
-        } else {
-            return res.status(403).send({ 
-                status: 403,
-                message: 'Sorry you do not have an account, please sign up'})
+                    message: 'Sorry you do not have an account, please sign up'
+                })
+            });
+        } catch {
+            res.send({error})
         }
+        
+        
 
     },
 

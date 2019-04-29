@@ -58,7 +58,6 @@ describe('transactions', () => {
         //     .set('Authorization', `Bearer ${cashierToken}`)
         //     .send({amount: 20000})
         //     .end((err, res) => {
-        //     //   console.log(res.body)
         //       expect(res.body).to.be.an('object');
         //       expect(res.body.status).to.deep.equal(200);
         //       expect(res.body.message).to.deep.equal(`Account with number ${accountNumber2} has been credited with 20000 the new balance is 20000`);
