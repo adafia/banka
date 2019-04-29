@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "NODE_ENV=test nyc --reporter=text --reporter=lcov mocha --timeout 10000000 --require @babel/register test/v1/*js --exit",
+    "test": "NODE_ENV=test npm run drop && npm run create && nyc --reporter=text --reporter=lcov mocha --timeout 10000000 --require @babel/register test/v1/*js --exit",
     "test:db": "npm run drop && npm run create && nyc --reporter=text --reporter=lcov mocha --timeout 10000000 --require @babel/register test/v1/*js --exit",
     "start": "node bin/dev",
     "dev": "nodemon bin/dev",
