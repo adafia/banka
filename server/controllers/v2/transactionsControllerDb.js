@@ -198,9 +198,6 @@ const Transactions = {
         }
         if(response.rows[0]) {
             const isOwner = await db.query(accountSearch, [response.rows[0].id]);
-            console.log(`users id: ${response.rows[0].id}`);
-            console.log(`account that has owner equal to user id ${isOwner.rows[0]}`);
-            
             if(isOwner.rows[0].owner !== response.rows[0].id){
                 return res.status(403).send({
                     status: 403,

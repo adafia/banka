@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 const pool = new Pool({connectionString: keys.DATABASE_URL});
 
 pool.on('connect', () => {
-    console.log('connected to the Database');
+    // console.log('connected to the Database');
 });
 
 
@@ -113,7 +113,7 @@ const dropTables = () => {
   };
 
 pool.on('remove', () => {
-    console.log('client removed');
+    // console.log('client removed');
     process.exit(0);
 });
 
