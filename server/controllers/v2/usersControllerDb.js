@@ -107,42 +107,47 @@ const Users = {
                     message: result.error.details[0].message
                 });
             }
-        const found = `SELECT * FROM users WHERE email = $1`;
-        await db.query(found, [req.body.email]).then(output => {
-            let validPassword = bcrypt.compareSync(req.body.password, output.rows[0].password);
-            if(validPassword){
-                let payload = { 
-                    email: req.body.email, 
-                    type: output.rows[0].type, 
-                    is_admin: output.rows[0].is_admin,  
-                    is_cashier: output.rows[0].is_cashier 
-                }
-                jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1d' }, (err, token) => {
-                    if(err) res.send(err)
-                    return res.status(200).send({
-                        status: 200,
-                        message: 'You have logged in successfully',
-                        data: {
-                            token: token,
-                            id: output.rows[0].id,
-                            firstName: output.rows[0].first_name, 
-                            lastName: output.rows[0].last_name, 
-                            email: output.rows[0].email 
-                            }
+        try {
+            const found = `SELECT * FROM users WHERE email = $1`;
+            await db.query(found, [req.body.email]).then(output => {
+                let validPassword = bcrypt.compareSync(req.body.password, output.rows[0].password);
+                if(validPassword){
+                    let payload = { 
+                        email: req.body.email, 
+                        type: output.rows[0].type, 
+                        is_admin: output.rows[0].is_admin,  
+                        is_cashier: output.rows[0].is_cashier 
+                    }
+                    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: '1d' }, (err, token) => {
+                        if(err) res.send(err)
+                        return res.status(200).send({
+                            status: 200,
+                            message: 'You have logged in successfully',
+                            data: {
+                                token: token,
+                                id: output.rows[0].id,
+                                firstName: output.rows[0].first_name, 
+                                lastName: output.rows[0].last_name, 
+                                email: output.rows[0].email 
+                                }
+                        });
                     });
-                });
-            } else {
-                return res.status(403).send({
+                } else {
+                    return res.status(403).send({
+                        status: 403,
+                        message: 'Invalid password'
+                    });
+                }
+            }).catch((error) => {
+                return res.status(403).send({ 
                     status: 403,
-                    message: 'Invalid password'
-                });
-            }
-        }).catch(() => {
-            return res.status(403).send({ 
-                status: 403,
-                message: 'Sorry you do not have an account, please sign up'
-            })
-        });
+                    message: 'Sorry you do not have an account, please sign up'
+                })
+            });
+        } catch {
+            res.send({error})
+        }
+        
         
 
     },
