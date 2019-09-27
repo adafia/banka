@@ -48,6 +48,7 @@ const Users = {
             password: req.body.password,
             created_on: Date.now()
         };
+        
         const result = Joi.validate(user, signupSchema);
             if (result.error){
                 return res.status(400).send({
@@ -65,7 +66,7 @@ const Users = {
                     status: 409,
                     message: `Sorry email: ${user.email} is already in use`})
             }
-        }).catch(error =>{
+        }).catch(error => {
             res.status(400).send({error})
         });
             

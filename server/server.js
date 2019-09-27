@@ -6,9 +6,10 @@ import allRoutesDb from './routes/api/v2';
 import bodyParser from 'body-parser';
 import swagger from 'swagger-ui-express';
 import swaggerDoc from './swagger'
+import cors from "cors";
 
 const app = express();
-
+app.use(cors())
 
 // Body Parser Middleware
 // support parsing of application/json type post data
