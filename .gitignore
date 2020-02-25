@@ -4,3 +4,4 @@ build
 .env
 server/config/devKeys.js
 server/config/testKeys.js
+coverage/
