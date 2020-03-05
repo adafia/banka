@@ -2,6 +2,5 @@ node_modules
 build
 .coveralls.yml
 .env
-server/config/devKeys.js
-server/config/testKeys.js
 coverage/
+.nyc_output/

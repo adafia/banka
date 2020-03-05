@@ -20,24 +20,18 @@ Banka is a light-weight core banking application that powers banking operations 
 11. Admin/staff can delete a specific user account. [done]
 12. Admin can create staff and admin user accounts. [done]
 
+
 ## Features (API - Endpoints)
-1. User sign up. [done] ```POST``` on ```localhost:5000/api/v2/auth/signup```
-2. User sign in. [done] ```POST``` on ```localhost:5000/api/v2/auth/signin```
-3. Create bank account. [done] ```POST``` on ```localhost:5000/api/v2/accounts```
-4. Admin / Staff can activate or deactivate an account. [done] ```PATCH``` on ```localhost:5000/api/v2/accounts/:accountNumber```
-5. Admin / Staff can delete an account. [done] ```DELETE``` on ```localhost:5000/api/v2/accounts/:accountNumber```
-6. Staff (cashier) can credit an account. [done] ```POST``` on ```localhost:5000/api/v2/transactions/:accountNumber/credit```
-7. Staff (cashier) can debit an account. [done] ```POST``` on ```localhost:5000/api/v2/transactions/:accountNumber/debit```
-8. User can view account transaction history. [done] ```GET``` on ```localhost:5000/api/v2/accounts/6517194/transactions```
-9. User can view a specific account transaction. [done] ```GET``` on ``` localhost:5000/api/v2/transactions/:id ```
-10. User can view account details. [done] ```GET``` on ```localhost:5000/api/v2/accounts/:accountNumber```
-11. Admin/staff can view a list of accounts owned by a specific user. [done] ```GET``` on ```localhost:5000/api/v2/accounts```
-12. Staff/Admin can view all bank accounts. [done] ```GET``` on ```localhost:5000/api/v2/accounts```
-13. Staff/Admin can view all active bank accounts. [done] ```GET``` on ```localhost:5000/api/v2/account/:status```
-14. Staff/Admin can view all dormant bank accounts. [done] ```GET``` on ```localhost:5000/api/v2/account/:status```
+| Verb     | Endpoint         | Description            |
+| ---------|:----------------:| ----------------------:|
+| POST     | /api/auth/signup | Register client        |
+| POST     | /api/auth/signin | Client login           |
+| POST     | /api/accounts    | Client create account  |
+
 
 ## How to use test
  1. ```git clone ssh:https://github.com/adafia/banka.git```
  2. ```npm install```
  3. To test locally run ```npm run drop``` followed by ```npm run create``` and finally ```npm run dev```
- 4. Test them on them on thier respective routes.
+ 4. Test the API enpoints with thier respective routes on postman.
+ 
