@@ -65,6 +65,13 @@ describe('TRANSACTIONS', () => {
       const res = await request(server).get(`/api/transactions/${id}`).set('x-auth-token', token);
       expect(res.status).to.be.equal(200);
     })
+
+    it('Should return a 400 if an invalid transaction id is provided', async () => {
+      const token = await adminToken()
+      const id = 'string'
+      const res = await request(server).get(`/api/transactions/${id}`).set('x-auth-token', token);
+      expect(res.status).to.be.equal(400);
+    })
   });
 
   describe('POST /', () => {
@@ -73,6 +80,13 @@ describe('TRANSACTIONS', () => {
       const accountNumber = userFourAccount.body.account.accountnumber;
       const res = await request(server).post(`/api/transactions/${accountNumber}/debit`).set('x-auth-token', token).send({ amount: 100 });
       expect(res.status).to.be.equal(201);
+    })
+
+    it('Should return a 400 if an invalid amount is provided', async () => {
+      const token = await cashierToken()
+      const accountNumber = userFourAccount.body.account.accountnumber;
+      const res = await request(server).post(`/api/transactions/${accountNumber}/debit`).set('x-auth-token', token).send({ amount: 'string' });
+      expect(res.status).to.be.equal(400);
     })
 
     it('Should not allow an admin to debit an active bank account', async () => {
