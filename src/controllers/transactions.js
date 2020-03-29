@@ -1,5 +1,6 @@
 import { fetch, fetchById, fetchAll, createTransaction, update } from '../database/functions';
 import debug from '../helpers/debug';
+import { validateCreate, validateGetTransaction } from '../helpers/validations/transactions'
 
 const Transactions = {
     async getTransactions(req, res) {
@@ -11,6 +12,9 @@ const Transactions = {
     },
 
     async getTransaction(req, res) {
+        const { error } = validateGetTransaction(req.params);
+        if (error) return res.status(400).send({ message: error.details[0].message });
+        
         const transaction = await fetchById('transactions', parseInt(req.params.id));
         if (transaction.error) return debug(transaction);
         if (transaction.length === 0) return res.status(404).send({ message: `Transaction with id: ${req.params.id} was not found` });
@@ -19,6 +23,9 @@ const Transactions = {
     },
 
     async debit(req, res) {
+        const { error } = validateCreate({ accountNumber: req.params.accountNumber, amount: req.body.amount });
+        if (error) return res.status(400).send({ message: error.details[0].message });
+        
         const account = await fetch('accounts', { accountNumber: parseInt(req.params.accountNumber) });
         if (account.error) return debug(account);
         if (account.length === 0) return res.status(404).send({ message: `Bank account with the number: ${req.params.accountNumber} does not exists.` });
@@ -46,6 +53,9 @@ const Transactions = {
     },
 
     async credit(req, res) {
+        const { error } = validateCreate({ accountNumber: req.params.accountNumber, amount: req.body.amount });
+        if (error) return res.status(400).send({ message: error.details[0].message });
+        
         const account = await fetch('accounts', { accountNumber: parseInt(req.params.accountNumber) });
         if (account.error) return debug(account);
         if (account.length === 0) return res.status(404).send({ message: `Bank account with the number: ${req.params.accountNumber} does not exists.` });
